@@ -1,0 +1,11 @@
+RewriteEngine on
+
+RewriteRule ^([a-zA-Z0-9_-]+)/?$ index.php?app=$1&module=index
+
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/?$ index.php?app=$1&module=$2
+
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([a-zA-Z_-]+)/?$ index.php?app=$1&module=$2&view=$3
+
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z0-9_-]+)/([0-9]+)/?$ index.php?app=$1&module=$2&p=$3
+
+RewriteRule ^([a-zA-Z0-9_-]+)/([a-zA-Z_-]+)/([a-zA-Z0-9_-]+)/([0-9]+)/?$ index.php?app=$1&module=$2&view=$3&id=$4
