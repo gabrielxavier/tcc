@@ -1,27 +1,5 @@
 $(document).ready(function(){
 
-	jQuery.extend(jQuery.validator.messages, {
-	        required: "Este campo &eacute; obrigat&oacute;rio.",
-	        remote: "Por favor, corrija este campo.",
-	        email: "Por favor, forne&ccedil;a um endere&ccedil;o eletr&ocirc;nico v&aacute;lido.",
-	        url: "Por favor, forne&ccedil;a uma URL v&aacute;lida.",
-	        date: "Por favor, forne&ccedil;a uma data v&aacute;lida.",
-	        dateISO: "Por favor, forne&ccedil;a uma data v&aacute;lida (ISO).",
-	        dateDE: "Bitte geben Sie ein gültiges Datum ein.",
-	        number: "Por favor, forne&ccedil;a um n&uacute;mero v&aacute;lida.",
-	        numberDE: "Bitte geben Sie eine Nummer ein.",
-	        digits: "Por favor, forne&ccedil;a somente d&iacute;gitos.",
-	        creditcard: "Por favor, forne&ccedil;a um cart&atilde;o de cr&eacute;dito v&aacute;lido.",
-	        equalTo: "Por favor, forne&ccedil;a o mesmo valor novamente.",
-	        accept: "Por favor, forne&ccedil;a um valor com uma extens&atilde;o v&aacute;lida.",
-	        maxlength: jQuery.validator.format("Por favor, forne&ccedil;a n&atilde;o mais que {0} caracteres."),
-	        minlength: jQuery.validator.format("Por favor, forne&ccedil;a ao menos {0} caracteres."),
-	        rangelength: jQuery.validator.format("Por favor, forne&ccedil;a um valor entre {0} e {1} caracteres de comprimento."),
-	        range: jQuery.validator.format("Por favor, forne&ccedil;a um valor entre {0} e {1}."),
-	        max: jQuery.validator.format("Por favor, forne&ccedil;a um valor menor ou igual a {0}."),
-	        min: jQuery.validator.format("Por favor, forne&ccedil;a um valor maior ou igual a {0}.")
-	});
-
 	$('.btn-new-curso').on('click', function(e){
 		e.preventDefault();
 		$obj = $('.field-curso').first().clone(true);
@@ -152,11 +130,6 @@ $(document).ready(function(){
 
 	});
 
-	$('form').each(function(){
-		$(this).validate({errorClass: "has-error"});
-	});
-
-
 	$('.table .btn-danger').on('click', function(e){
 		if( !confirm("Deseja mesmo remover o registro?") )
 		{
@@ -172,4 +145,67 @@ $(document).ready(function(){
 		$('#id_situacao').val(situacao_id);
 	});
 
+	// Validate
+	jQuery.extend(jQuery.validator.messages, {
+	        required: "Este campo &eacute; obrigat&oacute;rio.",
+	        remote: "Por favor, corrija este campo.",
+	        email: "Por favor, forne&ccedil;a um endere&ccedil;o eletr&ocirc;nico v&aacute;lido.",
+	        url: "Por favor, forne&ccedil;a uma URL v&aacute;lida.",
+	        date: "Por favor, forne&ccedil;a uma data v&aacute;lida.",
+	        dateISO: "Por favor, forne&ccedil;a uma data v&aacute;lida (ISO).",
+	        dateDE: "Bitte geben Sie ein gültiges Datum ein.",
+	        number: "Por favor, forne&ccedil;a um n&uacute;mero v&aacute;lida.",
+	        numberDE: "Bitte geben Sie eine Nummer ein.",
+	        digits: "Por favor, forne&ccedil;a somente d&iacute;gitos.",
+	        creditcard: "Por favor, forne&ccedil;a um cart&atilde;o de cr&eacute;dito v&aacute;lido.",
+	        equalTo: "Por favor, forne&ccedil;a o mesmo valor novamente.",
+	        accept: "Por favor, forne&ccedil;a um valor com uma extens&atilde;o v&aacute;lida.",
+	        maxlength: jQuery.validator.format("Por favor, forne&ccedil;a n&atilde;o mais que {0} caracteres."),
+	        minlength: jQuery.validator.format("Por favor, forne&ccedil;a ao menos {0} caracteres."),
+	        rangelength: jQuery.validator.format("Por favor, forne&ccedil;a um valor entre {0} e {1} caracteres de comprimento."),
+	        range: jQuery.validator.format("Por favor, forne&ccedil;a um valor entre {0} e {1}."),
+	        max: jQuery.validator.format("Por favor, forne&ccedil;a um valor menor ou igual a {0}."),
+	        min: jQuery.validator.format("Por favor, forne&ccedil;a um valor maior ou igual a {0}.")
+	});
+
+	$('form').each(function(){
+		$(this).validate({
+			invalidHandler: validateInvalidHandlers,
+			highlight: function (element, errorClass, validClass) {
+            	$(element).closest('.form-group').addClass('has-error');
+	        },
+	        unhighlight: function (element, errorClass, validClass) {
+	           $(element).closest('.form-group').removeClass('has-error');
+	        }
+		});
+	});
+
 });
+
+
+var isDevice = function(device){
+
+	if( device == 'phone' )
+		return $(window).width() < 768;
+
+	if( device == 'tablet' )
+		return $(window).width() >= 768 && $(window).width() <= 979;
+
+	if( device == 'desktop' )
+		return $(window).width() >= 980;
+
+	return false;
+}
+
+function validateInvalidHandlers(event, validator) {
+
+	name = validator.errorList[0].element.name.replace('[', '\\[').replace(']', '\\]');
+
+	if( isDevice('phone') ){
+		var offset = $('[name="' + name + '"]').offset();
+		$('html, body').animate({
+			scrollTop: (offset.top - 100)
+		}, 1000);
+	}
+
+}

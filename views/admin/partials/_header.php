@@ -1,6 +1,5 @@
 <?php $h = new Helper(); ?>
 <?php $auth = new RestrictArea(); ?>
-<?php if( $auth->isOnline() == false && $h->isUrl('admin/login/index') == false ): $h->redirectFor('admin/login/index'); endif; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -117,6 +116,7 @@
                <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-user"></i> <?php echo $auth->getSessionInfo()['userName'] ?> <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
+                  <li>  <a href="<?php echo $h->urlFor('admin/usuario/alterar-senha'); ?>"> <i class="glyphicon glyphicon-lock"></i> Alterar senha</span></a></li>
                   <li>  <a href="<?php echo $h->urlFor('admin/login/logout'); ?>"> <i class="glyphicon glyphicon-off"></i> Sair</span></a></li>
                 </ul>
               </li>
@@ -126,6 +126,14 @@
       </div>
       <?php endif; ?>
 
-      <div class="container">
+      <div class="container container-messages">
           <?php $h->displayFlashMessage() ?>
       </div>
+
+      <?php
+        if( $auth->isOnline() == false && $h->isUrl('admin/login/index') == false && $h->isUrl('admin/login') == false )
+        { 
+          $h->addFlashMessage('warning','Você precisa fazer o login para continuar navegando.');
+          $h->redirectFor('admin/login/index'); 
+        }  
+      ?>

@@ -4,8 +4,8 @@
 	margin: 0 auto;
 }
 
-.navbar-inverse {
-	margin-bottom: 20px;
+.container-messages {
+	margin-top: 20px;
 }
 
 footer {
@@ -19,4 +19,9 @@ footer p {
 	text-align: center;
 	font-size: 16px;
 	line-height: 50px;
+}
+
+label.error {
+	color: #a94442;
+	font-size: 12px;
 }

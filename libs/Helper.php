@@ -8,6 +8,7 @@ class Helper {
 	{
 		$this->projectURL = '/projeto-integrador/';
 		$this->perPage = 10;
+		if ( !isset($_SESSION['filters']) ) { $_SESSION['filters'] = array(); }
 	}
 
 	public function appURL()
@@ -109,13 +110,17 @@ class Helper {
 	}
 
 	public function getFilter($module, $key)
-	{
-		return $_SESSION['filters'][$module][$key];
+	{	
+		return isset($_SESSION['filters'][$module][$key])? $_SESSION['filters'][$module][$key] : false;
 	}
 
-	public function clearFilters($module)
+	public function removeFilter($module, $key)
 	{
-		unset($_SESSION['filters'][$module]);
+		unset($_SESSION['filters'][$module][$key]);
+	}
+
+	public function getFilters(){
+		return $_SESSION['filters'];
 	}
 
 	public function getSituacaoDecorations(){

@@ -18,8 +18,19 @@
 
         $crudInscricao->update($inscricao)->executeQuery();
 
+        if( $crudInscricao->getExecutedQuery() )
+        {
+            $h->addFlashMessage('success', 'Situação alterada com sucesso!');
+        }
+        else
+        {
+            $h->addFlashMessage('error', 'Não foi possível alterar a sitaução!');
+        }
         $h->redirectFor('admin/inscricoes/visualizar/'.$_GET['id']);
+
+
     }else{
+        $h->addFlashMessage('error', 'Não foi possível alterar a sitaução!');
         $h->redirectFor('admin/inscricoes/');
     }
 

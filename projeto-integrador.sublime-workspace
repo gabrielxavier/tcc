@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"is",
+				"isset"
+			],
+			[
 				"a",
 				"aluno1"
 			],
@@ -409,9 +413,23 @@
 	},
 	"file_history":
 	[
-		"/Library/WebServer/Documents/projeto-integrador/views/admin/login/autentica.php",
 		"/Library/WebServer/Documents/projeto-integrador/views/admin/partials/_header.php",
+		"/Library/WebServer/Documents/projeto-integrador/views/admin/usuario/alterar-senha.php",
+		"/Library/WebServer/Documents/projeto-integrador/views/admin/login/autentica.php",
 		"/Library/WebServer/Documents/projeto-integrador/libs/RestrictArea.php",
+		"/Library/WebServer/Documents/projeto-integrador/views/admin/usuario/alterarSenha.php",
+		"/Library/WebServer/Documents/projeto-integrador/views/admin/usuario/novaSenha.php",
+		"/Library/WebServer/Documents/projeto-integrador/web/admin/css/main.css",
+		"/Library/WebServer/Documents/projeto-integrador/web/admin/js/main.js",
+		"/Library/WebServer/Documents/projeto-integrador/views/admin/inscricoes/filtrar.php",
+		"/Library/WebServer/Documents/projeto-integrador/views/admin/inscricoes/index.php",
+		"/Library/WebServer/Documents/projeto-integrador/libs/Helper.php",
+		"/Library/WebServer/Documents/projeto-integrador/views/admin/inscricoes/editar.php",
+		"/Library/WebServer/Documents/projeto-integrador/views/admin/inscricoes/visualizar.php",
+		"/Library/WebServer/Documents/projeto-integrador/views/admin/inscricoes/mudarSituacao.php",
+		"/Library/WebServer/Documents/projeto-integrador/views/admin/projetos/editar.php",
+		"/Library/WebServer/Documents/projeto-integrador/views/admin/projetos/deletar.php",
+		"/Library/WebServer/Documents/projeto-integrador/views/admin/inscricoes/deletar.php",
 		"/Library/WebServer/Documents/projeto-integrador/index.php",
 		"/Library/WebServer/Documents/projeto-integrador/views/admin/index/index.php",
 		"/Library/WebServer/Documents/projeto-integrador/models/Administrador.php",
@@ -420,25 +438,17 @@
 		"/Library/WebServer/Documents/projeto-integrador/views/admin/login/index.php",
 		"/Library/WebServer/Documents/projeto-integrador/views/admin/login/auth.php",
 		"/Library/WebServer/Documents/projeto-integrador/libs/Core.php",
-		"/Library/WebServer/Documents/projeto-integrador/web/admin/css/main.css",
 		"/Library/WebServer/Documents/projeto-integrador/web/admin/css/bootstrap-theme.css",
-		"/Library/WebServer/Documents/projeto-integrador/views/admin/projetos/editar.php",
-		"/Library/WebServer/Documents/projeto-integrador/views/admin/inscricoes/deletar.php",
 		"/Library/WebServer/Documents/projeto-integrador/views/admin/alunos/index.php",
-		"/Library/WebServer/Documents/projeto-integrador/views/admin/inscricoes/index.php",
-		"/Library/WebServer/Documents/projeto-integrador/views/admin/inscricoes/editar.php",
 		"/Library/WebServer/Documents/projeto-integrador/views/admin/professores/index.php",
 		"/Library/WebServer/Documents/projeto-integrador/views/admin/turmas/index.php",
-		"/Library/WebServer/Documents/projeto-integrador/views/admin/projetos/deletar.php",
 		"/Library/WebServer/Documents/projeto-integrador/views/admin/projetos/index.php",
 		"/Library/WebServer/Documents/projeto-integrador/libs/RestrictArea",
-		"/Library/WebServer/Documents/projeto-integrador/web/admin/js/main.js",
 		"/Library/WebServer/Documents/projeto-integrador/views/admin/alunos/json.php",
 		"/Library/WebServer/Documents/projeto-integrador/views/admin/inscricoes/visualzar.php",
 		"/Library/WebServer/Documents/projeto-integrador/views/admin/inscricoes/visualziar.php",
 		"/Library/WebServer/Documents/projeto-integrador/views/admin/professores/json.php",
 		"/Library/WebServer/Documents/projeto-integrador/views/admin/projetos/json.php",
-		"/Library/WebServer/Documents/projeto-integrador/libs/Helper.php",
 		"/Library/WebServer/Documents/projeto-integrador/views/admin/projetos/delete.php",
 		"/Library/WebServer/Documents/projeto-integrador/models/Inscricao.php",
 		"/Library/WebServer/Documents/projeto-integrador/libs/Database.php",
@@ -530,13 +540,7 @@
 		"/Library/WebServer/Documents/3m/src/A2C/SiteBundle/Resources/views/Tecnologia/ceramicos.html.twig",
 		"/Library/WebServer/Documents/3m/src/A2C/SiteBundle/Resources/views/Tecnologia/cienciaanaliticaetecnologia.html.twig",
 		"/Library/WebServer/Documents/3m/src/A2C/SiteBundle/Resources/views/Tecnologia/componentesdeenergia.html.twig",
-		"/Library/WebServer/Documents/3m/src/A2C/SiteBundle/Resources/views/Tecnologia/compostosdematrizmetalica.html.twig",
-		"/Library/WebServer/Documents/3m/src/A2C/SiteBundle/Resources/views/Tecnologia/comunicacoesoticas.html.twig",
-		"/Library/WebServer/Documents/3m/src/A2C/SiteBundle/Resources/views/Tecnologia/controleacustico.html.twig",
-		"/Library/WebServer/Documents/3m/src/A2C/SiteBundle/Resources/views/Tecnologia/conversaoeembalagemflexiveis.html.twig",
-		"/Library/WebServer/Documents/3m/src/A2C/SiteBundle/Resources/views/Tecnologia/desgasteacelerado.html.twig",
-		"/Library/WebServer/Documents/3m/src/A2C/SiteBundle/Resources/views/Tecnologia/designdesistemasintegrados.html.twig",
-		"/Library/WebServer/Documents/3m/src/A2C/SiteBundle/Resources/views/Tecnologia/deteccaoecontroledemicrobios.html.twig"
+		"/Library/WebServer/Documents/3m/src/A2C/SiteBundle/Resources/views/Tecnologia/compostosdematrizmetalica.html.twig"
 	],
 	"find":
 	{
@@ -560,6 +564,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"execute",
+			"getExecuteQuery",
 			"delete",
 			"proximo",
 			"add",
@@ -685,9 +691,7 @@
 			"images/",
 			".t-technologies-overlay .content .carousel-nav .carousel-control",
 			"view-more",
-			"src=\"images/",
-			"{{",
-			"adhesives"
+			"src=\"images/"
 		],
 		"highlight": true,
 		"in_selection": false,

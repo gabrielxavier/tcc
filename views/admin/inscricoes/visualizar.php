@@ -142,7 +142,7 @@
         </tr>
     </table>
         <div class="btn-toolbar">
-            <a href="<?php echo $h->urlFor('admin/inscricoes/imprimir/'.$registro->id); ?>" class="btn btn-primary"> <i class="glyphicon glyphicon-print"></i> Imprimir inscrição</a>
+            <!-- <a href="<?php echo $h->urlFor('admin/inscricoes/imprimir/'.$registro->id); ?>" class="btn btn-primary"> <i class="glyphicon glyphicon-print"></i> Imprimir inscrição</a> -->
         
             <a href="#" class="btn btn-info" data-toggle="modal" data-target="#modal-historico">
                 <i class="glyphicon glyphicon-calendar"></i> Visualizar histórico de interações

@@ -1,5 +1,4 @@
 <?php $project->partial('admin', 'header'); ?>
-
 <?php $c = new CRUD('inscricao'); $c->findAll(); ?>
 <?php $paginationVars = $h->getPaginationVars();  ?>
 
@@ -30,11 +29,21 @@
         $c->addWhere(' id_orientador = "'.$auth->getSessionInfo()['userID'].'" ');
       }
 
-      // // Filtros
-      // if( $h->getFilter('inscricoes', 'palavra_chave') )
-      // {
-      //   $c->addWhere(' (titulo = "'.$h->getFilter('inscricoes', 'palavra_chave').'" OR descricao = "'.$h->getFilter('inscricoes', 'palavra_chave').'" ) ');
-      // }
+      // Filtros
+      if( $h->getFilter('inscricoes', 'palavra_chave') )
+      {
+        $c->addWhere(' (titulo LIKE "%'.$h->getFilter('inscricoes', 'palavra_chave').'%" OR descricao LIKE "%'.$h->getFilter('inscricoes', 'palavra_chave').'%" ) ');
+      }
+
+      if( $h->getFilter('inscricoes', 'id_situacao') > 0 )
+      {
+        $c->addWhere(' id_situacao = "'.$h->getFilter('inscricoes', 'id_situacao').'" ');
+      }
+
+       if( $h->getFilter('inscricoes', 'id_turma') > 0 )
+      {
+        $c->addWhere(' id_turma = "'.$h->getFilter('inscricoes', 'id_turma').'" ');
+      }
 
       $total = $c->executeQuery()->count();
 
@@ -86,11 +95,16 @@
     </tr>
 
     <?php endwhile; ?>
-    
+
+    <?php if( $c->count() == 0 ):  ?>
+    <tr><td colspan="7" align="center">Nenhum resultado foi encontrado.</td></tr>
+    <?php endif; ?>
+
   </table>
 
+  <!--
   <a href="<?php echo $h->urlFor('admin/inscricoes/imprimir'); ?>" class="btn btn-primary"> <i class="glyphicon glyphicon-print"></i> Imprimir resultados</a>
-     
+  -->
 
   <?php $h->pagination( $paginationVars['p'],  $total ); ?>
 
@@ -109,34 +123,40 @@
          
               <div class="form-group">
                     <label for="palavra_chave">Palavra chave</label>
-                    <input type="text" class="form-control required" id="palavra_chave" name="palavra_chave" value="" placeholder="Título/Descrição">
+                    <input type="text" class="form-control" id="palavra_chave" name="palavra_chave" value="<?php echo $h->getFilter('inscricoes', 'palavra_chave') ?>" placeholder="Título/Descrição">
               </div>
               <div class="form-group">
                     <label for="id_situacao">Situação</label>
                     <select name="id_situacao" id="id_situacao" class="form-control">
+                      <option value="0">Todas</option>
                     <?php
                       $crudSiuacoes = new CRUD('situacao');
                       $situacoes = $crudSiuacoes->findAll()->executeQuery();
 
                       while( $situacao = $situacoes->fetchAll() ): 
-                        echo '<option value="'.$situacao->id.'">'.$situacao->valor.'</option>';
+                        $selected = ( $h->getFilter('inscricoes', 'id_situacao') == $situacao->id )? 'selected="selected"' : '';
+                        echo '<option value="'.$situacao->id.'" '.$selected.'>'.$situacao->valor.'</option>';
                       endwhile;
                    ?>
                     </select>
               </div>
+              <?php if($auth->getSessionInfo()['userLevel'] > 1): ?>
               <div class="form-group">
                     <label for="id_turma">Turma</label>
                     <select name="id_turma" id="id_turma" class="form-control">
+                     <option value="0">Todas</option>
                     <?php
                       $crudTurmas = new CRUD('turma');
                       $turmas = $crudTurmas->findAll()->executeQuery();
 
                       while( $turma = $turmas->fetchAll() ): 
-                        echo '<option value="'.$turma->id.'">'.$turma->sigla.' - '.$turma->nome.'</option>';
+                        $selected = ( $h->getFilter('inscricoes', 'id_turma') == $turma->id )? 'selected="selected"' : '';
+                        echo '<option value="'.$turma->id.'" '.$selected.'>'.$turma->sigla.' - '.$turma->nome.'</option>';
                       endwhile;
                    ?>
                     </select>
               </div>
+              <?php endif; ?>
          
       </div>
       <div class="modal-footer">

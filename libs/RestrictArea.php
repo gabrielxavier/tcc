@@ -26,7 +26,7 @@ class RestrictArea{
 			if( $results > 0 )
 			{
 					
-					$results =  $crudUsuario->findAll(' matricula = "'.$matricula.'" and senha = "'.$senha.'" ')->executeQuery()->count();
+					$results =  $crudUsuario->findAll(' matricula = "'.$matricula.'" and senha = "'.md5($senha).'" ')->executeQuery()->count();
 		
 					if( $results > 0){
 						

@@ -9,6 +9,7 @@ if(isset($_POST['matricula'])){
 	if($success){
 		$h->redirectFor('admin/index');
 	}else{
-		$h->redirectFor('admin/login');
+		$h->addFlashMessage('error', $auth->error);
+		$h->redirectFor('admin/login/index');
 	}
 }
