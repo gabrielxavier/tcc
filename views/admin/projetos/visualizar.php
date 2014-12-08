@@ -51,6 +51,14 @@
         </tr>
         <tr>
             <th>
+                Tags
+            </th>
+            <td>
+                <?php echo $registro->tags ?>
+            </td>
+        </tr>
+        <tr>
+            <th>
                 Orientadores
             </th>
             <td>    

@@ -12,6 +12,7 @@
     <!-- Bootstrap -->
     <link href="<?php echo $h->appURL() ?>web/admin/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?php echo $h->appURL() ?>web/admin/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="<?php echo $h->appURL() ?>web/admin/css/jquery.tagsinput.css" rel="stylesheet">
     <link href="<?php echo $h->appURL() ?>web/admin/css/main.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

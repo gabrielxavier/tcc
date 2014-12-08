@@ -32,8 +32,11 @@
                     <label for="descricao">Descricao</label>
                     <textarea name="descricao" id="descricao" cols="30" rows="10" class="form-control required"><?=$registro->descricao?></textarea>
                 </div>
-               
-               
+                <div class="form-group">
+                    <label for="tags">Tags (Pressione tab para adicionar)</label>
+                    <input id="tags" name="tags" type="text" class="tags" value="<?=$registro->tags?>" /></p>
+               </div>
+
                 <div class="form-group">
                     <label for="ativo">Cursos</label>
                     <a href="#" class="btn btn-success pull-right btn-new-curso"> <i class="glyphicon glyphicon-plus"></i> Novo curso</a>
@@ -168,6 +171,7 @@
     $projeto->id = $_POST['id'];
     $projeto->titulo = $_POST['titulo'];
     $projeto->descricao = $_POST['descricao'];
+    $projeto->tags = $_POST['tags'];
     $projeto->ativo = $_POST['ativo'];
 
     if( $_POST['id'] == '' )

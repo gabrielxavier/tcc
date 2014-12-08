@@ -8,9 +8,13 @@
   <div class="page-header">
         <h1>
           Projetos 
-          <?php if( $auth->getSessionInfo()['userLevel'] == 3): ?>
-            <a href="<?php echo $h->urlFor('admin/projetos/editar'); ?>" class="btn btn-success pull-right"> <i class="glyphicon glyphicon-plus"></i> Novo</a>
-          <?php endif; ?>
+
+          <div class="btn-group pull-right">
+            <?php if( $auth->getSessionInfo()['userLevel'] == 3): ?>
+              <a href="<?php echo $h->urlFor('admin/projetos/editar'); ?>" class="btn btn-success"> <i class="glyphicon glyphicon-plus"></i> Novo</a>
+            <?php endif; ?>
+            <a href="#" class="btn btn-info" data-toggle="modal" data-target="#modal-filtro"> <i class="glyphicon glyphicon-search"></i> Filtrar</a>
+          </div>
         </h1>
   </div>
 
@@ -48,6 +52,12 @@
 
         $c->addWhere(' projeto.ativo = "1" ');
       }
+
+      // Filtros
+      if( $h->getFilter('projetos', 'palavra_chave') )
+      {
+        $c->addWhere(' (titulo LIKE "%'.$h->getFilter('projetos', 'palavra_chave').'%" OR descricao LIKE "%'.$h->getFilter('projetos', 'palavra_chave').'%" OR tags LIKE "%'.$h->getFilter('projetos', 'palavra_chave').'%" ) ');
+      }
        
        $total = $c->executeQuery()->count();
 
@@ -82,6 +92,31 @@
 
   <?php $h->pagination( $paginationVars['p'],  $total ); ?>
 
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal-filtro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="<?php echo $h->urlFor('admin/projetos/filtrar'); ?>" method="post">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Filtro</h4>
+      </div>
+      <div class="modal-body">
+            <div class="form-group">
+                  <label for="palavra_chave">Palavra chave</label>
+                  <input type="text" class="form-control" id="palavra_chave" name="palavra_chave" value="<?php echo $h->getFilter('projetos', 'palavra_chave') ?>" placeholder="Título/Descrição/Tags">
+            </div>
+      </div>
+      <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-success">Filtrar</button>
+      </div>
+      </form>
+    </div>
+  </div>
 </div>
 
 

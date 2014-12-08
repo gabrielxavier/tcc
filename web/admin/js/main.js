@@ -1,5 +1,9 @@
 $(document).ready(function(){
 
+	if( $('#tags').length ){
+		$('#tags').tagsInput({width:'auto', 'defaultText':'Clique para adicionar'});
+	}
+
 	$('.btn-new-curso').on('click', function(e){
 		e.preventDefault();
 		$obj = $('.field-curso').first().clone(true);
