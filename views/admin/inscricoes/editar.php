@@ -106,7 +106,7 @@
                                 if( $registro->id_turma )
                                 {
                                     $crudProjetos = new CRUD('projeto');
-                                    $crudProjetos->setQuery("SELECT p.* FROM projeto p INNER JOIN projeto_curso pc, turma t WHERE p.id = pc.id_projeto and pc.id_curso = t.id_curso and t.id = '".$registro->id_turma."'")->executeQuery();
+                                    $crudProjetos->setQuery("SELECT p.* FROM projeto p INNER JOIN projeto_curso pc, turma t WHERE p.id = pc.id_projeto and pc.id_curso = t.id_curso and t.id = '".$registro->id_turma."' and p.ativo = '1")->executeQuery();
 
                                     while( $projeto =  $crudProjetos->fetchAll() ): ?>
                                         <option value="<?=$projeto->id?>" <?=($projeto->id == $registro->id_projeto)? 'selected="selected"':''?>>

@@ -25,3 +25,17 @@ label.error {
 	color: #a94442;
 	font-size: 12px;
 }
+
+.table tr td.actions {
+	white-space: nowrap;
+}
+
+.block {
+	display: block;
+}
+
+.alert>p, .alert>ul {
+	display: inline-block;
+	vertical-align: middle;
+	padding-left: 5px;
+}

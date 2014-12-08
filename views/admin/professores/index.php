@@ -11,12 +11,11 @@
 
   <table class="table table-hover table-striped">
     <tr>
-      <th>#</th>
       <th>Matricula</th>
       <th>Nome</th>
       <th>Email</th>
-      <th>Data criação</th>
-      <th>Data atualização</th>
+      <th class="hidden-xs">Data criação</th>
+      <th class="hidden-xs">Data atualização</th>
     </tr>
 
     <?php
@@ -30,12 +29,11 @@
     <?php while( $resultado = $c->fetchAll() ): ?>
     
     <tr>
-      <td><?php echo $resultado->id ?></td>
       <td><?php echo $resultado->matricula ?></td>
       <td><?php echo $resultado->nome ?></td>
       <td><?php echo $resultado->email ?></td>
-      <td><?php echo $h->dateTimeFromDB($resultado->created_at) ?></td>
-      <td><?php echo $h->dateTimeFromDB($resultado->updated_at) ?></td>
+      <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->created_at) ?></td>
+      <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->updated_at) ?></td>
     </tr>
 
     <?php endwhile; ?>

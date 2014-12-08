@@ -38,20 +38,18 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Biblioteca de Projetos</a>
+            <a class="navbar-brand" href="<?php echo $h->appURL() ?>">Biblioteca de Projetos</a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               
-            <?php if( $auth->isLevel(3) ): ?>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-book"></i> Projetos <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="<?php echo $h->urlFor('admin/projetos/editar'); ?>">Novo</a></li>
-                  <li><a href="<?php echo $h->urlFor('admin/projetos'); ?>">Listar</a></li>
-                </ul>
-              </li>
-            <?php endif; ?>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-book"></i> Projetos <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                 <?php if( $auth->isLevel(3) ): ?> <li><a href="<?php echo $h->urlFor('admin/projetos/editar'); ?>">Novo</a></li> <?php endif ?>
+                <li><a href="<?php echo $h->urlFor('admin/projetos'); ?>">Listar</a></li>
+              </ul>
+            </li>
 
             <?php if( $auth->isLevel(3) ): ?>
               <li class="dropdown">

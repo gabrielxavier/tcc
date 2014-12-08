@@ -142,23 +142,23 @@ class Helper {
 
 		if( isset($_SESSION['flash_messages']['error']) )
 		{
-			echo '<div class="alert alert-danger"> <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp;';
+			echo '<div class="alert alert-danger"> <i class="glyphicon glyphicon-exclamation-sign"></i> <p>';
 			echo implode('<br />', $_SESSION['flash_messages']['error'] );
-			echo '</div>';
+			echo '</p></div>';
 		}
 
 		if( isset($_SESSION['flash_messages']['success']) )
 		{
-			echo '<div class="alert alert-success"> <i class="glyphicon glyphicon-ok-sign"></i>&nbsp;';
+			echo '<div class="alert alert-success"> <i class="glyphicon glyphicon-ok-sign"></i> <p>';
 			echo implode('<br />', $_SESSION['flash_messages']['success'] );
-			echo '</div>';
+			echo '</p></div>';
 		}
 
 		if( isset($_SESSION['flash_messages']['warning']) )
 		{
-			echo '<div class="alert alert-warning"> <i class="glyphicon glyphicon-question-sign"></i>&nbsp;';
+			echo '<div class="alert alert-warning"> <i class="glyphicon glyphicon-question-sign"></i> <p>';
 			echo implode('<br />', $_SESSION['flash_messages']['warning'] );
-			echo '</div>';
+			echo '</p></div>';
 		}
 
 		unset($_SESSION['flash_messages']);

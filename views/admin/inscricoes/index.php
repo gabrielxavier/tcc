@@ -56,10 +56,10 @@
     <tr>
       <th></th>
       <th>Título</th>
-      <th>Turma</th>
-      <td>Alunos</td>
-      <th>Data criação</th>
-      <th>Data atualização</th>
+      <th class="hidden-xs">Turma</th>
+      <td class="hidden-xs">Alunos</td>
+      <th class="hidden-xs">Data criação</th>
+      <th class="hidden-xs">Data atualização</th>
       <th>&nbsp;</th>
     </tr>
 
@@ -71,7 +71,7 @@
         $crudTurma = new CRUD('turma');
         $turma = $crudTurma->findOneById($resultado->id_turma)->executeQuery()->fetchAll();
       ?>
-      <td><?php echo $turma->nome ?></td>
+      <td class="hidden-xs"><?php echo $turma->nome ?></td>
       <?php
         $crudAlunos = new CRUD('usuario');
         $aluno1 = $crudAlunos->findOneById($resultado->id_aluno1)->executeQuery()->fetchAll();
@@ -81,10 +81,10 @@
           $aluno2 = $crudAlunos->clearQuery()->findOneById($resultado->id_aluno2)->executeQuery()->fetchAll();
         }
       ?>
-      <td><?php echo $aluno1->nome . ' ('.$aluno1->matricula.')' ?> <?php echo ($resultado->id_aluno2)? ' <br /> ' . $aluno2->nome . ' ('.$aluno2->matricula.')' : '' ?></td>
-      <td><?php echo $h->dateTimeFromDB($resultado->created_at) ?></td>
-      <td><?php echo $h->dateTimeFromDB($resultado->updated_at) ?></td>
-      <td>
+      <td class="hidden-xs"><?php echo $aluno1->nome . ' ('.$aluno1->matricula.')' ?> <?php echo ($resultado->id_aluno2)? ' <br /> ' . $aluno2->nome . ' ('.$aluno2->matricula.')' : '' ?></td>
+      <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->created_at) ?></td>
+      <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->updated_at) ?></td>
+      <td class="actions">
         <a href="<?php echo $h->urlFor('admin/inscricoes/visualizar/'.$resultado->id); ?>" class="btn btn-info"> <i class="glyphicon glyphicon-eye-open"></i></a>
         <?php  if( $auth->getSessionInfo()['userLevel'] == 1 && $resultado->id_aluno1 == $auth->getSessionInfo()['userID'] ): ?>
           <a href="<?php echo $h->urlFor('admin/inscricoes/editar/'.$resultado->id); ?>" class="btn btn-warning"> <i class="glyphicon glyphicon-edit"></i></a>

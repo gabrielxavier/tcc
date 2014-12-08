@@ -54,11 +54,13 @@
                 Projeto de referência
             </th>
             <td>    
+                <a href="<?php echo $h->urlFor('admin/projetos/visualizar/'.$registro->id_projeto); ?>">
                 <?php 
                     $p = new CRUD('projeto');
                     $projeto = $p->findOneById($registro->id_projeto)->executeQuery()->fetchAll();
                 ?>
                 <?php echo $projeto->titulo; ?>
+                </a>
             </td>
         </tr>
         <tr>

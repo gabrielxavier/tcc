@@ -20,7 +20,11 @@ class Database {
 		
 		if(!$this->conexao){
 			
-			echo $this->error = 'Não foi possivel acessar o banco de dados';	
+			echo $this->error = 'Não foi possivel acessar o banco de dados';
+
+			$h = new Helper();	
+			$h->addFlashMessage('error','Não foi possivel acessar o banco de dados');
+			$h->redirectFor('admin/login/index'); 
 			return false;
 		
 		}else{
