@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 01-Dez-2014 às 23:25
+-- Generation Time: 09-Dez-2014 às 14:38
 -- Versão do servidor: 5.6.17
 -- PHP Version: 5.5.14
 
@@ -63,17 +63,14 @@ CREATE TABLE IF NOT EXISTS `inscricao` (
   `id_situacao` int(11) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `titulo` (`titulo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
 
 --
 -- Extraindo dados da tabela `inscricao`
 --
 
 INSERT INTO `inscricao` (`id`, `titulo`, `descricao`, `id_projeto`, `id_aluno1`, `id_aluno2`, `id_orientador`, `id_turma`, `created_at`, `updated_at`, `id_situacao`) VALUES
-(11, 'Projeto tccs', 'Gerenciados de inscrições', 38, 1, 0, 2, 2, '2014-11-05 22:35:13', '2014-12-01 23:03:11', 4),
-(12, 'fhftyquy', 'fuyty', 39, 1, 0, 2, 2, '2014-11-05 23:18:04', '2014-12-01 22:58:12', 2),
-(13, 'sadas', 'dasda', 37, 1, 0, 2, 2, '2014-11-06 23:08:42', '2014-11-10 22:32:03', 2),
-(14, 'Usabilidade site globo.com', 'Tcc sobre usabiliaded....wwwt88787', 40, 1, 4, 2, 2, '2014-11-10 20:36:48', '2014-11-10 22:31:21', 3);
+(19, 'Sistema web acadêmico responsivo', 'lorem ipsum', 41, 1, 0, 2, 2, '2014-12-06 16:12:34', '2014-12-06 16:17:10', 3);
 
 -- --------------------------------------------------------
 
@@ -90,25 +87,18 @@ CREATE TABLE IF NOT EXISTS `inscricao_situacao` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
   `id_autor` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=55 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=68 ;
 
 --
 -- Extraindo dados da tabela `inscricao_situacao`
 --
 
 INSERT INTO `inscricao_situacao` (`id`, `id_situacao`, `id_inscricao`, `comentario`, `created_at`, `updated_at`, `id_autor`) VALUES
-(35, 1, 11, NULL, '2014-11-05 22:35:13', '0000-00-00 00:00:00', 1),
-(43, 2, 11, 'Teste', '2014-11-05 22:42:30', '0000-00-00 00:00:00', 1),
-(44, 4, 11, 'Faltou alguma coisa', '2014-11-05 22:45:00', '0000-00-00 00:00:00', 2),
-(45, 1, 12, NULL, '2014-11-05 23:18:04', '0000-00-00 00:00:00', 1),
-(46, 2, 12, NULL, '2014-11-05 23:23:17', '0000-00-00 00:00:00', 1),
-(47, 1, 13, NULL, '2014-11-06 23:08:42', '0000-00-00 00:00:00', 1),
-(48, 1, 14, NULL, '2014-11-10 20:36:48', '0000-00-00 00:00:00', 1),
-(49, 2, 14, 'kasdladasda', '2014-11-10 20:38:05', '0000-00-00 00:00:00', 1),
-(50, 4, 14, 'Nao foi aprovado.', '2014-11-10 20:39:35', '0000-00-00 00:00:00', 2),
-(51, 2, 14, 'Corrigi ,a,sda, a.', '2014-11-10 20:40:09', '0000-00-00 00:00:00', 1),
-(52, 3, 14, 'xXsl pl da', '2014-11-10 20:40:52', '0000-00-00 00:00:00', 2),
-(53, 2, 13, 'ww', '2014-11-10 22:32:03', '0000-00-00 00:00:00', 1);
+(63, 1, 19, NULL, '2014-12-06 16:12:34', '0000-00-00 00:00:00', 1),
+(64, 2, 19, 'qweqeqweqeqw', '2014-12-06 16:12:48', '0000-00-00 00:00:00', 1),
+(65, 4, 19, 'wwwww', '2014-12-06 16:15:44', '0000-00-00 00:00:00', 2),
+(66, 2, 19, 'ergeger', '2014-12-06 16:16:25', '0000-00-00 00:00:00', 1),
+(67, 3, 19, 'awweqeqqeqqe', '2014-12-06 16:17:10', '0000-00-00 00:00:00', 2);
 
 -- --------------------------------------------------------
 
@@ -123,18 +113,17 @@ CREATE TABLE IF NOT EXISTS `projeto` (
   `ativo` int(1) DEFAULT '0',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `tags` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
 
 --
 -- Extraindo dados da tabela `projeto`
 --
 
-INSERT INTO `projeto` (`id`, `titulo`, `descricao`, `ativo`, `created_at`, `updated_at`) VALUES
-(37, 'Catapulta', 'ajdnasijdnsa', 1, '2014-09-27 19:07:07', '2014-09-27 19:07:07'),
-(38, 'Projeto usabilidade', 'Usabilidade', 1, '2014-09-29 23:40:20', '2014-09-29 23:40:20'),
-(39, 'Desenvolvimento API facebook2', 'desc', 1, '2014-11-05 22:52:53', '2014-11-05 23:08:18'),
-(40, 'Projeto de usabilidade em sistemas web', 'Descricao do projeto', 1, '2014-11-10 20:35:06', '2014-11-10 20:35:06');
+INSERT INTO `projeto` (`id`, `titulo`, `descricao`, `ativo`, `created_at`, `updated_at`, `tags`) VALUES
+(41, 'Projeto de usabilidade em sistemas web', 'Lorem Ipsum é simplesmente uma simulação de texto da indústria tipográfica e de impressos, e vem sendo utilizado desde o século XVI, quando um impressor desconhecido pegou uma bandeja de tipos e os embaralhou para fazer um livro de modelos de tipos. Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica, permanecendo essencialmente inalterado. Se popularizou na década de 60, quando a Letraset lançou decalques contendo passagens de Lorem Ipsum, e mais recentemente quando passou a ser integrado a softwares de editoração eletrônica como Aldus PageMaker.', 1, '2014-12-06 15:44:10', '2014-12-08 23:06:09', 'usabilidade,sistemas web,w3c'),
+(42, 'aaa', 'aaa', 0, '2014-12-08 23:05:36', '2014-12-08 23:05:36', 'usabilidade,teste');
 
 -- --------------------------------------------------------
 
@@ -149,29 +138,15 @@ CREATE TABLE IF NOT EXISTS `projeto_curso` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=62 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=80 ;
 
 --
 -- Extraindo dados da tabela `projeto_curso`
 --
 
 INSERT INTO `projeto_curso` (`id`, `id_projeto`, `id_curso`, `created_at`, `updated_at`) VALUES
-(25, 31, 1, '2014-09-02 02:08:40', '2014-09-02 02:08:40'),
-(29, 32, 1, '2014-09-02 02:09:36', '2014-09-02 02:09:36'),
-(30, 32, 1, '2014-09-02 02:09:36', '2014-09-02 02:09:36'),
-(36, 33, 2, '2014-09-03 00:36:10', '2014-09-03 00:36:10'),
-(37, 34, 2, '2014-09-03 00:36:25', '2014-09-03 00:36:25'),
-(39, 36, 1, '2014-09-24 00:12:51', '2014-09-24 00:12:51'),
-(44, 35, 1, '2014-09-24 00:13:20', '2014-09-24 00:13:20'),
-(45, 35, 2, '2014-09-24 00:13:20', '2014-09-24 00:13:20'),
-(48, 38, 1, '2014-09-29 23:40:20', '2014-09-29 23:40:20'),
-(49, 38, 2, '2014-09-29 23:40:20', '2014-09-29 23:40:20'),
-(54, 39, 1, '2014-11-05 23:12:32', '2014-11-05 23:12:32'),
-(55, 39, 2, '2014-11-05 23:12:32', '2014-11-05 23:12:32'),
-(56, 40, 1, '2014-11-10 20:35:06', '2014-11-10 20:35:06'),
-(57, 40, 2, '2014-11-10 20:35:06', '2014-11-10 20:35:06'),
-(60, 37, 1, '2014-12-01 23:22:10', '2014-12-01 23:22:10'),
-(61, 37, 2, '2014-12-01 23:22:10', '2014-12-01 23:22:10');
+(78, 41, 1, '2014-12-08 23:06:09', '2014-12-08 23:06:09'),
+(79, 41, 2, '2014-12-08 23:06:09', '2014-12-08 23:06:09');
 
 -- --------------------------------------------------------
 
@@ -186,25 +161,15 @@ CREATE TABLE IF NOT EXISTS `projeto_professor` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=61 ;
 
 --
 -- Extraindo dados da tabela `projeto_professor`
 --
 
 INSERT INTO `projeto_professor` (`id`, `id_projeto`, `id_professor`, `created_at`, `updated_at`) VALUES
-(15, 31, 2, '2014-09-02 02:08:40', '2014-09-02 02:08:40'),
-(19, 32, 1, '2014-09-02 02:09:36', '2014-09-02 02:09:36'),
-(21, 33, 1, '2014-09-03 00:36:10', '2014-09-03 00:36:10'),
-(22, 33, 2, '2014-09-03 00:36:10', '2014-09-03 00:36:10'),
-(23, 34, 1, '2014-09-03 00:36:25', '2014-09-03 00:36:25'),
-(25, 36, 1, '2014-09-24 00:12:51', '2014-09-24 00:12:51'),
-(30, 35, 1, '2014-09-24 00:13:20', '2014-09-24 00:13:20'),
-(31, 35, 2, '2014-09-24 00:13:20', '2014-09-24 00:13:20'),
-(33, 38, 2, '2014-09-29 23:40:20', '2014-09-29 23:40:20'),
-(39, 39, 2, '2014-11-05 23:12:32', '2014-11-05 23:12:32'),
-(40, 40, 2, '2014-11-10 20:35:06', '2014-11-10 20:35:06'),
-(42, 37, 2, '2014-12-01 23:22:10', '2014-12-01 23:22:10');
+(59, 41, 5, '2014-12-08 23:06:09', '2014-12-08 23:06:09'),
+(60, 41, 2, '2014-12-08 23:06:09', '2014-12-08 23:06:09');
 
 -- --------------------------------------------------------
 
@@ -295,17 +260,18 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `ultimo_acesso` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `nome` (`nome`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Extraindo dados da tabela `usuario`
 --
 
 INSERT INTO `usuario` (`id`, `nome`, `email`, `senha`, `created_at`, `updated_at`, `matricula`, `id_perfil`, `ultimo_acesso`) VALUES
-(1, 'Gabriel Xavier', 'gabriel.xavier.joinville@gmail.com', 'tele3436', '2014-08-30 22:26:00', '2014-12-01 23:17:26', '112003827', 1, '2014-12-01 23:17:26'),
-(2, 'Paulo Manseira', 'antonio@gmail.com', 'professor', '2014-09-02 01:14:14', '2014-12-01 22:35:57', 'professor', 2, '2014-12-01 22:35:57'),
-(3, 'Administrador', 'admin', 'admin', '2014-09-05 01:35:36', '2014-12-01 23:22:39', 'admin', 3, '2014-12-01 23:22:39'),
-(4, 'Angelo Gugelmin', 'angelo@gmail.com', 'angelo', '2014-11-06 22:55:32', '2014-11-06 23:55:06', 'angelo', 1, '2014-11-06 23:55:06');
+(1, 'Gabriel Xavier', 'gabriel.xavier.joinville@gmail.com', 'bfb1ce4d0179347b12e828d09a9ff482', '2014-08-30 22:26:00', '2014-12-09 02:25:22', '112003827', 1, '2014-12-09 02:25:22'),
+(2, 'Paulo Manseira', 'antonio@gmail.com', '3f9cd3c7b11eb1bae99dddb3d05da3c5', '2014-09-02 01:14:14', '2014-12-08 22:43:00', 'professor', 2, '2014-12-08 22:43:00'),
+(3, 'Administrador', 'admin', '21232f297a57a5a743894a0e4a801fc3', '2014-09-05 01:35:36', '2014-12-09 02:25:59', 'admin', 3, '2014-12-09 02:25:59'),
+(4, 'Angelo Gugelmin', 'angelo@gmail.com', '98a8d3f11b400ddc06d7343375b71a84', '2014-11-06 22:55:32', '2014-12-08 22:29:47', 'angelo', 1, '2014-12-08 22:29:47'),
+(5, 'Francini Reitz', 'francini.reitz@sociesc.org.br', '3f9cd3c7b11eb1bae99dddb3d05da3c5', '2014-12-06 15:52:12', '2014-12-06 15:52:12', 'francini', 2, NULL);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 	if( $('#tags').length ){
-		$('#tags').tagsInput({width:'auto', 'defaultText':'Clique para adicionar'});
+		$('#tags').tagsInput({width:'auto', 'defaultText':'Clique para digitar'});
 	}
 
 	$('.btn-new-curso').on('click', function(e){
