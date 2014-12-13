@@ -19,7 +19,7 @@
   
     <div class="page-header">
         <h1>
-            Inscrições <small>Novo</small> 
+            Inscrições <small><?=(!$id)? 'Adicionar' : 'Editar' ?></small> 
 
             <div class="btn-group pull-right">
                 <?php if($id): ?>
@@ -106,7 +106,7 @@
                                 if( $registro->id_turma )
                                 {
                                     $crudProjetos = new CRUD('projeto');
-                                    $crudProjetos->setQuery("SELECT p.* FROM projeto p INNER JOIN projeto_curso pc, turma t WHERE p.id = pc.id_projeto and pc.id_curso = t.id_curso and t.id = '".$registro->id_turma."' and p.ativo = '1")->executeQuery();
+                                    $crudProjetos->setQuery("SELECT p.* FROM projeto p INNER JOIN projeto_curso pc, turma t WHERE p.id = pc.id_projeto and pc.id_curso = t.id_curso and t.id = '".$registro->id_turma."' and p.ativo = '1'")->executeQuery();
 
                                     while( $projeto =  $crudProjetos->fetchAll() ): ?>
                                         <option value="<?=$projeto->id?>" <?=($projeto->id == $registro->id_projeto)? 'selected="selected"':''?>>
@@ -176,7 +176,7 @@
         $situacao->id_situacao = 1;
         $situacao->id_inscricao = $id;
         $situacao->id_autor = $auth->getSessionInfo()['userID'];
-        $situacao->comentario = '';
+        $situacao->comentario = 'Inscrição criada com sucesso.';
         
         $crudSituacao->save($situacao)->executeQuery();
         $c->save($inscricao)->executeQuery();

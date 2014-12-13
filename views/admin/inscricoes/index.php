@@ -47,7 +47,7 @@
 
       $total = $c->executeQuery()->count();
 
-      $resultados = $c->addLimit( $paginationVars['limit'] )->executeQuery();
+      $resultados = $c->addLimit( $paginationVars['limit'] )->addOrder(' id DESC ')->executeQuery();
       
       ?>
 

@@ -14,7 +14,7 @@
 <div class="container">
   
     <div class="page-header">
-        <h1>Projetos <small>Novo</small> <a href="<?php echo $h->urlFor('admin/projetos'); ?>" class="btn btn-primary pull-right"> <i class="glyphicon glyphicon-list"></i> Lista</a></h1>
+        <h1>Projetos <small><?=(!$id)? 'Adicionar' : 'Editar' ?></small> <a href="<?php echo $h->urlFor('admin/projetos'); ?>" class="btn btn-primary pull-right"> <i class="glyphicon glyphicon-list"></i> Lista</a></h1>
     </div>
 
     <?php $formAction = ($id)? $h->urlFor('admin/projetos/editar/'. $id) : $h->urlFor('admin/projetos/editar'); ?>

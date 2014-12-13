@@ -15,6 +15,7 @@
       <th>Nome</th>
       <th class="hidden-xs">Data criação</th>
       <th class="hidden-xs">Data atualização</th>
+      <th></th>
     </tr>
 
     <?php
@@ -32,6 +33,9 @@
       <td><?php echo $resultado->nome ?></td>
       <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->created_at) ?></td>
       <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->updated_at) ?></td>
+      <td class="actions" width="100">
+        <a href="<?php echo $h->urlFor('admin/turmas/call/'.$resultado->id); ?>" class="btn btn-info"> <i class="glyphicon glyphicon-send"></i> Enviar acesso </a>
+      </td>
     </tr>
 
     <?php endwhile; ?>

@@ -54,7 +54,12 @@
                 Tags
             </th>
             <td>
-                <?php echo $registro->tags ?>
+                <?php 
+                $tags = explode( ',', $registro->tags); 
+                foreach ($tags as $tag) {
+                    echo '<span class="label label-success">'.$tag.'</span> ';
+                }
+                ?>
             </td>
         </tr>
         <tr>

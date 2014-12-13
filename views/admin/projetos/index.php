@@ -21,8 +21,7 @@
   <table class="table table-hover table-striped">
     <tr>
       <th>Título</th>
-      <th class="hidden-xs">Descricao</th>
-      <th>Ativo</th>
+      <th class="hidden-xs">Tags</th>
       <th class="hidden-xs">Data criação</th>
       <th class="hidden-xs">Data atualização</th>
       <th>&nbsp;</th>
@@ -69,8 +68,14 @@
     
     <tr>
       <td><?php echo $resultado->titulo ?></td>
-      <td class="hidden-xs"><?php echo $resultado->descricao ?></td>
-      <td><?php echo ($resultado->ativo)? 'Sim' : 'Não' ?></td>
+      <td>
+          <?php 
+            $tags = explode( ',', $resultado->tags); 
+             foreach ($tags as $tag) {
+                echo '<span class="label label-success">'.$tag.'</span> ';
+              }
+          ?>
+      </td>
       <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->created_at) ?></td>
       <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->updated_at) ?></td>
       <td class="actions">
