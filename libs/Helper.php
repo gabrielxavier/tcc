@@ -6,7 +6,7 @@ class Helper {
 
 	public function __construct()
 	{
-		$this->projectURL = '/projeto-integrador/';
+		$this->projectURL = str_replace("index.php", "", $_SERVER['PHP_SELF']);
 		$this->perPage = 10;
 		if ( !isset($_SESSION['filters']) ) { $_SESSION['filters'] = array(); }
 	}
