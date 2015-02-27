@@ -59,7 +59,7 @@
     }else {
 
         $crudUser = new CRUD('usuario');
-        $crudUser->findAll()->addWhere(' id = "'.$auth->getSessionInfo()['userID'].'" and senha = "'.md5($_POST['senha_atual']).'"')->executeQuery();
+        $crudUser->findAll()->addWhere(' id = "'.$auth->getSessionInfo('userID').'" and senha = "'.md5($_POST['senha_atual']).'"')->executeQuery();
         if( $crudUser->count() < 1 )
         {
             $h->addFlashMessage('error','A senha antiga não confere!');
@@ -67,7 +67,7 @@
         }else{
 
             $usuario = new Usuario();
-            $usuario->id = $auth->getSessionInfo()['userID'];
+            $usuario->id = $auth->getSessionInfo('userID');
             $usuario->senha = md5($_POST['senha_nova']);
 
             $crudUser->update($usuario)->executeQuery();

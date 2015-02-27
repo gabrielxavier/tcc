@@ -16,6 +16,7 @@
 	$project = new Core();
 	$h = new Helper();
 	$auth = new RestrictArea();
+  $route = $project->getRoute();
 
-	include_once($project->getRoute()['url']);
+	include_once($route['url']);
 ?>

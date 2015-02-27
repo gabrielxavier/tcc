@@ -1,9 +1,9 @@
-<?php if( $auth->getSessionInfo()['userLevel'] != 1 ){ $h->redirectFor('admin/inscricoes'); } ?>
+<?php if( $auth->getSessionInfo('userLevel') != 1 ){ $h->redirectFor('admin/inscricoes'); } ?>
 <?php $project->partial('admin', 'header'); ?>
 <?php 
     $c = new CRUD('inscricao');
     $id =  (isset($_GET['id']) )? intval($_GET['id']) : NULL;
-    $id_aluno = $auth->getSessionInfo()['userID'];
+    $id_aluno = $auth->getSessionInfo('userID');
 
   if($id)
   {
@@ -63,7 +63,7 @@
                     }
                 ?>
                 <div class="row">
-                    <input type="hidden" name="id_aluno1" class="aluno-id" value="<?=$auth->getSessionInfo()['userID']?>">
+                    <input type="hidden" name="id_aluno1" class="aluno-id" value="<?=$auth->getSessionInfo('userID') ?>">
                    
                     <div class="col-lg-6 aluno-wrapper">
                        <div class="form-group">
@@ -175,7 +175,7 @@
         $situacao = new Inscricaosituacao();
         $situacao->id_situacao = 1;
         $situacao->id_inscricao = $id;
-        $situacao->id_autor = $auth->getSessionInfo()['userID'];
+        $situacao->id_autor = $auth->getSessionInfo('userID');
         $situacao->comentario = 'Inscrição criada com sucesso.';
         
         $crudSituacao->save($situacao)->executeQuery();

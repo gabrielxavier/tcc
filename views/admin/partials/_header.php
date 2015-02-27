@@ -53,7 +53,7 @@
             </li>
           
               <?php 
-                if( $auth->getSessionInfo()['userLevel'] == 2 )
+                if( $auth->getSessionInfo('userLevel') == 2 )
                 {
                   $crudSituacoesAbertas = new CRUD('inscricao');
                   $crudSituacoesAbertas->findAll(' id_situacao = 2 ')->executeQuery();
@@ -62,10 +62,10 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                  <i class="glyphicon glyphicon-tasks"></i> Inscrições <span class="caret"></span>
-                 <?php  if( $auth->getSessionInfo()['userLevel'] == 2 ): ?> <span class="badge alert-success"><?php echo $crudSituacoesAbertas->count() ?></span>
+                 <?php  if( $auth->getSessionInfo('userLevel') == 2 ): ?> <span class="badge alert-success"><?php echo $crudSituacoesAbertas->count() ?></span>
                 </a> <?php endif; ?>
                 <ul class="dropdown-menu" role="menu">
-                  <?php  if( $auth->getSessionInfo()['userLevel'] == 1 ): ?> <li><a href="<?php echo $h->urlFor('admin/inscricoes/editar'); ?>">Novo</a></li> <?php endif; ?>
+                  <?php  if( $auth->getSessionInfo('userLevel') == 1 ): ?> <li><a href="<?php echo $h->urlFor('admin/inscricoes/editar'); ?>">Novo</a></li> <?php endif; ?>
                   <li><a href="<?php echo $h->urlFor('admin/inscricoes'); ?>">Listar</a></li>
                 </ul>
               </li>
@@ -114,7 +114,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-user"></i> <?php echo $auth->getSessionInfo()['userName'] ?> <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-user"></i> <?php echo $auth->getSessionInfo('userName') ?> <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   <li>  <a href="<?php echo $h->urlFor('admin/usuario/alterar-senha'); ?>"> <i class="glyphicon glyphicon-lock"></i> Alterar senha</span></a></li>
                   <li>  <a href="<?php echo $h->urlFor('admin/login/logout'); ?>"> <i class="glyphicon glyphicon-off"></i> Sair</span></a></li>

@@ -9,7 +9,7 @@
           Inscrições 
           
           <div class="btn-group pull-right">
-            <?php  if( $auth->getSessionInfo()['userLevel'] == 1 ): ?>
+            <?php  if( $auth->getSessionInfo('userLevel') == 1 ): ?>
             <a href="<?php echo $h->urlFor('admin/inscricoes/editar'); ?>" class="btn btn-success"> <i class="glyphicon glyphicon-plus"></i> Adicionar</a>
             <?php endif; ?>
             <a href="#" class="btn btn-info" data-toggle="modal" data-target="#modal-filtro"> <i class="glyphicon glyphicon-search"></i> Filtrar</a>
@@ -20,13 +20,13 @@
 
    <?php
       // Controle de usuários 
-      if( $auth->getSessionInfo()['userLevel'] == 1 )
+      if( $auth->getSessionInfo('userLevel') == 1 )
        {
-        $c->addWhere(' ( id_aluno1 = "'.$auth->getSessionInfo()['userID'].'" OR id_aluno2 = "'.$auth->getSessionInfo()['userID'].'"  )');
+        $c->addWhere(' ( id_aluno1 = "'.$auth->getSessionInfo('userID').'" OR id_aluno2 = "'.$auth->getSessionInfo('userID').'"  )');
       }
-      else if( $auth->getSessionInfo()['userLevel'] == 2 )
+      else if( $auth->getSessionInfo('userLevel') == 2 )
       {
-        $c->addWhere(' id_orientador = "'.$auth->getSessionInfo()['userID'].'" ');
+        $c->addWhere(' id_orientador = "'.$auth->getSessionInfo('userID').'" ');
       }
 
       // Filtros
@@ -65,7 +65,7 @@
 
     <?php while( $resultado = $c->fetchAll() ): ?>
     <tr>
-      <td><i class="glyphicon <?php echo $h->getSituacaoDecorations()[$resultado->id_situacao]['icon'] ?>" title=""></td>
+      <td><i class="glyphicon <?php echo $h->getSituacaoDecorations($resultado->id_situacao, 'icon'); ?>" title=""></td>
       <td><?php echo $resultado->titulo ?></td>
       <?php 
         $crudTurma = new CRUD('turma');
@@ -86,7 +86,7 @@
       <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->updated_at) ?></td>
       <td class="actions">
         <a href="<?php echo $h->urlFor('admin/inscricoes/visualizar/'.$resultado->id); ?>" class="btn btn-info"> <i class="glyphicon glyphicon-eye-open"></i></a>
-        <?php  if( $auth->getSessionInfo()['userLevel'] == 1 && $resultado->id_aluno1 == $auth->getSessionInfo()['userID'] ): ?>
+        <?php  if( $auth->getSessionInfo('userLevel') == 1 && $resultado->id_aluno1 == $auth->getSessionInfo('userID') ): ?>
           <a href="<?php echo $h->urlFor('admin/inscricoes/editar/'.$resultado->id); ?>" class="btn btn-warning"> <i class="glyphicon glyphicon-edit"></i></a>
           <a href="<?php echo $h->urlFor('admin/inscricoes/deletar/'.$resultado->id); ?>" class="btn btn-danger"> <i class="glyphicon glyphicon-trash"></i></a>
         <?php endif; ?>
@@ -140,7 +140,7 @@
                    ?>
                     </select>
               </div>
-              <?php if($auth->getSessionInfo()['userLevel'] > 1): ?>
+              <?php if($auth->getSessionInfo('userLevel') > 1): ?>
               <div class="form-group">
                     <label for="id_turma">Turma</label>
                     <select name="id_turma" id="id_turma" class="form-control">

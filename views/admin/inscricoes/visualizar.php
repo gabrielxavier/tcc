@@ -2,7 +2,7 @@
 
 <?php $c = new CRUD('inscricao'); ?>
 <?php $id =  (isset($_GET['id']) )? intval($_GET['id']) : NULL ?>
-<?php $id_aluno = $auth->getSessionInfo()['userID'] ?> 
+<?php $id_aluno = $auth->getSessionInfo('userID') ?> 
 <?php 
   if($id)
   {
@@ -20,7 +20,7 @@
         <h1>
             Inscrições <small>Visualizar</small>
             <div class="btn-group pull-right">
-                <?php if( $auth->getSessionInfo()['userLevel'] == 1 && $registro->id_aluno1 == $auth->getSessionInfo()['userID']): ?>
+                <?php if( $auth->getSessionInfo('userLevel') == 1 && $registro->id_aluno1 == $auth->getSessionInfo('userID')): ?>
                 <a href="<?php echo $h->urlFor('admin/inscricoes/editar/'.$registro->id); ?>" class="btn btn-warning">
                     <i class="glyphicon glyphicon-edit"></i> Editar
                 </a>
@@ -149,13 +149,13 @@
             <a href="#" class="btn btn-info" data-toggle="modal" data-target="#modal-historico">
                 <i class="glyphicon glyphicon-calendar"></i> Visualizar histórico de interações
             </a>
-            <?php if($situacao->id != 2 && $situacao->id != 3 && $auth->getSessionInfo()['userLevel'] == 1 && $registro->id_aluno1 == $auth->getSessionInfo()['userID']): ?>
+            <?php if($situacao->id != 2 && $situacao->id != 3 && $auth->getSessionInfo('userLevel') == 1 && $registro->id_aluno1 == $auth->getSessionInfo('userID')): ?>
                 <a href="#" class="btn btn-success inscricao-action" data-situacao-id="2" data-situacao-nome="enviar para aprovação" data-toggle="modal" data-target="#modal-inscricao">
                     <i class="glyphicon glyphicon-send"></i> Enviar para aprovação
                 </a>
             <?php endif; ?>
         </div>
-        <?php  if( $auth->getSessionInfo()['userLevel'] == 2 && $situacao->id == 2 ): ?>
+        <?php  if( $auth->getSessionInfo('userLevel') == 2 && $situacao->id == 2 ): ?>
             <div class="btn-group pull-right">
                 <a href="#" class="btn btn-danger inscricao-action" data-situacao-id="4" data-situacao-nome="reprovar" data-toggle="modal" data-target="#modal-inscricao">
                     <i class="glyphicon glyphicon-remove"></i> Reprovar
@@ -218,17 +218,10 @@
                     <th>Autor</th>
                     <th>Comentário</th>
                 </tr> 
-                <?php 
-                    $situacao_decorations = array(
-                        1 => array('icon'=> 'glyphicon-asterisk', 'color'=>''),
-                        2 => array('icon'=> 'glyphicon-time', 'color'=>'info'),
-                        3 => array('icon'=> 'glyphicon-ok', 'color'=>'success'),
-                        4 => array('icon'=> 'glyphicon-remove', 'color'=>'danger')
-                    );
-                ?>
+                
                 <?php while( $situacao = $crudSituacoes->fetchAll() ): ?>
                     <tr>
-                        <td> <i class="glyphicon <?php echo $situacao_decorations[$situacao->id]['icon'] ?>" title="<?php echo $situacao->valor ?>"></i> </td>
+                        <td> <i class="glyphicon <?php echo $h->getSituacaoDecorations($situacao->id,'icon'); ?>" title="<?php echo $situacao->valor ?>"></i> </td>
                         <td nowrap><?php echo $h->dateTimeFromDB($situacao->data_interacao) ?></td>
                         <td nowrap><?php echo $situacao->nome_autor ?></td>
                         <td><?php echo nl2br($situacao->comentario) ?></td>

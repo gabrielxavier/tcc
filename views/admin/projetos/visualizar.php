@@ -2,7 +2,7 @@
 
 <?php $c = new CRUD('projeto'); ?>
 <?php $id =  (isset($_GET['id']) )? intval($_GET['id']) : NULL ?>
-<?php $id_aluno = $auth->getSessionInfo()['userID'] ?> 
+<?php $id_aluno = $auth->getSessionInfo('userID') ?> 
 <?php 
   if($id)
   {
@@ -20,7 +20,7 @@
         <h1>
             Projetos <small>Visualizar</small>
             <div class="btn-group pull-right">
-                <?php if( $auth->getSessionInfo()['userLevel'] == 3): ?>
+                <?php if( $auth->getSessionInfo('userLevel') == 3): ?>
                 <a href="<?php echo $h->urlFor('admin/projetos/editar/'.$registro->id); ?>" class="btn btn-warning">
                     <i class="glyphicon glyphicon-edit"></i> Editar
                 </a>
@@ -106,7 +106,7 @@
                 ?>
             </td>
         </tr>
-        <?php if( $auth->getSessionInfo()['userLevel'] == 3): ?>
+        <?php if( $auth->getSessionInfo('userLevel') == 3): ?>
         <tr>
             <th>
                 Criado em

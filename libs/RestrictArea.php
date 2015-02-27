@@ -117,8 +117,12 @@ class RestrictArea{
 			
 		}
 
-		public function getSessionInfo(){
-			return $_SESSION;
-		}
-		
+		public function getSessionInfo($key=false){
+      if($key)
+      {
+			 return $_SESSION[$key];
+      }else{
+        return $_SESSION;
+      }
+    }
 }

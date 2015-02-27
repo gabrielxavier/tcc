@@ -1,9 +1,9 @@
 <?php
     $c = new CRUD('inscricao_situacao'); 
-	$situacao = new Inscricaosituacao();
+	  $situacao = new Inscricaosituacao();
     $situacao->id_situacao = $_POST['id_situacao'];
     $situacao->id_inscricao = intval($_GET['id']);
-    $situacao->id_autor = $auth->getSessionInfo()['userID'];
+    $situacao->id_autor = $auth->getSessionInfo('userID');
     $situacao->comentario = $_POST['comentario'];
 
     if( $_POST['id_situacao'] != '' )
@@ -24,13 +24,13 @@
         }
         else
         {
-            $h->addFlashMessage('error', 'Não foi possível alterar a sitaução!');
+            $h->addFlashMessage('error', 'Não foi possível alterar a situação!');
         }
         $h->redirectFor('admin/inscricoes/visualizar/'.$_GET['id']);
 
 
     }else{
-        $h->addFlashMessage('error', 'Não foi possível alterar a sitaução!');
+        $h->addFlashMessage('error', 'Não foi possível alterar a situação!');
         $h->redirectFor('admin/inscricoes/');
     }
 
