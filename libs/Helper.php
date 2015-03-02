@@ -16,7 +16,10 @@ class Helper {
 		return $this->projectURL;
 	}
 
-	public function urlFor($params){
+	public function urlFor($params, $full = false){
+		if( $full == true ){
+			return '//'.$_SERVER['HTTP_HOST'].$this->projectURL . $params;
+		}
 		return $this->projectURL . $params;
 	}
 

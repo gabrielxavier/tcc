@@ -6,6 +6,10 @@
 	ini_set('html_errors', 1);
 	date_default_timezone_set("Brazil/East");
 	
+	// Vendor
+	include_once("vendor/class.phpmailer.php");
+
+	// Projeto
 	include_once("config.php");
 	include_once("libs/Helper.php");
 	include_once("libs/Database.php");

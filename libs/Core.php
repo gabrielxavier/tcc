@@ -33,6 +33,7 @@ class Core {
 
 		$this->route = array(
 			'url' 	 => 'views/' . $app . '/' . $module . '/' . $view . '.php',
+			'urlString'  => $app . '/' . $module . '/' . $view .'/' . $id,
 			'app' 	 => $app,
 			'module' => $module,
 			'view'	 => $view,
