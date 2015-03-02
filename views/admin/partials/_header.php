@@ -1,6 +1,3 @@
-<?php $h = new Helper(); ?>
-<?php $auth = new RestrictArea(); ?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -39,7 +36,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo $h->appURL() ?>">Portal @TCC</a>
+            <a class="navbar-brand" href="<?php echo $h->appURL() ?>" title="Desenvolvido por Gabriel Xavier">Portal @TCC</a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -116,7 +113,7 @@
                <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-user"></i> <?php echo $auth->getSessionInfo('userName') ?> <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li>  <a href="<?php echo $h->urlFor('admin/usuario/alterar-senha'); ?>"> <i class="glyphicon glyphicon-lock"></i> Alterar senha</span></a></li>
+                  <li>  <a href="<?php echo $h->urlFor('admin/usuario/alterarSenha'); ?>"> <i class="glyphicon glyphicon-lock"></i> Alterar senha</span></a></li>
                   <li>  <a href="<?php echo $h->urlFor('admin/login/logout'); ?>"> <i class="glyphicon glyphicon-off"></i> Sair</span></a></li>
                 </ul>
               </li>

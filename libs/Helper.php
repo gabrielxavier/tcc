@@ -7,7 +7,7 @@ class Helper {
 	public function __construct()
 	{
 		$this->projectURL = str_replace("index.php", "", $_SERVER['PHP_SELF']);
-		$this->perPage = 10;
+		$this->perPage = PAGE_SIZE;
 		if ( !isset($_SESSION['filters']) ) { $_SESSION['filters'] = array(); }
 	}
 
@@ -104,6 +104,8 @@ class Helper {
 	<?php
 	}
 
+	// Filters
+
 	public function addFilter($module, $key, $value)
 	{
 		$_SESSION['filters'][$module][$key] = $value;
@@ -123,6 +125,9 @@ class Helper {
 		return $_SESSION['filters'];
 	}
 
+
+	// Situação decoration
+
 	public function getSituacaoDecorations($id, $key){
 		$decorations = array(
             1 => array('icon'=> 'glyphicon-asterisk', 'color'=>''),
@@ -133,6 +138,9 @@ class Helper {
     
     return $decorations[$id][$key];
 	}
+
+
+	//Flash messages
 
 	public function addFlashMessage( $type, $message ){
 		$_SESSION['flash_messages'][$type][] = $message;

@@ -159,6 +159,8 @@
         </div>
     </form>   
 
+</div>
+
 <?php $project->partial('admin', 'footer'); ?>
 
 

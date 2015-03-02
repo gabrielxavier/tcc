@@ -1,5 +1,6 @@
 <?php if( $auth->getSessionInfo('userLevel') != 1 ){ $h->redirectFor('admin/inscricoes'); } ?>
 <?php $project->partial('admin', 'header'); ?>
+
 <?php 
     $c = new CRUD('inscricao');
     $id =  (isset($_GET['id']) )? intval($_GET['id']) : NULL;
@@ -146,6 +147,8 @@
             </div>
         </div>
     </form>   
+
+</div>
 
 <?php $project->partial('admin', 'footer'); ?>
 

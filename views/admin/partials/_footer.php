@@ -1,4 +1,3 @@
-<?php $h = new Helper(); ?>
     <script src="<?php echo $h->appURL() ?>web/admin/js/jquery.min.js"></script>
     
     <script src="<?php echo $h->appURL() ?>web/admin/js/bootstrap.min.js"></script>

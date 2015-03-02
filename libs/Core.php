@@ -6,7 +6,6 @@ class Core {
 
 	public function __construct()
 	{
-
 		$this->setRoute();
 	}
 
@@ -48,6 +47,8 @@ class Core {
 
 	public function partial($app, $name)
 	{
+		$h = new Helper();	
+		$auth = new RestrictArea();
 		include("views/" . $app . "/partials/_" . $name . ".php" );
 	}
 

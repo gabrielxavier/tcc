@@ -5,16 +5,10 @@ class Database {
 	public $conexao;
 
 	function __construct(){
-				
-		$hostDB = "localhost";
-		$userDB = "root";
-		$passDB = "root";
-		$DB = "projeto_integrador";
-		$this->conexao = $this->connectDB($DB,$userDB,$passDB,$hostDB);
-	
+		$this->conexao = $this->connectDB( NAME_DB, USER_DB, PASS_DB, HOST_DB);
 	}
 	
-	function connectDB($DB='tcc',$userDB='root',$passDB='root',$hostDB='127.0.0.1'){
+	function connectDB($DB, $userDB, $passDB, $hostDB){
 		
 		$this->conexao = @mysql_connect($hostDB,$userDB,$passDB);
 		
