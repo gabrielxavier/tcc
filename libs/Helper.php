@@ -75,7 +75,7 @@ class Helper {
 		$paginaVal = substr($_SERVER['REQUEST_URI'], -1);
 		if( !is_numeric($paginaVal) )
 		{
-			$urlPages = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+			$urlPages = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'].'/';
 		}else{
 			$urlPages = 'http://' . $_SERVER['HTTP_HOST'] . substr($_SERVER['REQUEST_URI'], 0, strlen($_SERVER['REQUEST_URI']) - 1 );
 		}

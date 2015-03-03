@@ -94,9 +94,8 @@
             </th>
             <td>    
                 <?php
-                        $aluno2 = $a->clearQuery()->findOneById($registro->id_aluno2)->executeQuery()->fetchAll();
-                        echo $aluno2->nome . " ( " . $aluno2->matricula . " ) ";
-                    
+                    $aluno2 = $a->clearQuery()->findOneById($registro->id_aluno2)->executeQuery()->fetchAll();
+                    echo $aluno2->nome . " ( " . $aluno2->matricula . " ) ";
                 ?>
             </td>
         </tr>
@@ -204,14 +203,16 @@
       </div>
       <div class="modal-body">
             <?php
-            $crudSituacoes = new CRUD('situacao');
-            $crudSituacoes->setQuery(
-                'SELECT s.id, s.valor,u.nome as nome_autor, i_s.comentario,  i_s.created_at as data_interacao FROM situacao s
-                INNER JOIN inscricao_situacao i_s  
-                INNER JOIN usuario u 
-                WHERE s.id = i_s.id_situacao AND i_s.id_inscricao = "'.$registro->id.'" AND i_s.id_autor = u.id
-                ORDER BY i_s.id DESC'
-            )->executeQuery(); ?>
+                $crudSituacoes = new CRUD('situacao');
+                $crudSituacoes
+                ->findAll('i_s.id_inscricao = "'.$registro->id.'"', 'situacao.id, situacao.valor,u.nome as nome_autor, i_s.comentario,  i_s.created_at as data_interacao')
+                ->addJoin('inscricao_situacao i_s')
+                ->addJoin('usuario u')
+                ->addWhere('situacao.id = i_s.id_situacao')
+                ->addWhere('i_s.id_autor = u.id')
+                ->addOrder('i_s.id DESC')->executeQuery();
+            ?>
+
             <table class="table table-hover table-striped">
                 <tr>
                     <th></th>

@@ -1,6 +1,10 @@
 body {
-	background: #eee;
+	background: #eeeeee;
 	padding-bottom: 50px;
+}
+
+.jumbotron {
+	background: #ffffff;
 }
 
 .form-signin {
