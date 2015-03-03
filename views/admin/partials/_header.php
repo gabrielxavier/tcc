@@ -128,7 +128,8 @@
       </div>
 
       <?php
-        if( $auth->isOnline() == false && $this->route['module'] != 'login' && $this->route['view'] != 'index' )
+
+        if( $auth->isOnline() == false && $this->route['module'] != 'login' )
         { 
           $h->addFlashMessage('warning','Você precisa fazer o login para continuar navegando.');
           $h->redirectFor('admin/login/index'); 

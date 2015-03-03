@@ -1,13 +1,14 @@
 <?php
-    $c = new CRUD('inscricao_situacao'); 
-	$situacao = new Inscricaosituacao();
-    $situacao->id_situacao = $_POST['id_situacao'];
-    $situacao->id_inscricao = intval($_GET['id']);
-    $situacao->id_autor = $auth->getSessionInfo('userID');
-    $situacao->comentario = $_POST['comentario'];
 
     if( $_POST['id_situacao'] != '' )
     {
+        $c = new CRUD('inscricao_situacao'); 
+        $situacao = new Inscricaosituacao();
+        $situacao->id_situacao = intval($_POST['id_situacao']);
+        $situacao->id_inscricao = intval($_GET['id']);
+        $situacao->id_autor = $auth->getSessionInfo('userID');
+        $situacao->comentario = $_POST['comentario'];
+
         $c->save($situacao)->executeQuery();
 
         $crudInscricao = new CRUD('inscricao');
@@ -16,10 +17,11 @@
         $inscricao->id = $situacao->id_inscricao;
         $inscricao->id_situacao = intval($_POST['id_situacao']);
 
-       $crudInscricao->update($inscricao)->executeQuery();
+        $crudInscricao->update($inscricao)->executeQuery();
 
-        if( $crudInscricao->getExecutedQuery() || 1 == 1 )
-        {
+        if( $crudInscricao->getExecutedQuery() )
+        {   
+            //Disparo email
             $inscricao = $crudInscricao->findOneById($_POST['id_situacao'], 'id, titulo, id_aluno1, id_aluno2, id_orientador, id_situacao')->executeQuery()->fetchAll();
             
             $crudSituacao = new CRUD('situacao');

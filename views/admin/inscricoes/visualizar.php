@@ -139,7 +139,6 @@
                     $situacao = $s->findOneById($registro->id_situacao)->executeQuery()->fetchAll();
                 ?>
                 <?php echo $situacao->valor;?>
-
             </td>
         </tr>
     </table>
@@ -154,17 +153,19 @@
                     <i class="glyphicon glyphicon-send"></i> Enviar para aprovação
                 </a>
             <?php endif; ?>
+
+            <?php  if( $auth->getSessionInfo('userLevel') == 2 && $situacao->id == 2 ): ?>
+                <div class="btn-group pull-right">
+                    <a href="#" class="btn btn-danger inscricao-action" data-situacao-id="4" data-situacao-nome="reprovar" data-toggle="modal" data-target="#modal-inscricao">
+                        <i class="glyphicon glyphicon-remove"></i> Reprovar
+                    </a>
+                    <a href="#" class="btn btn-success inscricao-action" data-situacao-id="3" data-situacao-nome="aprovar" data-toggle="modal" data-target="#modal-inscricao">
+                        <i class="glyphicon glyphicon-ok"></i> Aprovar
+                    </a>
+                </div>
+            <?php endif; ?>
         </div>
-        <?php  if( $auth->getSessionInfo('userLevel') == 2 && $situacao->id == 2 ): ?>
-            <div class="btn-group pull-right">
-                <a href="#" class="btn btn-danger inscricao-action" data-situacao-id="4" data-situacao-nome="reprovar" data-toggle="modal" data-target="#modal-inscricao">
-                    <i class="glyphicon glyphicon-remove"></i> Reprovar
-                </a>
-                <a href="#" class="btn btn-success inscricao-action" data-situacao-id="3" data-situacao-nome="aprovar" data-toggle="modal" data-target="#modal-inscricao">
-                    <i class="glyphicon glyphicon-ok"></i> Aprovar
-                </a>
-            </div>
-        <?php endif; ?>
+        
 </div>
 
 <!-- Modal -->
