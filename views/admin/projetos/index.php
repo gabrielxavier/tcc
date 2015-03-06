@@ -82,10 +82,10 @@
       <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->created_at) ?></td>
       <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->updated_at) ?></td>
       <td class="actions">
-        <a href="<?php echo $h->urlFor('admin/projetos/visualizar/'.$resultado->id); ?>" class="btn btn-info"> <i class="glyphicon glyphicon-eye-open"></i></a>
+        <a href="<?php echo $h->urlFor('admin/projetos/visualizar/'.$resultado->id); ?>" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Visualizar"> <i class="glyphicon glyphicon-eye-open"></i></a>
         <?php if( $auth->getSessionInfo('userLevel') == 3): ?>
-          <a href="<?php echo $h->urlFor('admin/projetos/editar/'.$resultado->id); ?>" class="btn btn-warning"> <i class="glyphicon glyphicon-edit"></i></a>
-          <a href="<?php echo $h->urlFor('admin/projetos/deletar/'.$resultado->id); ?>" class="btn btn-danger"> <i class="glyphicon glyphicon-trash"></i></a>
+          <a href="<?php echo $h->urlFor('admin/projetos/editar/'.$resultado->id); ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Editar"> <i class="glyphicon glyphicon-edit"></i></a>
+          <a href="<?php echo $h->urlFor('admin/projetos/deletar/'.$resultado->id); ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Remover"> <i class="glyphicon glyphicon-trash" ></i></a>
         <?php endif; ?>
       </td>
     </tr>

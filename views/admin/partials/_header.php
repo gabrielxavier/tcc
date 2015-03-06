@@ -51,7 +51,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-book"></i> Projetos <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                 <?php if( $auth->isLevel(3) ): ?> <li><a href="<?php echo $h->urlFor('admin/projetos/editar'); ?>">Novo</a></li> <?php endif ?>
+                 <?php if( $auth->isLevel(3) ): ?> <li><a href="<?php echo $h->urlFor('admin/projetos/editar'); ?>">Adicionar</a></li> <?php endif ?>
                 <li><a href="<?php echo $h->urlFor('admin/projetos'); ?>">Listar</a></li>
               </ul>
             </li>
@@ -69,7 +69,7 @@
                  <?php  if( $auth->getSessionInfo('userLevel') == 2 ): ?> <span class="badge alert-success"><?php echo $crudSituacoesAbertas->count() ?></span>
                 </a> <?php endif; ?>
                 <ul class="dropdown-menu" role="menu">
-                  <?php  if( $auth->getSessionInfo('userLevel') == 1 ): ?> <li><a href="<?php echo $h->urlFor('admin/inscricoes/editar'); ?>">Novo</a></li> <?php endif; ?>
+                  <?php  if( $auth->getSessionInfo('userLevel') == 1 ): ?> <li><a href="<?php echo $h->urlFor('admin/inscricoes/editar'); ?>">Adicionar</a></li> <?php endif; ?>
                   <li><a href="<?php echo $h->urlFor('admin/inscricoes'); ?>">Listar</a></li>
                 </ul>
               </li>
@@ -79,6 +79,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-bookmark"></i> Cursos <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="<?php echo $h->urlFor('admin/cursos/importar'); ?>">Importar</a></li>
+                  <li><a href="<?php echo $h->urlFor('admin/cursos/editar'); ?>">Adicionar</a></li>
                   <li><a href="<?php echo $h->urlFor('admin/cursos'); ?>">Listar</a></li>
                 </ul>
               </li>

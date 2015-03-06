@@ -73,7 +73,13 @@
 
     <?php while( $resultado = $c->fetchAll() ): ?>
     <tr>
-      <td><i class="glyphicon <?php echo $h->getSituacaoDecorations($resultado->id_situacao, 'icon'); ?>" title=""></td>
+      <td>
+        <?php 
+            $s = new CRUD('situacao');
+            $situacao = $s->findOneById($resultado->id_situacao)->executeQuery()->fetchAll();
+        ?>
+        <i class="glyphicon <?php echo $h->getSituacaoDecorations($resultado->id_situacao, 'icon'); ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $situacao->valor; ?>">
+      </td>
       <td><?php echo $resultado->titulo ?></td>
       <?php 
         $crudTurma = new CRUD('turma');
@@ -93,12 +99,12 @@
       <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->created_at) ?></td>
       <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->updated_at) ?></td>
       <td class="actions">
-        <a href="<?php echo $h->urlFor('admin/inscricoes/visualizar/'.$resultado->id); ?>" class="btn btn-info"> <i class="glyphicon glyphicon-eye-open"></i></a>
+        <a href="<?php echo $h->urlFor('admin/inscricoes/visualizar/'.$resultado->id); ?>" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Visualizar"> <i class="glyphicon glyphicon-eye-open"></i></a>
         <?php  if( $auth->getSessionInfo('userLevel') == 1 && $resultado->id_aluno1 == $auth->getSessionInfo('userID') ): ?>
           <?php if($resultado->id_situacao == 1 || $resultado->id_situacao == 4): ?>
-            <a href="<?php echo $h->urlFor('admin/inscricoes/editar/'.$resultado->id); ?>" class="btn btn-warning"> <i class="glyphicon glyphicon-edit"></i></a>
+            <a href="<?php echo $h->urlFor('admin/inscricoes/editar/'.$resultado->id); ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Editar"> <i class="glyphicon glyphicon-edit"></i></a>
           <?php endif; ?>
-          <a href="<?php echo $h->urlFor('admin/inscricoes/deletar/'.$resultado->id); ?>" class="btn btn-danger"> <i class="glyphicon glyphicon-trash"></i></a>
+          <a href="<?php echo $h->urlFor('admin/inscricoes/deletar/'.$resultado->id); ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Remover"> <i class="glyphicon glyphicon-trash"></i></a>
         <?php endif; ?>
       </td>
       

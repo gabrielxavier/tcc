@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+	 $('[data-toggle="tooltip"]').tooltip()
+
 	if( $('#tags').length ){
 		$('#tags').tagsInput({width:'auto', 'defaultText':'Clique para digitar'});
 	}

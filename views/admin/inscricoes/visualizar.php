@@ -21,9 +21,11 @@
             Inscrições <small>Visualizar</small>
             <div class="btn-group pull-right">
                 <?php if( $auth->getSessionInfo('userLevel') == 1 && $registro->id_aluno1 == $auth->getSessionInfo('userID')): ?>
-                <a href="<?php echo $h->urlFor('admin/inscricoes/editar/'.$registro->id); ?>" class="btn btn-warning">
-                    <i class="glyphicon glyphicon-edit"></i> Editar
-                </a>
+                    <?php if( $registro->id_situacao == 1 || $registro->id_situacao == 4 ): ?>
+                        <a href="<?php echo $h->urlFor('admin/inscricoes/editar/'.$registro->id); ?>" class="btn btn-warning">
+                            <i class="glyphicon glyphicon-edit"></i> Editar
+                        </a>
+                    <?php endif ?>
                 <?php endif; ?>
                 <a href="<?php echo $h->urlFor('admin/inscricoes'); ?>" class="btn btn-primary">
                     <i class="glyphicon glyphicon-list"></i> Lista
@@ -54,7 +56,7 @@
                 Projeto de referência
             </th>
             <td>    
-                <a href="<?php echo $h->urlFor('admin/projetos/visualizar/'.$registro->id_projeto); ?>">
+                <a href="<?php echo $h->urlFor('admin/projetos/visualizar/'.$registro->id_projeto); ?>" target="_blank" data-toggle="tooltip" data-placement="top" title="Clique para visualizar">
                 <?php 
                     $p = new CRUD('projeto');
                     $projeto = $p->findOneById($registro->id_projeto)->executeQuery()->fetchAll();
@@ -231,7 +233,7 @@
                 
                 <?php while( $situacao = $crudSituacoes->fetchAll() ): ?>
                     <tr>
-                        <td> <i class="glyphicon <?php echo $h->getSituacaoDecorations($situacao->id,'icon'); ?>" title="<?php echo $situacao->valor ?>"></i> </td>
+                        <td> <i class="glyphicon <?php echo $h->getSituacaoDecorations($situacao->id,'icon'); ?>" title="<?php echo $situacao->valor ?>" data-toggle="tooltip" data-placement="top"></i> </td>
                         <td nowrap><?php echo $h->dateTimeFromDB($situacao->data_interacao) ?></td>
                         <td nowrap><?php echo $situacao->nome_autor ?></td>
                         <td><?php echo nl2br($situacao->comentario) ?></td>
