@@ -13,6 +13,9 @@
             <a href="<?php echo $h->urlFor('admin/inscricoes/editar'); ?>" class="btn btn-success"> <i class="glyphicon glyphicon-plus"></i> Adicionar</a>
             <?php endif; ?>
             <a href="#" class="btn btn-info" data-toggle="modal" data-target="#modal-filtro"> <i class="glyphicon glyphicon-search"></i> Filtrar</a>
+            <?php if( $h->haveFilters('inscricoes') ): ?>
+              <a href="<?php echo $h->urlFor('admin/inscricoes/filtrar'); ?>" class="btn btn-danger btn-remove-aluno" type="button"><i class="glyphicon glyphicon-remove"></i> Limpar filtros</a>
+            <?php endif; ?>
           </div>
         </h1>
   </div>
@@ -40,9 +43,14 @@
         $c->addWhere(' id_situacao = "'.$h->getFilter('inscricoes', 'id_situacao').'" ');
       }
 
-       if( $h->getFilter('inscricoes', 'id_turma') > 0 )
+      if( $h->getFilter('inscricoes', 'id_turma') > 0 )
       {
         $c->addWhere(' id_turma = "'.$h->getFilter('inscricoes', 'id_turma').'" ');
+      }
+
+      if( $h->getFilter('inscricoes', 'slug_semestre') != "" )
+      {
+       $c->addWhere(' semestre = "'.$h->getFilter('inscricoes', 'slug_semestre').'" ');
       }
 
       $total = $c->executeQuery()->count();
@@ -57,7 +65,7 @@
       <th></th>
       <th>Título</th>
       <th class="hidden-xs">Turma</th>
-      <td class="hidden-xs">Alunos</td>
+      <th class="hidden-xs">Alunos</th>
       <th class="hidden-xs">Data criação</th>
       <th class="hidden-xs">Data atualização</th>
       <th>&nbsp;</th>
@@ -87,7 +95,9 @@
       <td class="actions">
         <a href="<?php echo $h->urlFor('admin/inscricoes/visualizar/'.$resultado->id); ?>" class="btn btn-info"> <i class="glyphicon glyphicon-eye-open"></i></a>
         <?php  if( $auth->getSessionInfo('userLevel') == 1 && $resultado->id_aluno1 == $auth->getSessionInfo('userID') ): ?>
-          <a href="<?php echo $h->urlFor('admin/inscricoes/editar/'.$resultado->id); ?>" class="btn btn-warning"> <i class="glyphicon glyphicon-edit"></i></a>
+          <?php if($resultado->id_situacao == 1 || $resultado->id_situacao == 4): ?>
+            <a href="<?php echo $h->urlFor('admin/inscricoes/editar/'.$resultado->id); ?>" class="btn btn-warning"> <i class="glyphicon glyphicon-edit"></i></a>
+          <?php endif; ?>
           <a href="<?php echo $h->urlFor('admin/inscricoes/deletar/'.$resultado->id); ?>" class="btn btn-danger"> <i class="glyphicon glyphicon-trash"></i></a>
         <?php endif; ?>
       </td>
@@ -157,6 +167,20 @@
                     </select>
               </div>
               <?php endif; ?>
+              <div class="form-group">
+                    <label for="slug_semestre">Semestre</label>
+                    <select name="slug_semestre" id="slug_semestre" class="form-control">
+                      <option value="">Todos</option>
+                      <?php for ($ano=PROJECT_START_YEAR; $ano <= date("Y") ; $ano++): ?>
+                        <?php for ($semestre=1; $semestre <= 2; $semestre++): ?>
+                          <?php if($ano == date("Y") && $semestre > $h->getSemestreAtual() ): break; endif; ?>
+                          <option value="<?php echo $ano .  '/' . $semestre ?>" <?php echo ($h->getFilter('inscricoes', 'slug_semestre') == $ano . '/' . $semestre)? 'selected="selected"' : '' ?>>
+                            <?php echo $ano .  '/' . $semestre ?>
+                          </option>                
+                        <?php endfor; ?>
+                      <?php endfor; ?>
+                    </select>
+              </div>
          
       </div>
       <div class="modal-footer">

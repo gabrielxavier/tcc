@@ -14,6 +14,9 @@
               <a href="<?php echo $h->urlFor('admin/projetos/editar'); ?>" class="btn btn-success"> <i class="glyphicon glyphicon-plus"></i> Novo</a>
             <?php endif; ?>
             <a href="#" class="btn btn-info" data-toggle="modal" data-target="#modal-filtro"> <i class="glyphicon glyphicon-search"></i> Filtrar</a>
+            <?php if( $h->haveFilters('projetos') ): ?>
+              <a href="<?php echo $h->urlFor('admin/projetos/filtrar'); ?>" class="btn btn-danger btn-remove-aluno" type="button"><i class="glyphicon glyphicon-remove"></i> Limpar filtros</a>
+            <?php endif; ?>
           </div>
         </h1>
   </div>

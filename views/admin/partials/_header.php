@@ -12,6 +12,13 @@
     <link href="<?php echo $h->appURL() ?>web/admin/css/jquery.tagsinput.css" rel="stylesheet">
     <link href="<?php echo $h->appURL() ?>web/admin/css/main.css" rel="stylesheet">
 
+    <!--[if IE]>
+    <link rel="shortcut icon" href="<?php echo $h->appURL() ?>web/admin/img/favicon.ico">
+    <link rel="address bar icon" href="<?php echo $h->appURL() ?>web/admin/img/favicon.ico">
+    <![endif]-->
+    <link rel="icon" type="image/vnd.microsoft.icon" sizes="32x32" href="<?php echo $h->appURL() ?>web/admin/img/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo $h->appURL() ?>web/admin/img/favicon.png" />
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -36,7 +43,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo $h->appURL() ?>" title="Desenvolvido por Gabriel Xavier">Portal @TCC</a>
+            <a class="navbar-brand" href="<?php echo $h->appURL() ?>" title="Desenvolvido por Gabriel Xavier"><img src="<?php $h->imagePath('logo-horizontal.png'); ?>"></a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">

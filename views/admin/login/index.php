@@ -2,7 +2,11 @@
 
 <div class="container">
 
+
+
       <form class="form-signin" method="post" action="<?=$h->urlFor('admin/login/autentica')?>" role="form">
+        <img src="<?php $h->imagePath('logo.png'); ?>" class="align-center">
+        
         <h2 class="form-signin-heading">Área Restrita</h2>
         
         <div class="form-group">

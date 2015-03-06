@@ -39,6 +39,7 @@
     <form action="<?=$formAction?>" method="POST">
         <input type="hidden" name="id" value="<?=$id?>">
         <input type="hidden" name="id_situacao" value="<?php echo ($id)? $registro->id_situacao : '1' ; ?>">
+        <input type="hidden" name="semestre" value="<?php echo ($id)? $registro->semestre : date("Y") . '/' .$h->getSemestreAtual(); ?>">
         <div class="panel panel-primary">
             <?php if($id): ?><div class="panel-heading">#<?=$id?></div><?php endif; ?>
             <div class="panel-body">
@@ -143,7 +144,8 @@
 
             </div>
             <div class="panel-footer">
-              <button type="submit" class="btn btn-success"> <i class="glyphicon glyphicon-floppy-disk"></i> Salvar </button> 
+              <button type="submit" class="btn btn-success" name="salvar"> <i class="glyphicon glyphicon-floppy-disk"></i> Salvar </button> 
+              <button type="submit" class="btn btn-primary" name="salvar_enviar"> <i class="glyphicon glyphicon-floppy-open"></i> Salvar e enviar para aprovação </button> 
             </div>
         </div>
     </form>   
@@ -167,7 +169,7 @@
     $inscricao->id_projeto = $_POST['id_projeto'];
     $inscricao->id_aluno1 = $_POST['id_aluno1'];
     $inscricao->id_aluno2 = ($_POST['id_aluno2'])? $_POST['id_aluno2'] : '0';
-    $inscricao->id_situacao = $_POST['id_situacao'];
+    $inscricao->id_situacao = isset($_POST['salvar_enviar']) ? 2 : $_POST['id_situacao'];
 
 
     if( $_POST['id'] == '' )
@@ -192,6 +194,18 @@
         $id = $inscricao->id;
 
         $h->addFlashMessage('success', 'Inscrição alterada com sucesso!');
+    }
+
+    if( isset($_POST['salvar_enviar']) ) 
+    {
+        $c = new CRUD('inscricao_situacao'); 
+        $situacao = new Inscricaosituacao();
+        $situacao->id_situacao = 2;
+        $situacao->id_inscricao = $id;
+        $situacao->id_autor = $auth->getSessionInfo('userID');
+        $situacao->comentario = "Inscrição enviada para aprovação com sucesso.";
+
+        $c->save($situacao)->executeQuery();
     }
 
    $h->redirectFor('admin/inscricoes');

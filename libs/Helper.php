@@ -33,6 +33,14 @@ class Helper {
 		return $_SERVER['REQUEST_URI'] == $this->projectURL . $params;
 	}
 
+	public function imagePath( $image, $app = 'admin' ) {
+		echo $this->getImagePath($image, $app);
+	}
+
+	public function getImagePath( $image, $app = 'admin' ) {
+		return $this->projectURL . 'web/' . $app . '/img/'.$image;
+	}
+
 
 	//Date
 	public function dateFromDB($data, $separador="/")
@@ -48,6 +56,14 @@ class Helper {
 			$data = explode("-",$data[0]);
 			
 			return $data[2]."/".$data[1]."/".$data[0]." ".$hora;	
+	}
+
+	public function getSemestreAtual(){
+		return ( date("m") < 7  )? 1 : 2;
+	}
+
+	public function getSlugSemestreAtual(){
+		return date("Y") . '/' . ( date("m") < 7  )? 1 : 2;
 	}
 
 
@@ -124,8 +140,14 @@ class Helper {
 		unset($_SESSION['filters'][$module][$key]);
 	}
 
-	public function getFilters(){
+	public function getFilters()
+	{
 		return $_SESSION['filters'];
+	}
+
+	public function haveFilters($module)
+	{
+		return ( isset($_SESSION['filters'][$module]) == true && count($_SESSION['filters'][$module]) > 0 )? true : false;
 	}
 
 

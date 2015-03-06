@@ -77,9 +77,9 @@ class Crud extends Database {
 		$this->clearQuery();
 		$campos = array();
 		$valores = array();
+		$registro->created_at = date("Y-m-d h:i:s");
 		$coluns = get_object_vars($registro);
 		unset($coluns['id']);
-		unset($coluns['created_at']);
 		unset($coluns['updated_at']);
 
 		foreach( $coluns as $chave => $valor)
@@ -132,11 +132,12 @@ class Crud extends Database {
 		$this->query = "SELECT $coluns FROM $this->table ";
 	}
 
-	public function findAll($clausula= " 1 = 1 ", $coluns = "*")
+	public function findAll($clausula = "", $coluns = "*")
 	{
 		$this->query = "SELECT $coluns FROM $this->table ";
 
-		$this->addWhere( $clausula );
+		if( $clausula != "" )
+			$this->addWhere( $clausula );
 		
 		return $this;
 	}

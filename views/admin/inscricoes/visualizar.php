@@ -114,6 +114,14 @@
         </tr>
         <tr>
             <th>
+                Semestre
+            </th>
+            <td>    
+                <?php echo $registro->semestre; ?>
+            </td>
+        </tr>
+        <tr>
+            <th>
                 Criado em
             </th>
             <td>
