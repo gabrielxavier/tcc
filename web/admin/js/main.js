@@ -1,6 +1,15 @@
 $(document).ready(function(){
 
-	 $('[data-toggle="tooltip"]').tooltip()
+	 $('[data-toggle="tooltip"]').tooltip();
+
+	 // Ajax loader
+	$( document ).ajaxStart(function(){
+		$('body').append('<i class="ajax-loader"></i>');
+	});
+
+	$( document ).ajaxComplete(function(){
+		$('body').find('.ajax-loader').remove();
+	});
 
 	if( $('#tags').length ){
 		$('#tags').tagsInput({width:'auto', 'defaultText':'Clique para digitar'});
@@ -214,4 +223,15 @@ function validateInvalidHandlers(event, validator) {
 		}, 1000);
 	}
 
+}
+
+function ajaxLoader()
+{
+	this.init = function(){
+		$('body').on('ajaxStart', this.showLoader);
+		$('body').on('ajaxEnd', this.showLoader);
+	}
+
+	this.showLoader = function(){}
+	this.hideLoader = function(){}
 }

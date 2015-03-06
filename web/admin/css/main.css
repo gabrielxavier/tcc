@@ -65,3 +65,12 @@ label.error {
 	.navbar-inverse .navbar-brand img {
 		max-height: 100%;
 	}
+
+.ajax-loader {
+	position: fixed;
+	bottom: 20px;
+	left: 20px;
+	width: 32px;
+	height: 32px;
+	background: url(../img/ajax-loader.gif);
+}
