@@ -42,6 +42,7 @@ label.error {
 
 .table tr td.actions {
 	white-space: nowrap;
+	width: 1px;
 }
 
 .block {

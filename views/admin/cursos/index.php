@@ -6,7 +6,12 @@
 <div class="container">
   
   <div class="page-header">
-        <h1>Cursos</h1>
+        <h1>
+          Cursos
+          <div class="btn-group pull-right">
+              <a href="<?php echo $h->urlFor('admin/cursos/editar'); ?>" class="btn btn-success"> <i class="glyphicon glyphicon-plus"></i> Novo</a>
+          </div>
+        </h1>
   </div>
 
   <table class="table table-hover table-striped">
@@ -15,6 +20,7 @@
       <th>Nome</th>
       <th class="hidden-xs">Data criação</th>
       <th class="hidden-xs">Data atualização</th>
+      <th>&nbsp;</th>
     </tr>
 
     <?php
@@ -32,6 +38,10 @@
       <td><?php echo $resultado->nome ?></td>
       <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->created_at) ?></td>
       <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->updated_at) ?></td>
+      <td class="actions">
+        <a href="<?php echo $h->urlFor('admin/cursos/editar/'.$resultado->id); ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Editar"> <i class="glyphicon glyphicon-edit"></i></a>
+        <a href="<?php echo $h->urlFor('admin/cursos/deletar/'.$resultado->id); ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Remover"> <i class="glyphicon glyphicon-trash" ></i></a>
+      </td>
     </tr>
 
     <?php endwhile; ?>
