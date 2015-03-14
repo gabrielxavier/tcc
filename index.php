@@ -8,7 +8,6 @@
 	
 	// Vendor
 	include_once("vendor/class.phpmailer.php");
-	include_once("vendor/class.csvtoarray.php");
 
 	// Projeto
 	include_once("config.php");
