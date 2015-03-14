@@ -28,6 +28,19 @@ $(document).ready(function(){
 			$(this).closest('.field-curso').remove();
 	});
 
+	$('.btn-new-turma').on('click', function(e){
+		e.preventDefault();
+		$obj = $('.field-turma').first().clone(true);
+		$('.field-turma').last().after($obj);
+		$obj.find('select').val('');
+	});
+
+	$('.btn-delete-turma').on('click', function(e){
+		e.preventDefault();
+		if( $('.field-turma').size() > 1 )
+			$(this).closest('.field-turma').remove();
+	});
+
 
 	$('.btn-new-professor').on('click', function(e){
 		e.preventDefault();

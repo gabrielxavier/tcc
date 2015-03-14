@@ -216,8 +216,6 @@
                 $crudProfessor->save($projetoProfessor)->executeQuery();
             }
         }
-
-
     }
 
     $h->redirectFor('admin/projetos');

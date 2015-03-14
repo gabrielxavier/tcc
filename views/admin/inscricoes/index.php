@@ -1,6 +1,8 @@
-<?php $project->partial('admin', 'header'); ?>
-<?php $c = new CRUD('inscricao'); $c->findAll(); ?>
-<?php $paginationVars = $h->getPaginationVars();  ?>
+<?php  $project->partial('admin', 'header');  ?>
+<?php
+  $c = new CRUD('inscricao'); $c->findAll();
+  $paginationVars = $h->getPaginationVars();
+?>
 
 <div class="container">
   
@@ -14,7 +16,7 @@
             <?php endif; ?>
             <a href="#" class="btn btn-info" data-toggle="modal" data-target="#modal-filtro"> <i class="glyphicon glyphicon-search"></i> Filtrar</a>
             <?php if( $h->haveFilters('inscricoes') ): ?>
-              <a href="<?php echo $h->urlFor('admin/inscricoes/filtrar'); ?>" class="btn btn-danger btn-remove-aluno" type="button"><i class="glyphicon glyphicon-remove"></i> Limpar filtros</a>
+              <a href="<?php echo $h->urlFor('admin/inscricoes/filtrar'); ?>" class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i> Limpar filtros</a>
             <?php endif; ?>
           </div>
         </h1>
@@ -63,7 +65,7 @@
   <table class="table table-hover table-striped">
     <tr>
       <th></th>
-      <th>Título</th>
+      <th>Tema</th>
       <th class="hidden-xs">Turma</th>
       <th class="hidden-xs">Alunos</th>
       <th class="hidden-xs">Data criação</th>

@@ -1,4 +1,3 @@
-<?php if( $auth->getSessionInfo('userLevel') != 1 ){ $h->redirectFor('admin/inscricoes'); } ?>
 <?php $project->partial('admin', 'header'); ?>
 
 <?php 
@@ -45,7 +44,7 @@
             <div class="panel-body">
 
                 <div class="form-group">
-                    <label for="titulo">Titulo</label>
+                    <label for="titulo">Tema</label>
                     <input type="text" class="form-control required" id="titulo" name="titulo" value="<?=$registro->titulo?>">
                 </div>
                 <div class="form-group">

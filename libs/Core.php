@@ -50,7 +50,7 @@ class Core {
 	{
 		$h = new Helper();	
 		$auth = new RestrictArea();
-		include("views/" . $app . "/partials/_" . $name . ".php" );
+		include("views/" . $app . "/_partials/_" . $name . ".php" );
 	}
 
 }

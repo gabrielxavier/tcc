@@ -45,6 +45,10 @@
     </tr>
 
     <?php endwhile; ?>
+
+    <?php if( $c->count() == 0 ):  ?>
+    <tr><td colspan="5" align="center">Nenhum resultado foi encontrado.</td></tr>
+    <?php endif; ?>
     
   </table>
 

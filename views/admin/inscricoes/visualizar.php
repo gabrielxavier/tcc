@@ -37,7 +37,7 @@
     <table class="table table-hover">
         <tr>
             <th width="180">
-                Título
+                Tema
             </th>
             <td>
                 <?php echo $registro->titulo ?>
