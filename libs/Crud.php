@@ -213,4 +213,8 @@ class Crud extends Database {
 			return addslashes($str);
 		}
 	}
+
+	public function getError(){
+		return @mysql_error();
+	}
 }

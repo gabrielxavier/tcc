@@ -15,6 +15,7 @@ $(document).ready(function(){
 		$('#tags').tagsInput({width:'auto', 'defaultText':'Clique para digitar'});
 	}
 
+	// Botões cadastros
 	$('.btn-new-curso').on('click', function(e){
 		e.preventDefault();
 		$obj = $('.field-curso').first().clone(true);
@@ -55,6 +56,8 @@ $(document).ready(function(){
 			$(this).closest('.field-professor').remove();
 	});
 
+
+	// Ajax Cadastros
 	$('#id_turma').on('change', function(){
 		var id_turma = $(this).val();
 		var $select_projeto = $('#id_projeto');
@@ -173,29 +176,6 @@ $(document).ready(function(){
 		$('#id_situacao').val(situacao_id);
 	});
 
-	// Validate
-	jQuery.extend(jQuery.validator.messages, {
-	        required: "Este campo &eacute; obrigat&oacute;rio.",
-	        remote: "Por favor, corrija este campo.",
-	        email: "Por favor, forne&ccedil;a um endere&ccedil;o eletr&ocirc;nico v&aacute;lido.",
-	        url: "Por favor, forne&ccedil;a uma URL v&aacute;lida.",
-	        date: "Por favor, forne&ccedil;a uma data v&aacute;lida.",
-	        dateISO: "Por favor, forne&ccedil;a uma data v&aacute;lida (ISO).",
-	        dateDE: "Bitte geben Sie ein gültiges Datum ein.",
-	        number: "Por favor, forne&ccedil;a um n&uacute;mero v&aacute;lida.",
-	        numberDE: "Bitte geben Sie eine Nummer ein.",
-	        digits: "Por favor, forne&ccedil;a somente d&iacute;gitos.",
-	        creditcard: "Por favor, forne&ccedil;a um cart&atilde;o de cr&eacute;dito v&aacute;lido.",
-	        equalTo: "Por favor, forne&ccedil;a o mesmo valor novamente.",
-	        accept: "Por favor, forne&ccedil;a um valor com uma extens&atilde;o v&aacute;lida.",
-	        maxlength: jQuery.validator.format("Por favor, forne&ccedil;a n&atilde;o mais que {0} caracteres."),
-	        minlength: jQuery.validator.format("Por favor, forne&ccedil;a ao menos {0} caracteres."),
-	        rangelength: jQuery.validator.format("Por favor, forne&ccedil;a um valor entre {0} e {1} caracteres de comprimento."),
-	        range: jQuery.validator.format("Por favor, forne&ccedil;a um valor entre {0} e {1}."),
-	        max: jQuery.validator.format("Por favor, forne&ccedil;a um valor menor ou igual a {0}."),
-	        min: jQuery.validator.format("Por favor, forne&ccedil;a um valor maior ou igual a {0}.")
-	});
-
 	$('form').each(function(){
 		$(this).validate({
 			invalidHandler: validateInvalidHandlers,
@@ -208,6 +188,7 @@ $(document).ready(function(){
 		});
 	});
 
+    $('.modal.auto').modal('show');
 });
 
 

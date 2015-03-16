@@ -25,8 +25,8 @@
 
                 <div class="form-group">
                     <label for="arquivo">Arquivo</label>
-                    <input type="file" name="arquivo" id="arquivo" class="required">
-                    <p class="help-block">Selecione apenas arquivos no formato CSV</p>
+                    <input type="file" name="arquivo" id="arquivo" class="required" data-rule-extension="csv">
+                    <p class="help-block">Selecione apenas arquivos no formato CSV.</p>
                 </div>
                 
             </div>
@@ -38,48 +38,99 @@
 
 </div>
 
-<?php 
-  
-  if( isset($_POST['importar']) )
-  {
+<?php  if( isset($_POST['importar']) ):    ?>
 
-    $file = $_FILES['arquivo']['tmp_name']; 
-    $handle = fopen($file,"r"); 
+<div class="modal fade auto" id="modal-importacao" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Detalhes da importação</h4>
+        </div>
+        <div class="modal-body">
     
-    while (($data = fgetcsv($handle, 1000, ";")) !== FALSE)
-    {
-        $crudAlunos = new CRUD('usuario');
+        <table class="table table-hover table-striped">
+            <tr>
+                <th>Matrícula</th>
+                <th>Nome</th>
+                <th>Email</th>
+            </tr>
+            <?php
+                if( strtolower(pathinfo($_FILES['arquivo']['name'], PATHINFO_EXTENSION)) == 'csv' )
+                {
+                    $file = $_FILES['arquivo']['tmp_name']; 
+                    $handle = fopen($file,"r"); 
+                    $sucesso = 0;
+                    $erro = 0;
+
+                    while (($data = fgetcsv($handle, 1000, ";")) !== FALSE)
+                    {
+                        $crudAlunos = new CRUD('usuario');
+                       
+                        $aluno = new Usuario();
+                        $aluno->nome           = utf8_encode($data[0]);
+                        $aluno->email          = $data[1];
+                        $aluno->matricula      = $data[2];
+                        $aluno->id_perfil      = 1;
+                        $aluno->senha          = 0;
+
+                        $id_aluno = $crudAlunos->nextID();
+
+                        $crudAlunos->save($aluno)->executeQuery();
+
+                        ?>
+
+                       <tr data-toggle="tooltip" data-placement="top" title="<?php echo !$crudAlunos->getExecutedQuery() ? $crudAlunos->getError() : '' ?>" class="<?php echo ( $crudAlunos->getExecutedQuery() )? 'success' : 'danger' ?>">
+                            <td><?php echo $aluno->matricula ?></td>
+                            <td><?php echo $aluno->nome ?></td>
+                            <td><?php echo $aluno->email ?></td>
+                        </tr>
+
+                        <?php
+
+                        if( $crudAlunos->getExecutedQuery() )
+                        {   
+                            $crudTurma = new CRUD('turma_aluno');
+                            $turmaAluno = new Turmaaluno();
+                            $turmaAluno->id_aluno = $id_aluno;
+                            $turmaAluno->id_turma = intval($_POST['id_turma']);
+                            $crudTurma->save($turmaAluno)->executeQuery();
+
+                            $sucesso++;
+                        }else{
+                            $erro++;
+                        }
+
+                    }
+
+                    fclose($handle);
+                }
+                else
+                {
+                    $h->addFlashMessage('error', 'Erro ao importar os dados, formato de arquivo inválido!');
+                    $h->redirectFor('admin/alunos/importar');
+                }
+            ?>
+            
+        </table>
+        <table class="table">
+            <tr>
+                <th colspan="2">Resumo</th>
+                <td class="success"><i class="glyphicon glyphicon-ok" data-toggle="tooltip" data-placement="top" title="Sucesso"> <?php echo $sucesso ?></td>
+                <td class="danger"><i class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="top" title="Erro"></i> <?php echo $erro ?></td>
+                <td class="info"><i class="glyphicon glyphicon-glass" data-toggle="tooltip" data-placement="top" title="Total"></i> <?php echo ($sucesso + $erro) ?></td>
+            </tr>
+        </table>
        
-        $aluno = new Usuario();
-        $aluno->nome           = utf8_encode($data[0]);
-        $aluno->email          = $data[1];
-        $aluno->matricula      = $data[2];
-        $aluno->id_perfil      = 1;
-        $aluno->senha          = 0;
+        </div>
+        <div class="modal-footer">
+            <a href="<?=$h->urlFor('admin/alunos');?>" class="btn btn-primary">Listar alunos</a>
+            <a href="<?=$h->urlFor('admin/alunos/importar');?>" class="btn btn-success">Importar novamente</a>
+      </div>
+    </div>
+  </div>
+</div>
 
-        $id_aluno = $crudAlunos->nextID();
+<?php endif; ?>
 
-        $crudAlunos->save($aluno)->executeQuery();
-
-        if( $crudAlunos->getExecutedQuery() )
-        {   
-            $crudTurma = new CRUD('turma_aluno');
-            $turmaAluno = new Turmaaluno();
-            $turmaAluno->id_aluno = $id_aluno;
-            $turmaAluno->id_turma = intval($_POST['id_turma']);
-            $crudTurma->save($turmaAluno)->executeQuery();
-        }
-
-    }
-
-    fclose($handle);
-
-    $h->addFlashMessage('success', 'Alunos importados com sucesso!');
-
-    $h->redirectFor('admin/alunos');
-
-  }
-
-?>
 
 <?php $project->partial('admin', 'footer'); ?>
