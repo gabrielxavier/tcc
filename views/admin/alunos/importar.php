@@ -1,5 +1,7 @@
 <?php $project->partial('admin', 'header'); ?>
 
+<?php $auth->requireLevel(array(3)); ?>
+
 <div class="container">
   
     <div class="page-header">

@@ -1,5 +1,7 @@
 <?php $project->partial('admin', 'header'); ?>
 
+<?php $auth->requireLevel(array(3,2)); ?>
+
 <?php $c = new CRUD('usuario'); ?>
 <?php $paginationVars = $h->getPaginationVars();  ?>
 
@@ -57,8 +59,10 @@
       <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->created_at) ?></td>
       <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->updated_at) ?></td>
       <td class="actions">
+        <?php if($auth->isLevel(3)): ?>
         <a href="<?php echo $h->urlFor('admin/alunos/editar/'.$resultado->id); ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Editar"> <i class="glyphicon glyphicon-edit"></i></a>
         <a href="<?php echo $h->urlFor('admin/alunos/deletar/'.$resultado->id); ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Remover"> <i class="glyphicon glyphicon-trash" ></i></a>
+        <?php endif; ?>
       </td>
     </tr>
 

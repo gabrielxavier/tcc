@@ -1,5 +1,7 @@
 <?php $project->partial('admin', 'header'); ?>
 
+<?php $auth->requireLevel(array(3)); ?>
+
 <?php $c = new CRUD('projeto'); ?>
 <?php $id =  (isset($_GET['id']) )? intval($_GET['id']) : NULL ?>
 <?php 

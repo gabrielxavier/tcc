@@ -8,17 +8,17 @@ class RestrictArea{
 		
 		function __construct() { 	
 	
-			$this->redir = "index.php";
 			$this->error = false;
 			$this->helper = new Helper();
 		} 
 		
-		function showError(){
-			
+		function showError()
+		{
 			return $this->error;	
 		}
 		
-		public function Login($matricula, $senha, $userCookie=0){
+		public function Login($matricula, $senha, $userCookie=0)
+		{
 
 			$crudUsuario = new CRUD('usuario');
 			$results = $crudUsuario->findAll(' matricula = "'.$matricula.'" ')->executeQuery()->count();
@@ -61,50 +61,53 @@ class RestrictArea{
 		
 		}
 		
-		public function Logout(){
+		public function Logout()
+		{
 			
 			session_destroy();
 
 			return true;
 			
 		}
-		public function isOnline($level = false){
 		
-		$usuarioLogado = false;
+		public function isOnline($level = false)
+		{
 		
-		if( isset($_SESSION['sessionID']) && $_SESSION['sessionID'] == session_id() ){
+			$usuarioLogado = false;
+			
+			if( isset($_SESSION['sessionID']) && $_SESSION['sessionID'] == session_id() ){
 
-			if( time() - $_SESSION['sessionTime'] > 900 ){
-				$this->Logout();
-			}else{
-				
-				$_SESSION['sessionTime'] = time();
-				
-				$crudUsuario = new CRUD('usuario');
-				
-				$update = $crudUsuario->setQuery('UPDATE usuario SET ultimo_acesso = "'.date("Y-m-d H:i:s").'" WHERE id = "'.$_SESSION['userID'].'"' )->executeQuery();
+				if( time() - $_SESSION['sessionTime'] > 900 ){
+					$this->Logout();
+				}else{
+					
+					$_SESSION['sessionTime'] = time();
+					
+					$crudUsuario = new CRUD('usuario');
+					
+					$update = $crudUsuario->setQuery('UPDATE usuario SET ultimo_acesso = "'.date("Y-m-d H:i:s").'" WHERE id = "'.$_SESSION['userID'].'"' )->executeQuery();
 
-				$usuarioLogado = true;
+					$usuarioLogado = true;
 
-				if( $level  ){
-					if( !$this->isLevel($level) ){
-						$usuarioLogado = false;
+					if( $level  ){
+						if( !$this->isLevel($level) ){
+							$usuarioLogado = false;
+						}
 					}
+
 				}
+			}else{
+					
+				$this->error = "Você precisa fazer o login.";
 
 			}
-		}else{
-				
-			$this->error = "Você precisa fazer o login.";
 
-		}
-
-
-		return $usuarioLogado;
+			return $usuarioLogado;
 			
 		}
 		
-		public function isLevel($pageLevel){
+		public function isLevel($pageLevel)
+		{
 			
 			if($_SESSION['userLevel']<$pageLevel){
 		
@@ -117,12 +120,23 @@ class RestrictArea{
 			
 		}
 
-	public function getSessionInfo($key=false){
-      if($key)
-      {
-			return isset($_SESSION[$key])? $_SESSION[$key] : '';
-      }else{
-        return $_SESSION;
-      }
-    }
+		public function requireLevel( $levels )
+		{	
+		
+			if( !in_array( $_SESSION['userLevel'], $levels ) )
+			{
+				$this->helper->addFlashMessage('error','Você não tem permissão para acessar o conteúdo solicitado.');
+          		$this->helper->redirectFor('admin/index'); 
+			}
+		}
+
+		public function getSessionInfo($key=false)
+		{
+	      if($key)
+	      {
+				return isset($_SESSION[$key])? $_SESSION[$key] : '';
+	      }else{
+	        return $_SESSION;
+	      }
+	    }
 }

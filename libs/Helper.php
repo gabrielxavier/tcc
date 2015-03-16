@@ -26,6 +26,7 @@ class Helper {
 	public function redirectFor( $params )
 	{
 		header("Location: ".$this->projectURL . $params);
+		exit;
 	}
 
 	public function isUrl( $params )

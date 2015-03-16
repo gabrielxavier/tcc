@@ -1,5 +1,7 @@
 <?php $project->partial('admin', 'header'); ?>
 
+<?php $auth->requireLevel(array(3)); ?>
+
 <?php $c = new CRUD('curso'); ?>
 <?php $paginationVars = $h->getPaginationVars();  ?>
 

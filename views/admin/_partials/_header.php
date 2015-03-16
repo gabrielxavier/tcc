@@ -107,12 +107,14 @@
               </li>
             <?php endif; ?>
 
-            <?php if( $auth->isLevel(3) ): ?>
+            <?php if( $auth->isLevel(3) || $auth->isLevel(2) ): ?>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-user"></i> Alunos <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
+                  <?php if($auth->isLevel(3)): ?>
                   <li><a href="<?php echo $h->urlFor('admin/alunos/importar'); ?>">Importar</a></li>
                   <li><a href="<?php echo $h->urlFor('admin/alunos/editar'); ?>">Adicionar</a></li>
+                  <?php endif; ?>
                   <li><a href="<?php echo $h->urlFor('admin/alunos'); ?>">Listar</a></li>
                 </ul>
               </li>

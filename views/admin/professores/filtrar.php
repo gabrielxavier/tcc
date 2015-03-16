@@ -1,3 +1,5 @@
+<?php $auth->requireLevel(array(3)); ?>
+
 <?php
 
 	if( $_POST['matricula'] != '' )

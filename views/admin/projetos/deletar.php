@@ -1,3 +1,5 @@
+<?php $auth->requireLevel(array(3)); ?>
+
 <?php
 	$c = new CRUD('projeto');
 	$id =  (isset($_GET['id']) )? intval($_GET['id']) : NULL;

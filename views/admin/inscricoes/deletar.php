@@ -1,3 +1,5 @@
+<?php $auth->requireLevel(array(1)); ?>
+
 <?php
 	$c = new CRUD('inscricao');
 	$id =  (isset($_GET['id']) )? intval($_GET['id']) : NULL;

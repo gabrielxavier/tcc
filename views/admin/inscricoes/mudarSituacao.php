@@ -1,3 +1,5 @@
+<?php $auth->requireLevel(array(1,2)); ?>
+
 <?php
 
     if( $_POST['id_situacao'] != '' )
