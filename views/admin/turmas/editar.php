@@ -34,6 +34,11 @@
                     <input type="text" class="form-control required" id="sigla" name="sigla" value="<?=$registro->sigla?>">
                 </div>
 
+                <div class="form-group">
+                    <label for="sigla">Semestre</label>
+                    <input type="text" class="form-control required" id="semestre" name="semestre" value="<?=$registro->semestre?>">
+                </div>
+
                  <div class="form-group">
                     <label for="id_curso">Curso</label>
                     <select name="id_curso" id="id_curso" class="form-control required">
@@ -71,6 +76,7 @@
     $turma->id = $_POST['id'];
     $turma->nome = $_POST['nome'];
     $turma->sigla = $_POST['sigla'];
+    $turma->semestre = $_POST['semestre'];
     $turma->id_curso = $_POST['id_curso'];
 
     if( $_POST['id'] == '' )

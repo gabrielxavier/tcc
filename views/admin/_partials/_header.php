@@ -78,7 +78,7 @@
                <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-bookmark"></i> Cursos <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="<?php echo $h->urlFor('admin/cursos/importar'); ?>">Importar</a></li>
+                  <!-- <li><a href="<?php echo $h->urlFor('admin/cursos/importar'); ?>">Importar</a></li> -->
                   <li><a href="<?php echo $h->urlFor('admin/cursos/editar'); ?>">Adicionar</a></li>
                   <li><a href="<?php echo $h->urlFor('admin/cursos'); ?>">Listar</a></li>
                 </ul>
@@ -89,9 +89,20 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-tags"></i> Turmas <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="<?php echo $h->urlFor('admin/turmas/importar'); ?>">Importar</a></li>
+                  <!-- <li><a href="<?php echo $h->urlFor('admin/turmas/importar'); ?>">Importar</a></li> -->
                   <li><a href="<?php echo $h->urlFor('admin/turmas/editar'); ?>">Adicionar</a></li>
                   <li><a href="<?php echo $h->urlFor('admin/turmas'); ?>">Listar</a></li>
+                </ul>
+              </li>
+            <?php endif; ?>
+
+            <?php if( $auth->isLevel(3) ): ?>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-briefcase"></i> Professores <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <!-- <li><a href="<?php echo $h->urlFor('admin/professores/importar'); ?>">Importar</a></li> -->
+                  <li><a href="<?php echo $h->urlFor('admin/professores/editar'); ?>">Adicionar</a></li>
+                  <li><a href="<?php echo $h->urlFor('admin/professores'); ?>">Listar</a></li>
                 </ul>
               </li>
             <?php endif; ?>
@@ -103,17 +114,6 @@
                   <li><a href="<?php echo $h->urlFor('admin/alunos/importar'); ?>">Importar</a></li>
                   <li><a href="<?php echo $h->urlFor('admin/alunos/editar'); ?>">Adicionar</a></li>
                   <li><a href="<?php echo $h->urlFor('admin/alunos'); ?>">Listar</a></li>
-                </ul>
-              </li>
-            <?php endif; ?>
-
-            <?php if( $auth->isLevel(3) ): ?>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-briefcase"></i> Professores <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="<?php echo $h->urlFor('admin/professores/importar'); ?>">Importar</a></li>
-                  <li><a href="<?php echo $h->urlFor('admin/professores/editar'); ?>">Adicionar</a></li>
-                  <li><a href="<?php echo $h->urlFor('admin/professores'); ?>">Listar</a></li>
                 </ul>
               </li>
             <?php endif; ?>
