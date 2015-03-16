@@ -3,6 +3,10 @@ body {
 	padding-bottom: 50px;
 }
 
+hr {
+	border-color: #CCC;
+}
+
 .jumbotron {
 	background: #ffffff;
 }
@@ -40,10 +44,10 @@ label.error {
 	background: #FFFFFF;
 }
 
-.table tr td.actions {
-	white-space: nowrap;
-	width: 1px;
-}
+	.table tr td.actions {
+		white-space: nowrap;
+		width: 1px;
+	}
 
 .block {
 	display: block;
@@ -74,4 +78,27 @@ label.error {
 	width: 32px;
 	height: 32px;
 	background: url(../img/ajax-loader.gif);
+}
+
+
+.modal-footer {
+	background: #f2f2f2;
+}
+
+.modal-header {
+  background-image: -webkit-linear-gradient(top, #3c3c3c 0%, #222 100%);
+  background-image: -o-linear-gradient(top, #3c3c3c 0%, #222 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#3c3c3c), to(#222));
+  background-image: linear-gradient(to bottom, #3c3c3c 0%, #222 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3c3c3c', endColorstr='#ff222222', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  background-repeat: repeat-x;
+}
+
+.modal-title {
+	color: #FFFFFF;
+}
+
+.modal-header .close {
+	color: #FFFFFF;
 }
