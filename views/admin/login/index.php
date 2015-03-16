@@ -10,17 +10,17 @@
       
       <div class="form-group">
   	    <label for="matricula">Matricula</label>
-    	  <input type="text" class="form-control" id="matricula" name="matricula">
+    	  <input type="text" class="form-control required" id="matricula" name="matricula">
      	</div>
       
       <div class="form-group">
         <label for="senha">Senha</label>
-        <input type="password" class="form-control" id="senha" name="senha">
+        <input type="password" class="form-control required" id="senha" name="senha">
       </div>
       
       <div class="btn-toolbar text-right">
         <button class="btn btn-link" type="button" data-toggle="modal" data-target="#modal-senha">Esqueci a senha</button>
-        <button class="btn btn-lg btn-primary" type="submit">Entrar</button>
+        <button class="btn btn-lg btn-primary" type="submit">Acessar</button>
       </div>
 
     </form>
