@@ -109,7 +109,7 @@ class RestrictArea{
 		public function isLevel($pageLevel)
 		{
 			
-			if($_SESSION['userLevel']<$pageLevel){
+			if( $_SESSION['userLevel'] != $pageLevel){
 		
 				$this->error = "Você não possui previlégio para acessar esta página!";	
 				return false;

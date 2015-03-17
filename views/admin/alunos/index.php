@@ -11,8 +11,10 @@
         <h1>
           Alunos
           <div class="btn-group pull-right">
+            <?php if($auth->isLevel(3)): ?>
             <a href="<?php echo $h->urlFor('admin/alunos/editar'); ?>" class="btn btn-success"> <i class="glyphicon glyphicon-plus"></i> Adicionar</a>
             <a href="<?php echo $h->urlFor('admin/alunos/importar'); ?>" class="btn btn-default"> <i class="glyphicon glyphicon-arrow-up"></i> Importar</a>
+            <?php endif; ?>
             <a href="#" class="btn btn-info" data-toggle="modal" data-target="#modal-filtro"> <i class="glyphicon glyphicon-search"></i> Filtrar</a>
             <?php if( $h->haveFilters('alunos') ): ?>
               <a href="<?php echo $h->urlFor('admin/alunos/filtrar'); ?>" class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove"></i> Limpar filtros</a>

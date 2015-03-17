@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <label for="caminho">Arquivo</label>
                     <input type="file" class="form-control required" id="caminho" name="caminho">
-                    <div class="help-block">Extensões permitidas jpg, jpeg, png, xls, xlsx, doc, docx, pdf, ppt, pptx, pps, ppsx.</div>
+                    <div class="help-block">Extensões permitidas ( <?php echo implode(", ", unserialize(FILE_FORMATS)) ?> ).</div>
                 </div>
 
             </div>
@@ -60,13 +60,13 @@
 
     $extensao = pathinfo($_FILES['caminho']['name'], PATHINFO_EXTENSION);
 
-    if( !in_array($extensao, array('jpg','jpeg','png','xls','xlsx','doc','docx','pdf', 'ppt','pptx', 'pps','ppsx') ) )
+    if( !in_array($extensao, unserialize(FILE_FORMATS) ) )
     {
         $h->addFlashMessage('error', 'Formato de arquivo inválido!');
         $h->redirectFor('admin/arquivos/editar');
     }
 
-    $arquivo->caminho = 'arquivos/'.str_replace(" ","-", $arquivo->nome).'-'.date("YmdHis").'.'.$extensao;
+    $arquivo->caminho = strtolower('arquivos/'.str_replace(" ","-", $arquivo->nome).'-'.date("YmdHis").'.'.$extensao);
 
     if (move_uploaded_file($_FILES['caminho']['tmp_name'], 'web/admin/uploads/'.$arquivo->caminho)) {
 
