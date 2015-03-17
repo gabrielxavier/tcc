@@ -38,8 +38,14 @@ class Helper {
 		echo $this->getImagePath($image, $app);
 	}
 
-	public function getImagePath( $image, $app = 'admin' ) {
+	public function getImagePath( $image, $app = 'admin' )
+	{
 		return $this->projectURL . 'web/' . $app . '/img/'.$image;
+	}
+
+	public function getUploadsPath( $file, $app = 'admin' )
+	{
+		return $this->projectURL . 'web/' . $app . '/uploads/'.$file;
 	}
 
 
@@ -199,6 +205,16 @@ class Helper {
 
 		unset($_SESSION['flash_messages']);
 
+	}
+
+	// Other
+
+	function newPassword($numchar){  
+	   $letras = "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,1,2,3,4,5,6,7,8,9,0,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z";
+	   $array = explode(",", $letras);  
+	   shuffle($array);  
+	   $senha = implode($array, "");  
+	   return substr($senha, 0, $numchar);  
 	}
 
 }
