@@ -60,7 +60,7 @@
 
     $extensao = pathinfo($_FILES['caminho']['name'], PATHINFO_EXTENSION);
 
-    if( !in_array($extensao, unserialize(FILE_FORMATS) ) )
+    if( !in_array(mime_content_type($_FILES['caminho']['tmp_name']), unserialize(FILE_MIMES) ) )
     {
         $h->addFlashMessage('error', 'Formato de arquivo inválido!');
         $h->redirectFor('admin/arquivos/editar');

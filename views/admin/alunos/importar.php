@@ -57,7 +57,8 @@
                 <th>Email</th>
             </tr>
             <?php
-                if( strtolower(pathinfo($_FILES['arquivo']['name'], PATHINFO_EXTENSION)) == 'csv' )
+
+                if( $_FILES['arquivo']['type'] == 'text/csv' )
                 {
                     $file = $_FILES['arquivo']['tmp_name']; 
                     $handle = fopen($file,"r"); 
