@@ -171,6 +171,7 @@
     $inscricao->id_aluno1 = $_POST['id_aluno1'];
     $inscricao->id_aluno2 = ($_POST['id_aluno2'])? $_POST['id_aluno2'] : '0';
     $inscricao->id_situacao = isset($_POST['salvar_enviar']) ? 2 : $_POST['id_situacao'];
+    $inscricao->semestre = $_POST['semestre'];
 
 
     if( $_POST['id'] == '' )

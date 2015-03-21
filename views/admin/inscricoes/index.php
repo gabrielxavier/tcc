@@ -113,16 +113,20 @@
     </tr>
 
     <?php endwhile; ?>
-
-    <?php if( $c->count() == 0 ):  ?>
-    <tr><td colspan="7" align="center">Nenhum resultado foi encontrado.</td></tr>
-    <?php endif; ?>
+  
+    <tfoot>
+      <?php if( $c->count() == 0 ):  ?>
+      <tr><td colspan="7" align="center">Nenhum resultado foi encontrado.</td></tr>
+      <?php else: ?>
+      <tr><td colspan="7" align="center"><?php echo $c->count() ?> resultados encontrados.</td></tr>
+      <?php endif; ?>
+    </tfoot>
 
   </table>
 
-  <!--
-  <a href="<?php echo $h->urlFor('admin/inscricoes/imprimir'); ?>" class="btn btn-primary"> <i class="glyphicon glyphicon-print"></i> Imprimir resultados</a>
-  -->
+  
+  <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modal-relatorio"> <i class="glyphicon glyphicon-print"></i> Imprimir relatório</a>
+  
 
   <?php $h->pagination( $paginationVars['p'],  $total ); ?>
 
@@ -189,11 +193,166 @@
                       <?php endfor; ?>
                     </select>
               </div>
-         
       </div>
       <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
             <button type="submit" class="btn btn-success">Filtrar</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-relatorio" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="<?php echo $h->urlFor('admin/inscricoes/relatorio'); ?>" method="post">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Imprimir relatório</h4>
+      </div>
+      <div class="modal-body">
+  
+
+        <div class="form-group">
+          <label class="block">Modelo de exibição</label>
+          <div class="radio-inline">
+            <label>
+              <input type="radio" value="1" name="modelo_exibicao" checked="checked">
+              Em linha
+            </label>
+          </div>
+          <div class="radio-inline">
+            <label>
+              <input type="radio" value="2" name="modelo_exibicao">
+              Em bloco
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="block">Modelo de impressão</label>
+          <div class="radio-inline">
+            <label>
+              <input type="radio" value="2" name="modelo_impressao" checked="checked">
+              Mostrar em tela
+            </label>
+          </div>
+          <div class="radio-inline">
+            <label>
+              <input type="radio" value="1" name="modelo_impressao">
+              Imprimir
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="block">Ordenar por</label>
+          <div class="radio">
+            <label>
+              <input type="radio" value="tema" name="ordem" checked="checked">
+              Tema
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" value="situacao" name="ordem">
+              Situação
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" value="created_at" name="ordem">
+              Data de criação
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <label class="block">Campos para impressão</label>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="tema" name="campos[]" checked="checked">
+                  Tema
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="descricao" name="campos[]" checked="checked">
+                  Descrição
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="situacao" name="campos[]" checked="checked">
+                  Situação
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="projeto_referencia" name="campos[]" checked="checked">
+                  Projeto referência
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="orientador" name="campos[]" checked="checked">
+                  Orientador
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="turma" name="campos[]" checked="checked">
+                  Turma
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="aluno1" name="campos[]" checked="checked">
+                  Aluno 1
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="aluno2" name="campos[]" checked="checked">
+                  Aluno 2
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="semestre" name="campos[]" checked="checked">
+                  Semestre
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="created_at" name="campos[]" checked="checked">
+                  Data de criação
+                </label>
+              </div>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" value="updated_at" name="campos[]" checked="checked"> 
+                  Data de modificação
+                </label>
+              </div>
+          </div> 
+        </div>
+
+        
+        
+             
+      </div>
+      <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Este processo pode levar alguns minutos">Gerar relatório</button>
       </div>
       </form>
     </div>
