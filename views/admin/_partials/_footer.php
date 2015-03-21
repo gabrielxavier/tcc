@@ -2,6 +2,7 @@
     
     <script src="<?php echo $h->appURL() ?>web/admin/js/bootstrap.min.js"></script>
     <script src="<?php echo $h->appURL() ?>web/admin/js/jquery.validate.min.js"></script>
+    <script src="<?php echo $h->appURL() ?>web/admin/js/jquery.maskedinput.min.js"></script>
     <script src="<?php echo $h->appURL() ?>web/admin/js/jquery.tagsinput.min.js"></script>
     <script src="<?php echo $h->appURL() ?>web/admin/js/main.js"></script>
     <footer>

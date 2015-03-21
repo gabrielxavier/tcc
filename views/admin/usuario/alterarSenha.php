@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="titulo">Informe a senha atual</label>
+                            <label for="senha_atual">Informe a senha atual</label>
                             <input type="password" class="form-control required" id="senha_atual" name="senha_atual">
                         </div>
                     </div>
@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="titulo">Informe a nova senha</label>
+                            <label for="senha_nova">Informe a nova senha</label>
                             <input type="password" class="form-control required" data-rule-minlength="6" id="senha_nova" name="senha_nova">
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                  <div class="row">
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <label for="titulo">Informe a nova senha novamente</label>
+                            <label for="senha_confirma">Informe a nova senha novamente</label>
                             <input type="password" class="form-control required" equalto="#senha_nova" id="senha_confirma" name="senha_confirma">
                         </div>
                     </div>

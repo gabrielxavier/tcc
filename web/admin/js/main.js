@@ -11,9 +11,17 @@ $(document).ready(function(){
 		$('body').find('.ajax-loader').remove();
 	});
 
+	// Tags
 	if( $('#tags').length ){
 		$('#tags').tagsInput({width:'auto', 'defaultText':'Clique para digitar'});
 	}
+
+	// Mask
+	if( $.mask ){
+		$(".phone, .celphone").mask("(99) 9999-9999");
+	}
+	
+
 
 	// Botões cadastros
 	$('.btn-new-curso').on('click', function(e){
@@ -217,15 +225,4 @@ function validateInvalidHandlers(event, validator) {
 		}, 1000);
 	}
 
-}
-
-function ajaxLoader()
-{
-	this.init = function(){
-		$('body').on('ajaxStart', this.showLoader);
-		$('body').on('ajaxEnd', this.showLoader);
-	}
-
-	this.showLoader = function(){}
-	this.hideLoader = function(){}
 }

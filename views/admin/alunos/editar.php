@@ -27,7 +27,7 @@
             <div class="panel-body">
 
                 <div class="form-group">
-                    <label for="titulo">Nome</label>
+                    <label for="nome">Nome</label>
                     <input type="text" class="form-control required" id="nome" name="nome" value="<?=$registro->nome?>">
                 </div>
 
@@ -39,6 +39,21 @@
                 <div class="form-group">
                     <label for="matricula">Matrícula</label>
                     <input type="text" class="form-control required" id="matricula" name="matricula" value="<?=$registro->matricula?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="telefone_residencial">Telefone Residencial</label>
+                    <input type="text" class="form-control phone" id="telefone_residencial" name="telefone_residencial" value="<?=$registro->telefone_residencial?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="telefone_comercial">Telefone Comercial</label>
+                    <input type="text" class="form-control phone" id="telefone_comercial" name="telefone_comercial" value="<?=$registro->telefone_comercial?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="telefone_celular">Telefone Celular</label>
+                    <input type="text" class="form-control celphone" id="telefone_celular" name="telefone_celular" value="<?=$registro->telefone_celular?>">
                 </div>
 
                 <div class="form-group">
@@ -117,6 +132,9 @@
     $aluno->nome = $_POST['nome'];
     $aluno->email = $_POST['email'];
     $aluno->matricula = $_POST['matricula'];
+    $aluno->telefone_residencial = $_POST['telefone_residencial'];
+    $aluno->telefone_comercial = $_POST['telefone_comercial'];
+    $aluno->telefone_celular = $_POST['telefone_celular'];
     $aluno->id_perfil = 1;
     $aluno->senha = ($_POST['id'])? false : 'false';
 
