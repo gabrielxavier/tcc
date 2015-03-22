@@ -22,11 +22,9 @@ hr {
 }
 
 footer {
-	background: #F6F6F6;
 	width: 100%;
 	height: 50px;
 	margin-top: 30px;
-	display: none;
 }
 
 footer p {
@@ -101,4 +99,13 @@ label.error {
 
 .modal-header .close {
 	color: #FFFFFF;
+}
+
+@media print {
+    table {
+		page-break-inside: avoid;
+	}
+	header, footer {
+		display: none;
+	}
 }

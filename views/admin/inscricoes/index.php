@@ -173,7 +173,7 @@
 
                       while( $turma = $turmas->fetchAll() ): 
                         $selected = ( $h->getFilter('inscricoes', 'id_turma') == $turma->id )? 'selected="selected"' : '';
-                        echo '<option value="'.$turma->id.'" '.$selected.'>'.$turma->sigla.' - '.$turma->nome.'</option>';
+                        echo '<option value="'.$turma->id.'" '.$selected.'>'.$turma->sigla.' - '.$turma->semestre.'</option>';
                       endwhile;
                    ?>
                     </select>
@@ -219,14 +219,14 @@
           <label class="block">Modelo de exibição</label>
           <div class="radio-inline">
             <label>
-              <input type="radio" value="1" name="modelo_exibicao" checked="checked">
-              Em linha
+              <input type="radio" value="bloco" name="modelo_exibicao" checked="checked">
+              Em bloco
             </label>
           </div>
           <div class="radio-inline">
             <label>
-              <input type="radio" value="2" name="modelo_exibicao">
-              Em bloco
+              <input type="radio" value="linha" name="modelo_exibicao">
+              Em linha
             </label>
           </div>
         </div>
@@ -235,33 +235,33 @@
           <label class="block">Modelo de impressão</label>
           <div class="radio-inline">
             <label>
-              <input type="radio" value="2" name="modelo_impressao" checked="checked">
-              Mostrar em tela
+              <input type="radio" value="tela" name="modelo_impressao"  checked="checked">
+              Tela
             </label>
           </div>
           <div class="radio-inline">
             <label>
-              <input type="radio" value="1" name="modelo_impressao">
-              Imprimir
+              <input type="radio" value="impressao" name="modelo_impressao">
+              Impressão
             </label>
           </div>
         </div>
 
         <div class="form-group">
           <label class="block">Ordenar por</label>
-          <div class="radio">
+          <div class="radio-inline">
             <label>
-              <input type="radio" value="tema" name="ordem" checked="checked">
+              <input type="radio" value="titulo" name="ordem" checked="checked">
               Tema
             </label>
           </div>
-          <div class="radio">
+          <div class="radio-inline">
             <label>
-              <input type="radio" value="situacao" name="ordem">
+              <input type="radio" value="id_situacao" name="ordem">
               Situação
             </label>
           </div>
-          <div class="radio">
+          <div class="radio-inline">
             <label>
               <input type="radio" value="created_at" name="ordem">
               Data de criação
@@ -346,9 +346,6 @@
           </div> 
         </div>
 
-        
-        
-             
       </div>
       <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>

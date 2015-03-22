@@ -20,8 +20,6 @@ $(document).ready(function(){
 	if( $.mask ){
 		$(".phone, .celphone").mask("(99) 9999-9999");
 	}
-	
-
 
 	// Botões cadastros
 	$('.btn-new-curso').on('click', function(e){
@@ -186,7 +184,16 @@ $(document).ready(function(){
 
 	$('form').each(function(){
 		$(this).validate({
-			invalidHandler: validateInvalidHandlers,
+			invalidHandler: function(event, validator){
+				name = validator.errorList[0].element.name.replace('[', '\\[').replace(']', '\\]');
+
+				if( isDevice('phone') ){
+					var offset = $('[name="' + name + '"]').offset();
+					$('html, body').animate({
+						scrollTop: (offset.top - 100)
+					}, 1000);
+				}
+			},
 			highlight: function (element, errorClass, validClass) {
             	$(element).closest('.form-group').addClass('has-error');
 	        },
@@ -212,17 +219,4 @@ var isDevice = function(device){
 		return $(window).width() >= 980;
 
 	return false;
-}
-
-function validateInvalidHandlers(event, validator) {
-
-	name = validator.errorList[0].element.name.replace('[', '\\[').replace(']', '\\]');
-
-	if( isDevice('phone') ){
-		var offset = $('[name="' + name + '"]').offset();
-		$('html, body').animate({
-			scrollTop: (offset.top - 100)
-		}, 1000);
-	}
-
 }

@@ -34,7 +34,7 @@
     </tr>
 
     <?php
-       $c->findAll('id_perfil = 1');
+       $c->findAll('id_perfil = 1','usuario.*');
 
        // Filtros
       if( $h->getFilter('alunos', 'matricula') != '' )
@@ -45,6 +45,12 @@
       if( $h->getFilter('alunos', 'nome') != '' )
       {
         $c->addWhere(' nome LIKE "%'.$h->getFilter('alunos', 'nome').'%" ');
+      }
+
+      if( $h->getFilter('alunos', 'id_turma') > 0 )
+      {
+        $c->addJoin('turma_aluno t_a');
+        $c->addWhere(' usuario.id = t_a.id_aluno AND t_a.id_turma = "'.$h->getFilter('alunos', 'id_turma').'" ');
       }
        
       $total = $c->executeQuery()->count();
@@ -99,6 +105,22 @@
            <div class="form-group">
                 <label for="matricula">Matrícula</label>
                 <input type="text" class="form-control" id="matricula" name="matricula" value="<?php echo $h->getFilter('alunos', 'matricula') ?>">
+          </div>
+
+          <div class="form-group">
+                <label for="id_turma">Turma</label>
+                <select name="id_turma" id="id_turma" class="form-control">
+                 <option value="0">Todas</option>
+                <?php
+                  $crudTurmas = new CRUD('turma');
+                  $turmas = $crudTurmas->findAll()->executeQuery();
+
+                  while( $turma = $turmas->fetchAll() ): 
+                    $selected = ( $h->getFilter('alunos', 'id_turma') == $turma->id )? 'selected="selected"' : '';
+                    echo '<option value="'.$turma->id.'" '.$selected.'>'.$turma->sigla.' - '.$turma->semestre.'</option>';
+                  endwhile;
+               ?>
+                </select>
           </div>
        
       </div>

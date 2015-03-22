@@ -16,5 +16,11 @@
 		$h->removeFilter('alunos', 'nome');
 	}
 
+	if( $_POST['id_turma'] > 0 )
+	{
+		$h->addFilter('alunos', 'id_turma', intval($_POST['id_turma']));
+	}else{
+		$h->removeFilter('alunos', 'id_turma');
+	}
 
 	$h->redirectFor('admin/alunos');

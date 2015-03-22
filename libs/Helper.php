@@ -48,6 +48,10 @@ class Helper {
 		return $this->projectURL . 'web/' . $app . '/uploads/'.$file;
 	}
 
+	public function getBodyClass()
+	{
+		return implode(' ', $_GET);
+	}
 
 	//Date
 	public function dateFromDB($data, $separador="/")

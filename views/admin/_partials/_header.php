@@ -31,10 +31,10 @@
     </script>
 
   </head>
-  <body>
+  <body  class="<?php echo $h->getBodyClass(); ?>">
       
       <?php if( $auth->isOnline() == true): ?>
-      <div class="nav navbar-inverse" role="navigation">
+      <header class="nav navbar-inverse" role="navigation">
         <div class="container">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -145,7 +145,7 @@
             </ul>
           </div><!--/.nav-collapse -->
         </div>
-      </div>
+      </header>
       <?php endif; ?>
 
       <div class="container container-messages">
