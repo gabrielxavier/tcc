@@ -15,6 +15,7 @@ class Core {
 		$module = isset($_GET['module'])? trim($_GET['module']) : 'index';
 		$view	= isset($_GET['view'])? trim($_GET['view']) : 'index';
 		$id 	= isset($_GET['id'])? intval(trim($_GET['id'])) : NULL;
+		$h = new Helper();
 
 		if( !is_dir("views/" . $app) )
 		{
@@ -23,12 +24,14 @@ class Core {
 
 		if( !is_dir("views/" . $app . "/" . $module) )
 		{
-			die('Módulo não encontrado! ' . "views/" . $app . "/" . $module);
+			$h->addFlashMessage('error','Módulo não encontrado!');
+			$h->redirectFor($app.'/index');
 		}
 
 		if( !is_file("views/" . $app . "/" . $module . "/" . $view . ".php") )
 		{
-			die('View não encontrada! ' . "views/" . $app . "/" . $module . "/" . $view . ".php");
+			$h->addFlashMessage('error','Página não encontrada!');
+			$h->redirectFor($app.'/index');
 		}
 
 		$this->route = array(
