@@ -1,11 +1,16 @@
 <?php  $project->partial('admin', 'header');  ?>
 
+<?php $auth->requireLevel(array(2,3)); ?>
+
 <div class="container">
 
 	<div class="page-header hidden-print">
         <h1>
             Inscrições <small>Relatório</small>
             <div class="btn-group pull-right">
+            		<a href="javascript:window.print();" class="btn btn-info">
+                    <i class="glyphicon glyphicon-print"></i> Imprimir
+                </a>
                 <a href="<?php echo $h->urlFor('admin/inscricoes'); ?>" class="btn btn-primary">
                     <i class="glyphicon glyphicon-list"></i> Lista
                 </a>
@@ -105,6 +110,7 @@
 		            </td>
 		        </tr>
 	    	<?php endif; ?>
+	    	<?php $a = new CRUD('usuario'); ?>
 	    	<?php if(in_array('aluno1', $_POST['campos'])): ?>
 		        <tr>
 		            <th>
@@ -112,7 +118,6 @@
 		            </th>
 		            <td>    
 		                <?php 
-		                    $a = new CRUD('usuario');
 		                    $aluno1 = $a->findOneById($registro->id_aluno1)->executeQuery()->fetchAll();
 		                ?>
 		                <?php echo $aluno1->nome; ?> ( <?php echo $aluno1->matricula; ?> )
@@ -200,41 +205,107 @@
 
 	<table class="table table-hover table-striped">
 	    <tr>
-	      <th></th>
-	      <th>Tema</th>
-	      <th class="hidden-xs">Turma</th>
-	      <th class="hidden-xs">Alunos</th>
-	      <th class="hidden-xs">Data criação</th>
-	      <th class="hidden-xs">Data atualização</th>
+	    	<?php if(in_array('tema', $_POST['campos'])): ?>
+	   			<th>Tema</th>
+	   		<?php endif; ?>
+	   		<?php if(in_array('descricao', $_POST['campos'])): ?>
+	     		<th>Descrição</th>
+	     	<?php endif; ?>
+	     	<?php if(in_array('projeto_referencia', $_POST['campos'])): ?>
+	      	<th>Projeto de referência</th>
+	    	<?php endif; ?>
+	    	<?php if(in_array('orientador', $_POST['campos'])): ?>
+	      	<th>Orientador</th>
+	      <?php endif; ?>
+	      <?php if(in_array('aluno1', $_POST['campos'])): ?>
+	      	<th>Aluno 1</th>
+	      <?php endif; ?>
+	      <?php if(in_array('aluno2', $_POST['campos'])): ?>
+	      	<th>Aluno 2</th>
+	      <?php endif; ?>
+	      <?php if(in_array('turma', $_POST['campos'])): ?>
+	      	<th>Turma</th>
+	      <?php endif; ?>
+	      <?php if(in_array('semestre', $_POST['campos'])): ?>
+	      	<th>Semestre</th>
+	      <?php endif; ?>
+	      <?php if(in_array('created_at', $_POST['campos'])): ?>
+	      	<th>Data criação</th>
+	      <?php endif; ?>
+	      <?php if(in_array('updated_at', $_POST['campos'])): ?>
+	     		<th>Data atualização</th>
+	     	<?php endif; ?>
+	     	<?php if(in_array('situacao', $_POST['campos'])): ?>
+	     		<th>Situação</th>
+	     	<?php endif; ?>
 	    </tr>
 
-	    <?php while( $resultado = $c->fetchAll() ): ?>
+	    <?php while( $registro = $c->fetchAll() ): ?>
 	    <tr>
-	      <td>
-	        <?php 
-	            $s = new CRUD('situacao');
-	            $situacao = $s->findOneById($resultado->id_situacao)->executeQuery()->fetchAll();
-	        ?>
-	        <i class="glyphicon <?php echo $h->getSituacaoDecorations($resultado->id_situacao, 'icon'); ?>" data-toggle="tooltip" data-placement="top" title="<?php echo $situacao->valor; ?>">
-	      </td>
-	      <td><?php echo $resultado->titulo ?></td>
-	      <?php 
-	        $crudTurma = new CRUD('turma');
-	        $turma = $crudTurma->findOneById($resultado->id_turma)->executeQuery()->fetchAll();
-	      ?>
-	      <td class="hidden-xs"><?php echo $turma->nome ?></td>
+	    	<?php if(in_array('tema', $_POST['campos'])): ?>
+	      	<td><?php echo $registro->titulo ?></td>
+	      <?php endif; ?>
+	      <?php if(in_array('descricao', $_POST['campos'])): ?>
+	      	<td><?php echo $registro->descricao ?></td>
+   			<?php endif; ?>
+   			<?php if(in_array('projeto_referencia', $_POST['campos'])): ?>
+		      <td>
+		      	 <?php 
+	                $p = new CRUD('projeto');
+	                $projeto = $p->findOneById($registro->id_projeto)->executeQuery()->fetchAll();
+	            ?>
+	            <?php echo $projeto->titulo; ?>
+		      </td>
+		    <?php endif; ?>
+				<?php if(in_array('orientador', $_POST['campos'])): ?>
+		      <td>
+		      	<?php 
+		            $o = new CRUD('usuario');
+		            $orientador = $o->findOneById($registro->id_orientador)->executeQuery()->fetchAll();
+		        ?>
+		        <?php echo $orientador->nome; ?>
+		      </td>
+	    	<?php endif; ?>
 	      <?php
 	        $crudAlunos = new CRUD('usuario');
-	        $aluno1 = $crudAlunos->findOneById($resultado->id_aluno1)->executeQuery()->fetchAll();
+	        $aluno1 = $crudAlunos->findOneById($registro->id_aluno1)->executeQuery()->fetchAll();
 	        
-	        if( $resultado->id_aluno2 )
+	        if( $registro->id_aluno2 )
 	        {
-	          $aluno2 = $crudAlunos->clearQuery()->findOneById($resultado->id_aluno2)->executeQuery()->fetchAll();
+	          $aluno2 = $crudAlunos->clearQuery()->findOneById($registro->id_aluno2)->executeQuery()->fetchAll();
 	        }
 	      ?>
-	      <td class="hidden-xs"><?php echo $aluno1->nome . ' ('.$aluno1->matricula.')' ?> <?php echo ($resultado->id_aluno2)? ' <br /> ' . $aluno2->nome . ' ('.$aluno2->matricula.')' : '' ?></td>
-	      <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->created_at) ?></td>
-	      <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->updated_at) ?></td>
+				<?php if(in_array('aluno1', $_POST['campos'])): ?>
+	     		<td><?php echo $aluno1->nome . ' ('.$aluno1->matricula.')' ?></td>
+	     	<?php endif; ?>
+	     	<?php if(in_array('aluno2', $_POST['campos'])): ?>
+	      	<td><?php echo $aluno2->nome . ' ('.$aluno2->matricula.')' ?></td>
+	      <?php endif; ?>
+	      <?php 
+	        $crudTurma = new CRUD('turma');
+	        $turma = $crudTurma->findOneById($registro->id_turma)->executeQuery()->fetchAll();
+	      ?>
+	      <?php if(in_array('turma', $_POST['campos'])): ?>
+	      	<td><?php echo $turma->sigla ?></td>
+	      <?php endif; ?>
+	      <?php if(in_array('semestre', $_POST['campos'])): ?>
+	      	<td><?php echo $registro->semestre ?></td>
+	      <?php endif; ?>
+	      <?php if(in_array('created_at', $_POST['campos'])): ?>
+	      	<td><?php echo $h->dateTimeFromDB($registro->created_at) ?></td>
+	      <?php endif; ?>
+	      <?php if(in_array('updated_at', $_POST['campos'])): ?>
+	      	<td><?php echo $h->dateTimeFromDB($registro->updated_at) ?></td>
+	      <?php endif; ?>
+	      <?php if(in_array('situacao', $_POST['campos'])): ?>
+          <td>
+          <?php 
+              $s = new CRUD('situacao');
+              $situacao = $s->findOneById($registro->id_situacao)->executeQuery()->fetchAll();
+          ?>
+          <?php echo $situacao->valor;?>
+        	</td>
+				<?php endif; ?>
 	    </tr>
 
 	    <?php endwhile; ?>
@@ -245,13 +316,14 @@
 
 </div>
 
-<?php  $project->partial('admin', 'footer');  ?>
-
-
 <?php if($_POST['modelo_impressao'] == 'impressao' ): ?>
 	<script>
-		window.print();
+		window.onload = function(){
+			window.print();
+		}
 	</script>
 <?php else: ?>
 
 <?php endif; ?>
+
+<?php  $project->partial('admin', 'footer');  ?>

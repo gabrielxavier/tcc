@@ -105,6 +105,7 @@ label.error {
     table {
 		page-break-inside: avoid;
 	}
+	
 	header, footer {
 		display: none;
 	}

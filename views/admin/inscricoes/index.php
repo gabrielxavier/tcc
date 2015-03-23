@@ -67,6 +67,7 @@
       <th></th>
       <th>Tema</th>
       <th class="hidden-xs">Turma</th>
+      <th class="hidden-xs">Semestre</th>
       <th class="hidden-xs">Alunos</th>
       <th class="hidden-xs">Data criação</th>
       <th class="hidden-xs">Data atualização</th>
@@ -87,7 +88,8 @@
         $crudTurma = new CRUD('turma');
         $turma = $crudTurma->findOneById($resultado->id_turma)->executeQuery()->fetchAll();
       ?>
-      <td class="hidden-xs"><?php echo $turma->nome ?></td>
+      <td class="hidden-xs"><?php echo $turma->sigla; ?></td>
+      <td class="hidden-xs"><?php echo $resultado->semestre ?></td>
       <?php
         $crudAlunos = new CRUD('usuario');
         $aluno1 = $crudAlunos->findOneById($resultado->id_aluno1)->executeQuery()->fetchAll();
@@ -124,9 +126,9 @@
 
   </table>
 
-  
-  <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modal-relatorio"> <i class="glyphicon glyphicon-print"></i> Imprimir relatório</a>
-  
+  <?php if($auth->getSessionInfo('userLevel') > 1): ?>
+    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modal-relatorio"> <i class="glyphicon glyphicon-print"></i> Imprimir relatório</a>
+  <?php endif; ?>
 
   <?php $h->pagination( $paginationVars['p'],  $total ); ?>
 
@@ -213,20 +215,18 @@
         <h4 class="modal-title" id="myModalLabel">Imprimir relatório</h4>
       </div>
       <div class="modal-body">
-  
-
         <div class="form-group">
           <label class="block">Modelo de exibição</label>
           <div class="radio-inline">
             <label>
               <input type="radio" value="bloco" name="modelo_exibicao" checked="checked">
-              Em bloco
+              Bloco
             </label>
           </div>
           <div class="radio-inline">
             <label>
               <input type="radio" value="linha" name="modelo_exibicao">
-              Em linha
+              Lista
             </label>
           </div>
         </div>
