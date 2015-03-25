@@ -60,7 +60,7 @@
                 if( $auth->getSessionInfo('userLevel') == 2 )
                 {
                   $crudSituacoesAbertas = new CRUD('inscricao');
-                  $crudSituacoesAbertas->findAll(' id_situacao = 2 ')->executeQuery();
+                  $crudSituacoesAbertas->findAll(' id_situacao = 2 AND id_orientador = "'.$auth->getSessionInfo('userID').'" ')->executeQuery();
                 }
               ?>
               <li class="dropdown">
