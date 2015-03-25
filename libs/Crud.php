@@ -77,7 +77,7 @@ class Crud extends Database {
 		$this->clearQuery();
 		$campos = array();
 		$valores = array();
-		$registro->created_at = date("Y-m-d h:i:s");
+		$registro->created_at = date("Y-m-d H:i:s");
 		$coluns = get_object_vars($registro);
 		unset($coluns['id']);
 		unset($coluns['updated_at']);
@@ -102,10 +102,10 @@ class Crud extends Database {
 	public function update( $registro )
 	{	
 		$this->clearQuery();
+		$registro->updated_at = date("Y-m-d H:i:s");
 		$coluns = get_object_vars($registro);
 		unset($coluns['id']);
 		unset($coluns['created_at']);
-		unset($coluns['updated_at']);
 
 		foreach ($coluns as $chave=>$valor){
 			if( $this->injection($valor) != NULL ){	

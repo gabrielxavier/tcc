@@ -197,6 +197,7 @@
     {
         $crudCurso = new CRUD('projeto_curso');
         $crudCurso->delete('id_projeto = "'. $id .'"')->executeQuery();
+        $_POST['cursos'] = array_unique($_POST['cursos']);
         foreach ($_POST['cursos'] as $key => $value) {
             if( intval($value) > 0 )
             {
@@ -209,6 +210,7 @@
 
         $crudProfessor = new CRUD('projeto_professor');
         $crudProfessor->delete('id_projeto = "'. $id .'"')->executeQuery();
+        $_POST['professores'] = array_unique($_POST['professores']);
         foreach ($_POST['professores'] as $key => $value) {
             if( intval($value) > 0 )
             {

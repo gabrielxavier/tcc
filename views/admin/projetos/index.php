@@ -60,6 +60,14 @@
       {
         $c->addWhere(' (titulo LIKE "%'.$h->getFilter('projetos', 'palavra_chave').'%" OR descricao LIKE "%'.$h->getFilter('projetos', 'palavra_chave').'%" OR tags LIKE "%'.$h->getFilter('projetos', 'palavra_chave').'%" ) ');
       }
+
+      // Filtros
+      if( $h->getFilter('projetos', 'id_curso') )
+      {
+        $c->addJoin('projeto_curso');
+        $c->addWhere(' projeto_curso.id_curso = "'.$h->getFilter('projetos', 'id_curso').'" ');
+        $c->addWhere(' projeto_curso.id_projeto = projeto.id ');
+      }
        
        $total = $c->executeQuery()->count();
 
@@ -92,9 +100,13 @@
 
     <?php endwhile; ?>
 
-    <?php if( $c->count() == 0 ):  ?>
-    <tr><td colspan="7" align="center">Nenhum resultado foi encontrado.</td></tr>
-    <?php endif; ?>
+    <tfoot>
+      <?php if( $c->count() == 0 ):  ?>
+      <tr><td colspan="7" align="center">Nenhum resultado foi encontrado.</td></tr>
+      <?php else: ?>
+      <tr><td colspan="7" align="center"><?php echo $c->count() ?> resultados encontrados.</td></tr>
+      <?php endif; ?>
+    </tfoot>
     
   </table>
 
@@ -117,6 +129,24 @@
                   <label for="palavra_chave">Palavra chave</label>
                   <input type="text" class="form-control" id="palavra_chave" name="palavra_chave" value="<?php echo $h->getFilter('projetos', 'palavra_chave') ?>" placeholder="Título/Descrição/Tags">
             </div>
+
+            <?php if($auth->getSessionInfo('userLevel') > 1): ?>
+              <div class="form-group">
+                    <label for="id_curso">Curso</label>
+                    <select name="id_curso" id="id_curso" class="form-control">
+                     <option value="0">Todas</option>
+                    <?php
+                      $crudCursos = new CRUD('curso');
+                      $cursos = $crudCursos->findAll()->executeQuery();
+
+                      while( $curso = $cursos->fetchAll() ): 
+                        $selected = ( $h->getFilter('projetos', 'id_curso') == $curso->id )? 'selected="selected"' : '';
+                        echo '<option value="'.$curso->id.'" '.$selected.'>'.$curso->sigla.' - '.$curso->nome.'</option>';
+                      endwhile;
+                   ?>
+                    </select>
+              </div>
+            <?php endif; ?>
       </div>
       <div class="modal-footer">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
