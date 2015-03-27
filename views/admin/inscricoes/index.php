@@ -209,7 +209,7 @@
 <div class="modal fade" id="modal-relatorio" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <form action="<?php echo $h->urlFor('admin/inscricoes/relatorio'); ?>" method="post">
+      <form action="<?php echo $h->urlFor('admin/inscricoes/relatorio'); ?>" method="post" target="_blank">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title" id="myModalLabel">Imprimir relatório</h4>
@@ -243,6 +243,12 @@
             <label>
               <input type="radio" value="impressao" name="modelo_impressao">
               Impressão
+            </label>
+          </div>
+          <div class="radio-inline">
+            <label>
+              <input type="radio" value="csv" name="modelo_impressao">
+              CSV
             </label>
           </div>
         </div>
