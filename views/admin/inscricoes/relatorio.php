@@ -1,12 +1,172 @@
-<?php  $project->partial('admin', 'header');  ?>
+<?php
 
-<?php $auth->requireLevel(array(2,3)); ?>
+	if($_POST['modelo_impressao'] != 'csv' )
+	{
+		$project->partial('admin', 'header');
+	}
 
-<?php if($_POST['modelo_impressao'] == 'csv' ): ?>
+	// Valida usuario
+	$auth->requireLevel(array(2,3));
 
-<?php var_dump($_POST['campos']) ?>
+	// Busca a partir dos filtros
+	$c = new CRUD('inscricao'); $c->findAll();
 
-<?php else: ?>
+	if( $auth->getSessionInfo('userLevel') == 1 )
+	{
+		$c->addWhere(' ( id_aluno1 = "'.$auth->getSessionInfo('userID').'" OR id_aluno2 = "'.$auth->getSessionInfo('userID').'"  )');
+	}
+	else if( $auth->getSessionInfo('userLevel') == 2 )
+	{
+		$c->addWhere(' id_orientador = "'.$auth->getSessionInfo('userID').'" ');
+	}
+
+	// Filtros
+	if( $h->getFilter('inscricoes', 'palavra_chave') )
+	{
+		$c->addWhere(' (titulo LIKE "%'.$h->getFilter('inscricoes', 'palavra_chave').'%" OR descricao LIKE "%'.$h->getFilter('inscricoes', 'palavra_chave').'%" ) ');
+	}
+
+	if( $h->getFilter('inscricoes', 'id_situacao') > 0 )
+	{
+		$c->addWhere(' id_situacao = "'.$h->getFilter('inscricoes', 'id_situacao').'" ');
+	}
+
+	if( $h->getFilter('inscricoes', 'id_turma') > 0 )
+	{
+		$c->addWhere(' id_turma = "'.$h->getFilter('inscricoes', 'id_turma').'" ');
+	}
+
+	if( $h->getFilter('inscricoes', 'slug_semestre') != "" )
+	{
+		$c->addWhere(' semestre = "'.$h->getFilter('inscricoes', 'slug_semestre').'" ');
+	}
+
+	$resultados = $c->addOrder(trim($_POST['ordem']).' DESC ')->executeQuery();
+
+
+
+
+	// Exporta em CSV
+	if($_POST['modelo_impressao'] == 'csv' ){
+
+		header('Content-Description: File Transfer');
+		header('Content-Type: application/octet-stream'); 
+		header('Content-Disposition: attachment; filename=relatorio-inscricoes-'.date('YmdHis').'.csv');
+		header('Content-Transfer-Encoding: binary');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+		header('Pragma: public');
+
+		$output = fopen('php://output', 'w');
+
+		$colunas = Array();
+		if(in_array('tema', $_POST['campos']))
+			$colunas[] = 'Tema';
+
+		if(in_array('descricao', $_POST['campos']))
+			$colunas[] = 'Descrição';
+
+		if(in_array('projeto_referencia', $_POST['campos']))
+			$colunas[] = 'Projeto de referência';
+
+		if(in_array('orientador', $_POST['campos']))
+			$colunas[] = 'Orientador';
+
+		if(in_array('aluno1', $_POST['campos']))
+			$colunas[] = 'Aluno 1';
+
+		if(in_array('aluno2', $_POST['campos']))
+			$colunas[] = 'Aluno 2';
+
+		if(in_array('turma', $_POST['campos']))
+			$colunas[] = 'Turma';
+
+		if(in_array('semestre', $_POST['campos']))
+			$colunas[] = 'Semestre';
+
+		if(in_array('created_at', $_POST['campos']))
+			$colunas[] = 'Data criação';
+
+		if(in_array('updated_at', $_POST['campos']))
+			$colunas[] = 'Data atualização';
+
+		if(in_array('situacao', $_POST['campos']))
+			$colunas[] = 'Situação';
+
+		// Escreve as colunas
+		fputcsv($output, $colunas, ";");
+
+		while ($registro = $c->fetchAll()){
+
+			$valores = Array();
+			if(in_array('tema', $_POST['campos']))
+				$valores[] = $registro->titulo;
+
+			if(in_array('descricao', $_POST['campos']))
+				$valores[] = $registro->descricao;
+
+			if(in_array('projeto_referencia', $_POST['campos']))
+			{
+                $p = new CRUD('projeto');
+                $projeto = $p->findOneById($registro->id_projeto)->executeQuery()->fetchAll();
+				$valores[] = $projeto->titulo;
+			}
+
+			if(in_array('orientador', $_POST['campos']))
+			{
+                $o = new CRUD('usuario');
+                $orientador = $o->findOneById($registro->id_orientador)->executeQuery()->fetchAll();
+				$valores[] = $orientador->nome;
+			}
+
+			$a = new CRUD('usuario');
+			if(in_array('aluno1', $_POST['campos']))
+			{
+                $aluno1 = $a->findOneById($registro->id_aluno1)->executeQuery()->fetchAll();
+				$valores[] = $aluno1->nome . ' (' . $aluno1->matricula . ')';
+			}
+
+			if(in_array('aluno2', $_POST['campos']))
+			{
+				if( $registro->id_aluno2 )
+				{
+                	$aluno2 = $a->findOneById($registro->id_aluno2)->executeQuery()->fetchAll();
+					$valores[] = $aluno2->nome . ' (' . $aluno2->matricula . ')';
+				}else{
+					$valores[] = '';
+				}
+			}
+
+			if(in_array('turma', $_POST['campos']))
+			{
+                $t = new CRUD('turma');
+                $turma = $t->findOneById($registro->id_turma)->executeQuery()->fetchAll();
+				$valores[] = $turma->sigla;
+			}
+
+			if(in_array('semestre', $_POST['campos']))
+				$valores[] = $registro->semestre;
+
+			if(in_array('created_at', $_POST['campos']))
+				$valores[] = $h->dateTimeFromDB($registro->created_at);
+
+			if(in_array('updated_at', $_POST['campos']))
+				$valores[] = $h->dateTimeFromDB($registro->updated_at);
+
+			if(in_array('situacao', $_POST['campos']))
+			{
+				$s = new CRUD('situacao');
+                $situacao = $s->findOneById($registro->id_situacao)->executeQuery()->fetchAll();
+				$valores[] = $situacao->valor;
+			}
+
+			// Escreve os valores
+			fputcsv($output, $valores, ';');
+
+		} 
+
+	 
+	} else{ ?>
 
 	<div class="container">
 
@@ -17,45 +177,6 @@
 	        </h1>
 	    </div>
 		<?php endif ?>
-
-	<?php 
-
-		$c = new CRUD('inscricao'); $c->findAll();
-
-		if( $auth->getSessionInfo('userLevel') == 1 )
-		{
-			$c->addWhere(' ( id_aluno1 = "'.$auth->getSessionInfo('userID').'" OR id_aluno2 = "'.$auth->getSessionInfo('userID').'"  )');
-		}
-		else if( $auth->getSessionInfo('userLevel') == 2 )
-		{
-			$c->addWhere(' id_orientador = "'.$auth->getSessionInfo('userID').'" ');
-		}
-
-		// Filtros
-		if( $h->getFilter('inscricoes', 'palavra_chave') )
-		{
-			$c->addWhere(' (titulo LIKE "%'.$h->getFilter('inscricoes', 'palavra_chave').'%" OR descricao LIKE "%'.$h->getFilter('inscricoes', 'palavra_chave').'%" ) ');
-		}
-
-		if( $h->getFilter('inscricoes', 'id_situacao') > 0 )
-		{
-			$c->addWhere(' id_situacao = "'.$h->getFilter('inscricoes', 'id_situacao').'" ');
-		}
-
-		if( $h->getFilter('inscricoes', 'id_turma') > 0 )
-		{
-			$c->addWhere(' id_turma = "'.$h->getFilter('inscricoes', 'id_turma').'" ');
-		}
-
-		if( $h->getFilter('inscricoes', 'slug_semestre') != "" )
-		{
-			$c->addWhere(' semestre = "'.$h->getFilter('inscricoes', 'slug_semestre').'" ');
-		}
-
-		$resultados = $c->addOrder(trim($_POST['ordem']).' DESC ')->executeQuery();
-
-	?>
-
 
 	<?php if( $_POST['modelo_exibicao'] == 'bloco' ): ?>
 
@@ -149,7 +270,7 @@
 		                    $t = new CRUD('turma');
 		                    $turma = $t->findOneById($registro->id_turma)->executeQuery()->fetchAll();
 		                ?>
-		                <?php echo $turma->nome; ?>
+		                <?php echo $turma->sigla; ?>
 		            </td>
 		        </tr>
 		   		<?php endif; ?>
@@ -212,27 +333,27 @@
 		     		<th>Descrição</th>
 		     	<?php endif; ?>
 		     	<?php if(in_array('projeto_referencia', $_POST['campos'])): ?>
-		      	<th>Projeto de referência</th>
+		      		<th>Projeto de referência</th>
 		    	<?php endif; ?>
 		    	<?php if(in_array('orientador', $_POST['campos'])): ?>
-		      	<th>Orientador</th>
-		      <?php endif; ?>
-		      <?php if(in_array('aluno1', $_POST['campos'])): ?>
-		      	<th>Aluno 1</th>
-		      <?php endif; ?>
-		      <?php if(in_array('aluno2', $_POST['campos'])): ?>
-		      	<th>Aluno 2</th>
-		      <?php endif; ?>
-		      <?php if(in_array('turma', $_POST['campos'])): ?>
-		      	<th>Turma</th>
-		      <?php endif; ?>
-		      <?php if(in_array('semestre', $_POST['campos'])): ?>
-		      	<th>Semestre</th>
-		      <?php endif; ?>
-		      <?php if(in_array('created_at', $_POST['campos'])): ?>
-		      	<th>Data criação</th>
-		      <?php endif; ?>
-		      <?php if(in_array('updated_at', $_POST['campos'])): ?>
+		      		<th>Orientador</th>
+		      	<?php endif; ?>
+		      	<?php if(in_array('aluno1', $_POST['campos'])): ?>
+		      		<th>Aluno 1</th>
+		      	<?php endif; ?>
+		      	<?php if(in_array('aluno2', $_POST['campos'])): ?>
+		      		<th>Aluno 2</th>
+		      	<?php endif; ?>
+		      	<?php if(in_array('turma', $_POST['campos'])): ?>
+		      		<th>Turma</th>
+		      	<?php endif; ?>
+		      	<?php if(in_array('semestre', $_POST['campos'])): ?>
+		      		<th>Semestre</th>
+		      	<?php endif; ?>
+		      	<?php if(in_array('created_at', $_POST['campos'])): ?>
+		      		<th>Data criação</th>
+		     	<?php endif; ?>
+		      	<?php if(in_array('updated_at', $_POST['campos'])): ?>
 		     		<th>Data atualização</th>
 		     	<?php endif; ?>
 		     	<?php if(in_array('situacao', $_POST['campos'])): ?>
@@ -316,14 +437,22 @@
 
 	</div>
 
-	<?php if($_POST['modelo_impressao'] == 'impressao' ): ?>
-		<script>
-			window.onload = function(){
-				window.print();
-			}
-		</script>
-	<?php endif; ?>
+<?php } ?>
 
+<?php if($_POST['modelo_impressao'] != 'csv' ): ?>
+	<?php  $project->partial('admin', 'footer');  ?>
 <?php endif; ?>
 
-<?php  $project->partial('admin', 'footer');  ?>
+<?php if($_POST['modelo_impressao'] == 'impressao' ): ?>
+	<script>
+        var document_focus = false;
+        $(document).ready(function() {
+    		window.print();document_focus = true;
+    	});
+        setInterval(function() {
+        	if (document_focus === true) {
+        		window.close();
+        	}  
+        }, 300);
+	</script>
+<?php endif; ?>
