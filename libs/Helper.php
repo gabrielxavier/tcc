@@ -48,6 +48,11 @@ class Helper {
 		return $this->projectURL . 'web/' . $app . '/uploads/'.$file;
 	}
 
+	public function getWebPath( $app = 'admin' )
+	{
+		return $this->projectURL . 'web/' . $app . '/';
+	}
+
 	public function getBodyClass()
 	{
 		return implode(' ', $_GET);

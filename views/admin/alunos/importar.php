@@ -6,6 +6,7 @@
   
     <div class="page-header">
         <h1>Alunos <small>Importar</small> <a href="<?php echo $h->urlFor('admin/alunos'); ?>" class="btn btn-primary pull-right"> <i class="glyphicon glyphicon-list"></i> Lista</a></h1>
+         <p>Faça download de um arquivo exemplo clicando <a href="<?php echo $h->getWebPath() . 'alunos.csv' ?>" target="_blank">aqui</a>.</p>
     </div>
 
  
@@ -26,9 +27,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="arquivo">Arquivo</label>
-                    <input type="file" name="arquivo" id="arquivo" class="required" data-rule-extension="csv">
-                    <p class="help-block">Selecione apenas arquivos no formato CSV.</p>
+                    <label for="arquivo">Arquivo </label>
+                    <input type="file" name="arquivo" id="arquivo" class="form-control required" data-rule-extension="csv">
+                    <span class="help-block">São permitidos somente arquivos no formato CSV.</span>
                 </div>
                 
             </div>
@@ -68,11 +69,14 @@
                     while (($data = fgetcsv($handle, 1000, ";")) !== FALSE)
                     {
                         $crudAlunos = new CRUD('usuario');
-                       
+
                         $aluno = new Usuario();
-                        $aluno->nome           = utf8_encode($data[0]);
-                        $aluno->email          = $data[1];
-                        $aluno->matricula      = $data[2];
+                        $aluno->nome                      = utf8_encode($data[0]);
+                        $aluno->email                     = $data[1];
+                        $aluno->matricula                 = $data[2];
+                        $aluno->telefone_residencial      = isset($data[3]) ? $data[3] : '';
+                        $aluno->telefone_comercial        = isset($data[4]) ? $data[4] : '';
+                        $aluno->telefone_celular          = isset($data[5]) ? $data[5] : '';
                         $aluno->id_perfil      = 1;
                         $aluno->senha          = 0;
 
