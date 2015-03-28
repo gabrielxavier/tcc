@@ -41,7 +41,7 @@
 		$c->addWhere(' semestre = "'.$h->getFilter('inscricoes', 'slug_semestre').'" ');
 	}
 
-	$resultados = $c->addOrder(trim($_POST['ordem']).' DESC ')->executeQuery();
+	$resultados = $c->addOrder(trim($_POST['ordem']).' ASC ')->executeQuery();
 
 
 
