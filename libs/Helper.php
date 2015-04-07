@@ -171,8 +171,8 @@ class Helper {
 
 	public function getSituacaoDecorations($id, $key){
 		$decorations = array(
-            1 => array('icon'=> 'glyphicon-asterisk', 'color'=>''),
-            2 => array('icon'=> 'glyphicon-time', 'color'=>'info'),
+            1 => array('icon'=> 'glyphicon-asterisk', 'color'=>'info'),
+            2 => array('icon'=> 'glyphicon-time', 'color'=>'warning'),
             3 => array('icon'=> 'glyphicon-ok', 'color'=>'success'),
             4 => array('icon'=> 'glyphicon-remove', 'color'=>'danger')
     );

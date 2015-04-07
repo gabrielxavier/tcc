@@ -75,7 +75,7 @@
     </tr>
 
     <?php while( $resultado = $c->fetchAll() ): ?>
-    <tr>
+    <tr class="<?php echo $h->getSituacaoDecorations($resultado->id_situacao, 'color'); ?>">
       <td>
         <?php 
             $s = new CRUD('situacao');
