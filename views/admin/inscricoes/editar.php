@@ -169,26 +169,32 @@
     $inscricao->id_turma = $_POST['id_turma'];
     $inscricao->id_projeto = $_POST['id_projeto'];
     $inscricao->id_aluno1 = $_POST['id_aluno1'];
-    $inscricao->id_aluno2 = ($_POST['id_aluno2'])? $_POST['id_aluno2'] : '0';
+    $inscricao->id_aluno2 = ($_POST['id_aluno2'])? $_POST['id_aluno2'] : NULL;
     $inscricao->id_situacao = isset($_POST['salvar_enviar']) ? 2 : $_POST['id_situacao'];
     $inscricao->semestre = $_POST['semestre'];
-
 
     if( $_POST['id'] == '' )
     {
         $id = $c->nextID();
 
-        $crudSituacao = new CRUD('inscricao_situacao'); 
-        $situacao = new Inscricaosituacao();
-        $situacao->id_situacao = 1;
-        $situacao->id_inscricao = $id;
-        $situacao->id_autor = $auth->getSessionInfo('userID');
-        $situacao->comentario = 'Inscrição criada com sucesso.';
-        
-        $crudSituacao->save($situacao)->executeQuery();
         $c->save($inscricao)->executeQuery();
 
-        $h->addFlashMessage('success', 'Inscrição salva com sucesso!');
+        if($c->getExecutedQuery())
+        {
+            $crudSituacao = new CRUD('inscricao_situacao'); 
+            $situacao = new Inscricaosituacao();
+            $situacao->id_situacao = 1;
+            $situacao->id_inscricao = $id;
+            $situacao->id_autor = $auth->getSessionInfo('userID');
+            $situacao->comentario = 'Inscrição criada com sucesso.';
+            $crudSituacao->save($situacao)->executeQuery();
+
+            $h->addFlashMessage('success', 'Inscrição salva com sucesso!');
+        }
+        else
+        {
+            $h->addFlashMessage('error', 'Erro ao salvar a inscrição!' . $c->getError());
+        }
     }
     else
     {
