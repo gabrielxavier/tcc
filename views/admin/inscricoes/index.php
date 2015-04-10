@@ -278,7 +278,7 @@
           <div class="col-lg-12">
             <label class="block">Campos para impressão</label>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-6 col-md-6 col-sm-6">
             <div class="form-group">
               <div class="checkbox">
                 <label>
@@ -318,38 +318,40 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-6">
-            <div class="checkbox">
-                <label>
-                  <input type="checkbox" value="aluno1" name="campos[]" checked="checked">
-                  Aluno 1
-                </label>
-              </div>
+          <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
               <div class="checkbox">
-                <label>
-                  <input type="checkbox" value="aluno2" name="campos[]" checked="checked">
-                  Aluno 2
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" value="semestre" name="campos[]" checked="checked">
-                  Semestre
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" value="created_at" name="campos[]" checked="checked">
-                  Data de criação
-                </label>
-              </div>
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" value="updated_at" name="campos[]" checked="checked"> 
-                  Data de modificação
-                </label>
-              </div>
-          </div> 
+                  <label>
+                    <input type="checkbox" value="aluno1" name="campos[]" checked="checked">
+                    Aluno 1
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" value="aluno2" name="campos[]" checked="checked">
+                    Aluno 2
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" value="semestre" name="campos[]" checked="checked">
+                    Semestre
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" value="created_at" name="campos[]" checked="checked">
+                    Data de criação
+                  </label>
+                </div>
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" value="updated_at" name="campos[]" checked="checked"> 
+                    Data de modificação
+                  </label>
+                </div>
+            </div> 
+          </div>
         </div>
 
       </div>
