@@ -61,6 +61,7 @@
 
                 if( $_FILES['arquivo']['type'] == 'text/csv' )
                 {
+                    ini_set('auto_detect_line_endings',TRUE);
                     $file = $_FILES['arquivo']['tmp_name']; 
                     $handle = fopen($file,"r"); 
                     $sucesso = 0;

@@ -64,10 +64,10 @@
 			$colunas[] = 'Tema';
 
 		if(in_array('descricao', $_POST['campos']))
-			$colunas[] = 'Descrição';
+			$colunas[] = utf8_decode('Descrição');
 
 		if(in_array('projeto_referencia', $_POST['campos']))
-			$colunas[] = 'Projeto de referência';
+			$colunas[] = utf8_decode('Projeto de referência');
 
 		if(in_array('orientador', $_POST['campos']))
 			$colunas[] = 'Orientador';
@@ -85,13 +85,13 @@
 			$colunas[] = 'Semestre';
 
 		if(in_array('created_at', $_POST['campos']))
-			$colunas[] = 'Data criação';
+			$colunas[] = utf8_decode('Data criação');
 
 		if(in_array('updated_at', $_POST['campos']))
-			$colunas[] = 'Data atualização';
+			$colunas[] = utf8_decode('Data atualização');
 
 		if(in_array('situacao', $_POST['campos']))
-			$colunas[] = 'Situação';
+			$colunas[] = utf8_decode('Situação');
 
 		// Escreve as colunas
 		fputcsv($output, $colunas, ";");
@@ -100,38 +100,38 @@
 
 			$valores = Array();
 			if(in_array('tema', $_POST['campos']))
-				$valores[] = $registro->titulo;
+				$valores[] = utf8_decode($registro->titulo);
 
 			if(in_array('descricao', $_POST['campos']))
-				$valores[] = $registro->descricao;
+				$valores[] = utf8_decode($registro->descricao);
 
 			if(in_array('projeto_referencia', $_POST['campos']))
 			{
                 $p = new CRUD('projeto');
                 $projeto = $p->findOneById($registro->id_projeto)->executeQuery()->fetchAll();
-				$valores[] = $projeto->titulo;
+				$valores[] = utf8_decode($projeto->titulo);
 			}
 
 			if(in_array('orientador', $_POST['campos']))
 			{
                 $o = new CRUD('usuario');
                 $orientador = $o->findOneById($registro->id_orientador)->executeQuery()->fetchAll();
-				$valores[] = $orientador->nome;
+				$valores[] = utf8_decode($orientador->nome);
 			}
 
 			$a = new CRUD('usuario');
 			if(in_array('aluno1', $_POST['campos']))
 			{
                 $aluno1 = $a->findOneById($registro->id_aluno1)->executeQuery()->fetchAll();
-				$valores[] = $aluno1->nome . ' (' . $aluno1->matricula . ')';
+				$valores[] = utf8_decode($aluno1->nome) . ' (' . $aluno1->matricula . ')';
 			}
 
 			if(in_array('aluno2', $_POST['campos']))
 			{
 				if( $registro->id_aluno2 )
 				{
-                	$aluno2 = $a->findOneById($registro->id_aluno2)->executeQuery()->fetchAll();
-					$valores[] = $aluno2->nome . ' (' . $aluno2->matricula . ')';
+                	$aluno2 = $a->clearQuery()->findOneById($registro->id_aluno2)->executeQuery()->fetchAll();
+					$valores[] = utf8_decode($aluno2->nome) . ' (' . $aluno2->matricula . ')';
 				}else{
 					$valores[] = '';
 				}
@@ -157,7 +157,7 @@
 			{
 				$s = new CRUD('situacao');
                 $situacao = $s->findOneById($registro->id_situacao)->executeQuery()->fetchAll();
-				$valores[] = $situacao->valor;
+				$valores[] = utf8_decode($situacao->valor);
 			}
 
 			// Escreve os valores
