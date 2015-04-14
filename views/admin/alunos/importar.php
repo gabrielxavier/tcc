@@ -58,8 +58,7 @@
                 <th>Email</th>
             </tr>
             <?php
-
-                if( $_FILES['arquivo']['type'] == 'text/csv' )
+                if( $_FILES['arquivo']['type'] == 'text/csv' || $_FILES['arquivo']['type'] == 'application/vnd.ms-excel' )
                 {
                     ini_set('auto_detect_line_endings',TRUE);
                     $file = $_FILES['arquivo']['tmp_name']; 
