@@ -41,6 +41,15 @@
                     <input type="text" class="form-control required" id="matricula" name="matricula" value="<?=$registro->matricula?>">
                 </div>
 
+                <div class="form-group">
+                    <label for="titulo">Perfil</label>
+                    <select name="id_perfil" class="form-control required">
+                        <option value="">Selecione</option>
+                        <option value="2" <?php echo ($registro->id_perfil == 2)? 'selected="selected"' :  '' ?>>Professor Orientador</option>
+                        <option value="3" <?php echo ($registro->id_perfil == 3)? 'selected="selected"' :  '' ?>>Professor TCC</option>
+                    </select>
+                </div>
+
             </div>
             <div class="panel-footer">
               <button type="submit" class="btn btn-success"> <i class="glyphicon glyphicon-floppy-disk"></i> Salvar </button> 
@@ -63,7 +72,7 @@
     $professor->nome = $_POST['nome'];
     $professor->email = $_POST['email'];
     $professor->matricula = $_POST['matricula'];
-    $professor->id_perfil = 2;
+    $professor->id_perfil = $_POST['id_perfil'];
     $professor->senha = ($_POST['id'])? false : 'false';
 
     if( $_POST['id'] == '' )

@@ -58,7 +58,7 @@ class Crud extends Database {
 			$tempQuery .= " ORDER BY " . $this->orderBy;
 		} 
 
-		if( $this->limit > 0 ){
+		if( $this->limit ){
 			$tempQuery .= " LIMIT " . $this->limit;
 		} 
 

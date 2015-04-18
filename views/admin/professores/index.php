@@ -26,13 +26,14 @@
       <th>Matricula</th>
       <th>Nome</th>
       <th>Email</th>
+      <th>Perfil</th>
       <th class="hidden-xs">Data criação</th>
       <th class="hidden-xs">Data atualização</th>
       <th>&nbsp;</th>
     </tr>
 
     <?php
-       $c->findAll('id_perfil = "2"');
+       $c->findAll('id_perfil = "2" OR id_perfil = "3"');
 
       // Filtros
       if( $h->getFilter('professores', 'matricula') != '' )
@@ -56,6 +57,13 @@
       <td><?php echo $resultado->matricula ?></td>
       <td><?php echo $resultado->nome ?></td>
       <td><?php echo $resultado->email ?></td>
+      <td>
+        <?php if( $resultado->id_perfil == 2 ): ?>
+          Professor Orientador
+        <?php else: ?>
+          Professor TCC
+        <?php endif; ?>
+      </td>
       <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->created_at) ?></td>
       <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->updated_at) ?></td>
       <td class="actions">

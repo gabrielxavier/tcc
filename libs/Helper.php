@@ -92,7 +92,7 @@ class Helper {
 	public function getPaginationVars()
 	{
 		$p 	   = ( isset( $_GET['p']) )? intval($_GET['p']) : 1;
-		$limit = ( ($p - 1) * $this->getPerPage() ) . ',' . ( $p * $this->getPerPage() );
+		$limit = ( ($p - 1) * $this->getPerPage() ) . ',' . ( $this->getPerPage() );
 		
 		return array(
 						'p' => $p, 
@@ -114,26 +114,14 @@ class Helper {
 	?>
 		<div class="pagination-wrapper">
 			<ul class="pagination">
-			  <?php if($pagina>1): ?> <li><a href="<?=$urlPages . '1'?>">&laquo;</a></li> <?php endif; ?>
+			  <?php if($pagina>1): ?> <li><a href="<?=$urlPages . ($pagina-1)?>">&laquo; Anterior</a></li> <?php endif; ?>
 			   <?php 
-	            $x = ((ceil( $pagina/$porPagina)-1)*$porPagina)+1;
-	            $y = ((ceil( $pagina/$porPagina)-1)*$porPagina)+$porPagina;
-	            
-	            if($pagina>$porPagina){?>
-	            	<li><a href="<?=$urlPages?>1">1</a></li> 
-	            	<li><a href="<?=$urlPages . ($x-1) ?>">...</a></li> 
-	            <?php }
-	                
-	            while($x<=$y && $x<=$qtdePaginas){ ?>        
+	            $x = 1;
+	            while($x<=$qtdePaginas){ ?>        
 	             	<li <?php if($pagina==$x): ?> class="active" <?php endif; ?>><a href="<?=$urlPages . $x?>"><?=$x?></a></li> 
 	            <?php $x++; } ?>
-	            
-	            <?php if($pagina!=$qtdePaginas && ceil($qtdePaginas/$porPagina)!=ceil($pagina/$porPagina) && $qtdePaginas!=0){?>
-	                  <li><a href="<?=$urlPages . ($x+1)?>">...</a></li>
-	                  <li><a href="<?=$urlPages . $qtdePaginas;?>"><?=$qtdePaginas;?></a></li>
-	            <?php }	?>
 			
-			  <?php if($pagina<$qtdePaginas): ?><li><a href="<?=$urlPages . ($qtdePaginas)?>">&raquo;</a></li> <?php endif; ?>
+			  <?php if($pagina<$qtdePaginas): ?><li><a href="<?=$urlPages . ($pagina+1)?>">Próxima &raquo;</a></li> <?php endif; ?>
 			</ul>
 		</div>
 	<?php

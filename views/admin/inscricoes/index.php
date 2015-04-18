@@ -58,7 +58,7 @@
       $total = $c->executeQuery()->count();
 
       $resultados = $c->addLimit( $paginationVars['limit'] )->addOrder(' id DESC ')->executeQuery();
-      
+
       ?>
 
 
@@ -120,7 +120,7 @@
       <?php if( $c->count() == 0 ):  ?>
       <tr><td colspan="7" align="center">Nenhum resultado foi encontrado.</td></tr>
       <?php else: ?>
-      <tr><td colspan="7" align="center"><?php echo $c->count() ?> resultados encontrados.</td></tr>
+      <tr><td colspan="7" align="center"><?php echo $total ?> resultados encontrados.</td></tr>
       <?php endif; ?>
     </tfoot>
 
