@@ -65,7 +65,7 @@
               ?>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                 <i class="glyphicon glyphicon-tasks"></i> Inscrições <span class="caret"></span>
+                 <i class="glyphicon glyphicon-list-alt"></i> Inscrições <span class="caret"></span>
                  <?php  if( $auth->getSessionInfo('userLevel') == 2 ): ?> <span class="badge alert-success"><?php echo $crudSituacoesAbertas->count() ?></span>
                 </a> <?php endif; ?>
                 <ul class="dropdown-menu" role="menu">
@@ -98,7 +98,7 @@
 
             <?php if( $auth->isLevel(3) ): ?>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-briefcase"></i> Professores <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-blackboard"></i> Professores <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   <!-- <li><a href="<?php echo $h->urlFor('admin/professores/importar'); ?>">Importar</a></li> -->
                   <li><a href="<?php echo $h->urlFor('admin/professores/editar'); ?>">Adicionar</a></li>
@@ -109,7 +109,7 @@
 
             <?php if( $auth->isLevel(3) || $auth->isLevel(2) ): ?>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-user"></i> Alunos <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-education"></i> Alunos <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   <?php if($auth->isLevel(3)): ?>
                   <li><a href="<?php echo $h->urlFor('admin/alunos/importar'); ?>">Importar</a></li>
@@ -122,7 +122,7 @@
 
               <?php if( $auth->isLevel(3) || $auth->isLevel(1) ): ?>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-file"></i> Arquivos <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="glyphicon glyphicon-folder-close"></i> Arquivos <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                   <?php if($auth->isLevel(3)): ?>
                   <li><a href="<?php echo $h->urlFor('admin/arquivos/editar'); ?>">Adicionar</a></li>
