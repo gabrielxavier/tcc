@@ -396,11 +396,15 @@
 		          $aluno2 = $crudAlunos->clearQuery()->findOneById($registro->id_aluno2)->executeQuery()->fetchAll();
 		        }
 		      ?>
-					<?php if(in_array('aluno1', $_POST['campos'])): ?>
+				<?php if(in_array('aluno1', $_POST['campos'])): ?>
 		     		<td><?php echo $aluno1->nome . ' ('.$aluno1->matricula.')' ?></td>
 		     	<?php endif; ?>
 		     	<?php if(in_array('aluno2', $_POST['campos'])): ?>
-		      	<td><?php echo $aluno2->nome . ' ('.$aluno2->matricula.')' ?></td>
+		      	<td>
+		      		<?php if($registro->id_aluno2): ?>
+		      			<?php echo $aluno2->nome . ' ('.$aluno2->matricula.')' ?>
+		      		<?php endif; ?>
+		      	</td>
 		      <?php endif; ?>
 		      <?php 
 		        $crudTurma = new CRUD('turma');
