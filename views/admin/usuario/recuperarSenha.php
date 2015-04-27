@@ -18,6 +18,7 @@ if( $_POST['matricula_recuperar'] )
         $usuario->senha = md5( $nova_senha );
 
         $mail = new PHPMailer;
+        $mail->CharSet = "UTF-8";
         $mail->setFrom('noexists@gmail.com', 'Portal@TCC');
         $mail->Subject = 'Suporte @TCC';
         $html = '<p>Olá <strong>'.$usuarioDB->nome.'</strong>, conforme sua solicitação estamos lhe enviando uma nova senha.';

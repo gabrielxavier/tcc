@@ -213,6 +213,24 @@
         $situacao->id_autor = $auth->getSessionInfo('userID');
         $situacao->comentario = "Inscrição enviada para aprovação com sucesso.";
 
+        // Envio de e-mail
+        $crudUser = new CRUD('usuario');
+        $crudUser->findAll()->addWhere(' id = "'.$inscricao->id_orientador.'"')->executeQuery();
+        $usuarioDB = $crudUser->fetchAll();
+
+        $mail = new PHPMailer;
+        $mail->CharSet = "UTF-8";
+        $mail->setFrom('noexists@gmail.com', 'Portal@TCC');
+        $mail->Subject = 'Nova inscrição @TCC';
+        $html = '<p>Olá <strong>'.$usuarioDB->nome.'</strong>, uma nova inscrição está aguardando sua aprovação.';
+        $html .= '<p>Clique no link ao lado para visualizar: <a href="http:'.$h->urlFor('admin/inscricoes/visualizar/'. $id, true).'">'.$h->urlFor('admin/inscricoes/visualizar/'. $id, true).'</a></p>';
+        $html .= '<p>Para sua segurança não responda este e-mail.</p>';
+        $html .= '<p>--</p>';
+        $html .= '<p>Portal @TCC</p>';
+        $mail->msgHTML($html);
+        $mail->addAddress($usuarioDB->email, $usuarioDB->nome);
+        $mail->send();
+
         $c->save($situacao)->executeQuery();
     }
 

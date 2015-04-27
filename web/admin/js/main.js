@@ -19,6 +19,7 @@ $(document).ready(function(){
 	// Mask
 	if( $.mask ){
 		$(".phone, .celphone").mask("(99) 9999-9999");
+		$(".semestre").mask("9999/9");
 	}
 
 	// Botões cadastros

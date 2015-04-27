@@ -38,7 +38,7 @@
 
                 <div class="form-group">
                     <label for="sigla">Semestre</label>
-                    <input type="text" class="form-control required" id="semestre" name="semestre" value="<?=$registro->semestre?>">
+                    <input type="text" class="form-control required semestre" placeholder="Ex: 2015/01" id="semestre" name="semestre" value="<?=$registro->semestre?>">
                 </div>
 
                  <div class="form-group">
