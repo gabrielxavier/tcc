@@ -24,26 +24,33 @@
         if( $crudInscricao->getExecutedQuery() )
         {   
             //Disparo email
-            $inscricao = $crudInscricao->findOneById($_POST['id_situacao'], 'id, titulo, id_aluno1, id_aluno2, id_orientador, id_situacao')->executeQuery()->fetchAll();
-            
+            $crudInscricao->findOneById(intval($_GET['id']), 'id, titulo, id_aluno1, id_aluno2, id_orientador, id_situacao')->executeQuery();
+            $inscricaoDB = $crudInscricao->fetchAll();
+
             $crudSituacao = new CRUD('situacao');
-            $situacao = $crudSituacao->findOneById($inscricao->id_situacao,'valor')->executeQuery()->fetchAll();;
+            $situacao = $crudSituacao->findOneById($inscricaoDB->id_situacao,'valor')->executeQuery()->fetchAll();
 
             $mail = new PHPMailer;
-            $mail->setFrom('gabriel.xavier.joinville@gmail.com', 'Gabriel Xavier');
-            $mail->Subject = 'Aviso de interação na inscricao '.$inscricao->titulo;
-            $html = 'A inscrição '.$inscricao->titulo.', foi alterada para a situação <strong>'.$situacao->valor.'</strong>.';
-            $html .= '( <a href="'.$h->urlFor('admin/inscricoes/visualizar/'.$inscricao->id.'#interacoes', true).'">Clique aqui para visualizar</a> )';
+            $mail->CharSet = "UTF-8";
+            $mail->setFrom('noexists@gmail.com', 'Portal@TCC');
+            $mail->Subject = 'Interação de inscrição';
+            $html = '<p>Olá, a inscrição <strong>'.$inscricaoDB->titulo.'</strong>, foi alterada para a situação <strong>'.$situacao->valor.'</strong>.';
+            $html .= '<p>Clique no link ao lado para visualizar: <a href="http:'.$h->urlFor('admin/inscricoes/visualizar/'. $inscricaoDB->id, true).'">http:'.$h->urlFor('admin/inscricoes/visualizar/'. $inscricaoDB->id, true).'</a></p>';
+            $html .= '<p>Para sua segurança não responda este e-mail.</p>';
+            $html .= '<p>--</p>';
+            $html .= '<p>Portal @TCC</p>';
             $mail->msgHTML($html);
 
             $crudUsuarios = new CRUD('usuario');
-            $crudUsuarios->findAll(' id IN ('.$inscricao->id_aluno1.', '.$inscricao->id_aluno2.', '.$inscricao->id_orientador.') ')->executeQuery();
+            $arrayUsuarios = array_filter(array($inscricaoDB->id_aluno1, $inscricaoDB->id_aluno2, $inscricaoDB->id_orientador ));
+            $crudUsuarios->findAll(' id IN ('.implode(',',$arrayUsuarios).') ')->executeQuery();
+
             while( $usuarioEnvolvido =  $crudUsuarios->fetchAll() )
             {
                 $mail->addAddress($usuarioEnvolvido->email, $usuarioEnvolvido->nome);
             }
 
-            // $mail->send();
+            $mail->send();
 
             $h->addFlashMessage('success', 'Situação alterada com sucesso!');
         }

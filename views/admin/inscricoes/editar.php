@@ -214,21 +214,33 @@
         $situacao->comentario = "Inscrição enviada para aprovação com sucesso.";
 
         // Envio de e-mail
-        $crudUser = new CRUD('usuario');
-        $crudUser->findAll()->addWhere(' id = "'.$inscricao->id_orientador.'"')->executeQuery();
-        $usuarioDB = $crudUser->fetchAll();
+        $crudInscricao = new CRUD('inscricao');
+        $crudInscricao->findOneById($id, 'id, titulo, id_aluno1, id_aluno2, id_orientador, id_situacao')->executeQuery();
+        $inscricaoDB = $crudInscricao->fetchAll();
+
+        $crudSituacao = new CRUD('situacao');
+        $situacao = $crudSituacao->findOneById($inscricaoDB->id_situacao,'valor')->executeQuery()->fetchAll();
 
         $mail = new PHPMailer;
         $mail->CharSet = "UTF-8";
         $mail->setFrom('noexists@gmail.com', 'Portal@TCC');
-        $mail->Subject = 'Nova inscrição @TCC';
-        $html = '<p>Olá <strong>'.$usuarioDB->nome.'</strong>, uma nova inscrição está aguardando sua aprovação.';
-        $html .= '<p>Clique no link ao lado para visualizar: <a href="http:'.$h->urlFor('admin/inscricoes/visualizar/'. $id, true).'">'.$h->urlFor('admin/inscricoes/visualizar/'. $id, true).'</a></p>';
+        $mail->Subject = 'Interação de inscrição';
+        $html = '<p>Olá, a inscrição <strong>'.$inscricaoDB->titulo.'</strong>, foi alterada para a situação <strong>'.$situacao->valor.'</strong>.';
+        $html .= '<p>Clique no link ao lado para visualizar: <a href="http:'.$h->urlFor('admin/inscricoes/visualizar/'. $id, true).'">http:'.$h->urlFor('admin/inscricoes/visualizar/'. $id, true).'</a></p>';
         $html .= '<p>Para sua segurança não responda este e-mail.</p>';
         $html .= '<p>--</p>';
         $html .= '<p>Portal @TCC</p>';
         $mail->msgHTML($html);
-        $mail->addAddress($usuarioDB->email, $usuarioDB->nome);
+      
+        $crudUsuarios = new CRUD('usuario');
+        $arrayUsuarios = array_filter(array($inscricaoDB->id_aluno1, $inscricaoDB->id_aluno2, $inscricaoDB->id_orientador ));
+        $crudUsuarios->findAll(' id IN ('.implode(',',$arrayUsuarios).') ')->executeQuery();
+
+        while( $usuarioEnvolvido =  $crudUsuarios->fetchAll() )
+        {
+            $mail->addAddress($usuarioEnvolvido->email, $usuarioEnvolvido->nome);
+        }
+
         $mail->send();
 
         $c->save($situacao)->executeQuery();
