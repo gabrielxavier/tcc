@@ -32,7 +32,7 @@ if( $_POST['matricula_recuperar'] )
         $crudUser->update($usuario)->executeQuery();
         if( $crudUser->getExecutedQuery() )
         {
-            $h->addFlashMessage('success','Senha enviada com sucesso!');
+            $h->addFlashMessage('success','Uma nova senha foi criada e enviada para seu e-mail com sucesso!');
             $h->redirectFor('admin/login/index');
         }else{
             $h->addFlashMessage('error','Não foi possível enviar a senha!');

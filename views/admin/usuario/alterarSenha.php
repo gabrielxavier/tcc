@@ -55,7 +55,7 @@
     if( $_POST['senha_nova'] != $_POST['senha_confirma'] )
     {
         $h->addFlashMessage('error','As novas senhas informadas não conferem!');
-        $h->redirectFor('admin/usuario/alterar-senha');
+        $h->redirectFor('admin/usuario/alterarSenha');
     }else {
 
         $crudUser = new CRUD('usuario');
@@ -63,7 +63,7 @@
         if( $crudUser->count() < 1 )
         {
             $h->addFlashMessage('error','A senha antiga não confere!');
-            $h->redirectFor('admin/usuario/alterar-senha');
+            $h->redirectFor('admin/usuario/alterarSenha');
         }else{
 
             $usuario = new Usuario();
@@ -77,7 +77,7 @@
                 $h->redirectFor('admin/index');
             }else{
                 $h->addFlashMessage('error','Não foi possível alterar a senha!');
-                $h->redirectFor('admin/usuario/alterar-senha');
+                $h->redirectFor('admin/usuario/alterarSenha');
             }
 
         }
