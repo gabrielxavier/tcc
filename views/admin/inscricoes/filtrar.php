@@ -21,6 +21,13 @@
 		$h->removeFilter('inscricoes', 'id_turma');
 	}
 
+	if( $_POST['id_orientador'] > 0 )
+	{
+		$h->addFilter('inscricoes', 'id_orientador', intval($_POST['id_orientador']));
+	}else{
+		$h->removeFilter('inscricoes', 'id_orientador');
+	}
+
 	if( $_POST['slug_semestre'] != "" )
 	{
 		$h->addFilter('inscricoes', 'slug_semestre', $_POST['slug_semestre']);

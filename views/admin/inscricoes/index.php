@@ -55,6 +55,11 @@
        $c->addWhere(' semestre = "'.$h->getFilter('inscricoes', 'slug_semestre').'" ');
       }
 
+      if( $h->getFilter('inscricoes', 'id_orientador') > 0 )
+      {
+        $c->addWhere(' id_orientador = "'.$h->getFilter('inscricoes', 'id_orientador').'" ');
+      }
+
       $total = $c->executeQuery()->count();
 
       $resultados = $c->addLimit( $paginationVars['limit'] )->addOrder(' id DESC ')->executeQuery();
@@ -181,6 +186,23 @@
                     </select>
               </div>
               <?php endif; ?>
+              <?php if($auth->getSessionInfo('userLevel') > 2): ?>
+              <div class="form-group">
+                    <label for="id_orientador">Orientador</label>
+                    <select name="id_orientador" id="id_orientador" class="form-control">
+                     <option value="0">Todos</option>
+                    <?php
+                      $crudOrientadores = new CRUD('usuario');
+                      $orientadores = $crudOrientadores->findAll('id_perfil = "2"')->executeQuery();
+
+                      while( $orientador = $orientadores->fetchAll() ): 
+                        $selected = ( $h->getFilter('inscricoes', 'id_orientador') == $orientador->id )? 'selected="selected"' : '';
+                        echo '<option value="'.$orientador->id.'" '.$selected.'>'.$orientador->nome.' - '.$orientador->matricula.'</option>';
+                      endwhile;
+                   ?>
+                    </select>
+              </div>
+              <?php endif; ?>
               <div class="form-group">
                     <label for="slug_semestre">Semestre</label>
                     <select name="slug_semestre" id="slug_semestre" class="form-control">
@@ -265,6 +287,12 @@
             <label>
               <input type="radio" value="id_situacao" name="ordem">
               Situação
+            </label>
+          </div>
+          <div class="radio-inline">
+            <label>
+              <input type="radio" value="id_orientador" name="ordem">
+              Orientador
             </label>
           </div>
           <div class="radio-inline">

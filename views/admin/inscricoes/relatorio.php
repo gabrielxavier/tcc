@@ -36,6 +36,11 @@
 		$c->addWhere(' id_turma = "'.$h->getFilter('inscricoes', 'id_turma').'" ');
 	}
 
+	if( $h->getFilter('inscricoes', 'id_orientador') > 0 )
+    {
+        $c->addWhere(' id_orientador = "'.$h->getFilter('inscricoes', 'id_orientador').'" ');
+    }
+
 	if( $h->getFilter('inscricoes', 'slug_semestre') != "" )
 	{
 		$c->addWhere(' semestre = "'.$h->getFilter('inscricoes', 'slug_semestre').'" ');

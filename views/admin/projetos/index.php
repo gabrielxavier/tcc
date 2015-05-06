@@ -134,7 +134,7 @@
               <div class="form-group">
                     <label for="id_curso">Curso</label>
                     <select name="id_curso" id="id_curso" class="form-control">
-                     <option value="0">Todas</option>
+                     <option value="0">Todos</option>
                     <?php
                       $crudCursos = new CRUD('curso');
                       $cursos = $crudCursos->findAll()->executeQuery();
