@@ -116,7 +116,8 @@ $(document).ready(function(){
 
 			    		$select_orientador.append($('<option>', { 
 					        value: item.id,
-					        text : item.nome 
+					        text : item.nome + ((item.disponivel == 1)? '' : ' (Indisponível para orientação)'),
+					        disabled: ((item.disponivel == 1)? false : true)
 					    }));
 
 					});

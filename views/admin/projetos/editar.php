@@ -108,7 +108,7 @@
                         while( $professorCadastrado = $crudProfessoresCadastrados->fetchAll() )
                         { 
                             $professorID = $professorCadastrado->id_professor; 
-                            $professores = $crudProfessor->findAll('id_perfil = "2"')->executeQuery(); 
+                            $professores = $crudProfessor->findAll(' (id_perfil = 2 OR id_perfil = 3) ')->executeQuery(); 
                         ?>
                             
                             <div class="form-group field-professor">
@@ -135,7 +135,7 @@
                     <div class="input-group">
                         <select name="professores[]" class="form-control">
                             <option value="">Selecione</option>
-                        <?php $professores = $crudProfessor->findAll('id_perfil = "2"')->executeQuery(); ?>
+                        <?php $professores = $crudProfessor->findAll(' (id_perfil = 2 OR id_perfil = 3) ')->executeQuery(); ?>
                         <?php while( $professor = $crudProfessor->fetchAll() ): ?>
                             <option value="<?=$professor->id?>"><?=$professor->nome.' - '.$professor->matricula?></option>           
                         <?php endwhile; ?>

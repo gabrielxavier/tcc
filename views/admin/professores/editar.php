@@ -50,6 +50,18 @@
                     </select>
                 </div>
 
+                <div class="form-group">
+                    <label for="disponivel">Disponível para orientação</label>
+                    <div class="radio">
+                        <label class="radio-inline">
+                           <input type="radio" id="disponivel_sim" name="disponivel" value="1" <?php echo ( $registro->disponivel )? 'checked="checked"' : '' ?>> Sim 
+                        </label>
+                         <label class="radio-inline">
+                           <input type="radio" id="disponivel_nao" name="disponivel" value="0" <?php echo ( !$registro->disponivel )? 'checked="checked"' : '' ?>> Não
+                        </label>
+                    </div>
+                </div>
+
             </div>
             <div class="panel-footer">
               <button type="submit" class="btn btn-success"> <i class="glyphicon glyphicon-floppy-disk"></i> Salvar </button> 
@@ -74,6 +86,7 @@
     $professor->matricula = $_POST['matricula'];
     $professor->id_perfil = $_POST['id_perfil'];
     $professor->senha = ($_POST['id'])? false : 'false';
+    $professor->disponivel = $_POST['disponivel'];
 
     if( $_POST['id'] == '' )
     {

@@ -70,7 +70,7 @@
                 <?php 
                     $crudOrientadores = new CRUD('usuario');
                     $crudOrientadores
-                    ->findAll(' id_perfil = 2 ', ' usuario.nome, usuario.email ')
+                    ->findAll(' ( id_perfil = 2 OR id_perfil = 3 ) ', ' usuario.nome, usuario.email ')
                     ->addJoin('projeto_professor')
                     ->addWhere('projeto_professor.id_projeto = "'.$id.'"')
                     ->addWhere(' projeto_professor.id_professor = usuario.id ')

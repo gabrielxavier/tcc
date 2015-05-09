@@ -10,7 +10,7 @@
 
 	$professores = array();
 	while( $professor =  $crudProfessores->fetchAll() ):
-		$professores[] = array( 'id' => $professor->id, 'nome' => $professor->nome );
+		$professores[] = array( 'id' => $professor->id, 'nome' => $professor->nome, 'disponivel' => $professor->disponivel );
 	endwhile;
 
 	echo JSON_ENCODE($professores);

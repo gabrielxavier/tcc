@@ -13,5 +13,3 @@
 	endwhile;
 
 	echo JSON_ENCODE($projetos);
-
-

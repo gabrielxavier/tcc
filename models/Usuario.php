@@ -10,5 +10,6 @@ class Usuario extends AbstractModel
 	public $telefone_celular;
 	public $senha;
 	public $id_perfil;
+	public $disponivel;
 	public $ultimo_acesso;
 }
