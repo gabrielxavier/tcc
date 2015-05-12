@@ -59,6 +59,20 @@
                         </div>
                     </div>
                 </div>
+                
+                <?php if( $auth->getSessionInfo('userLevel') > 1 ): ?>
+                <div class="form-group">
+                    <label for="disponivel">Disponível para orientação</label>
+                    <div class="radio">
+                        <label class="radio-inline">
+                           <input type="radio" id="disponivel_sim" name="disponivel" value="1" <?php echo ( $usuario->disponivel )? 'checked="checked"' : '' ?>> Sim 
+                        </label>
+                         <label class="radio-inline">
+                           <input type="radio" id="disponivel_nao" name="disponivel" value="0" <?php echo ( !$usuario->disponivel )? 'checked="checked"' : '' ?>> Não
+                        </label>
+                    </div>
+                </div>
+                <?php endif; ?>
 
             </div>
             <div class="panel-footer">
@@ -81,6 +95,9 @@
     $aluno->telefone_residencial = $_POST['telefone_residencial'];
     $aluno->telefone_comercial = $_POST['telefone_comercial'];
     $aluno->telefone_celular = $_POST['telefone_celular'];
+    $aluno->disponivel = isset($_POST['disponivel'])? $_POST['disponivel'] : false;
+
+
     
     $c->update($aluno)->executeQuery();
 
