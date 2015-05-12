@@ -212,6 +212,7 @@
         $situacao->id_inscricao = $id;
         $situacao->id_autor = $auth->getSessionInfo('userID');
         $situacao->comentario = "Inscrição enviada para aprovação com sucesso.";
+        $c->save($situacao)->executeQuery();
 
         // Envio de e-mail
         $crudInscricao = new CRUD('inscricao');
@@ -243,7 +244,7 @@
 
         $mail->send();
 
-        $c->save($situacao)->executeQuery();
+        
     }
 
    $h->redirectFor('admin/inscricoes');

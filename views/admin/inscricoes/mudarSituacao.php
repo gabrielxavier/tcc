@@ -1,4 +1,4 @@
-<?php $auth->requireLevel(array(1,2)); ?>
+<?php $auth->requireLevel(array(1,2,3)); ?>
 
 <?php
 

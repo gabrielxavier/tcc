@@ -152,7 +152,6 @@
         </tr>
     </table>
         <div class="btn-toolbar">
-            <!-- <a href="<?php echo $h->urlFor('admin/inscricoes/imprimir/'.$registro->id); ?>" class="btn btn-primary"> <i class="glyphicon glyphicon-print"></i> Imprimir inscrição</a> -->
         
             <a href="#" class="btn btn-info" data-toggle="modal" data-target="#modal-historico">
                 <i class="glyphicon glyphicon-calendar"></i> Visualizar histórico de interações
@@ -163,7 +162,7 @@
                 </a>
             <?php endif; ?>
 
-            <?php  if( $auth->getSessionInfo('userLevel') == 2 && $situacao->id == 2 ): ?>
+            <?php  if( $auth->getSessionInfo('userID') == $registro->id_orientador && $situacao->id == 2 ): ?>
                 <div class="btn-group pull-right">
                     <a href="#" class="btn btn-danger inscricao-action" data-situacao-id="4" data-situacao-nome="reprovar" data-toggle="modal" data-target="#modal-inscricao">
                         <i class="glyphicon glyphicon-remove"></i> Reprovar
@@ -215,7 +214,7 @@
             <?php
                 $crudSituacoes = new CRUD('situacao');
                 $crudSituacoes
-                ->findAll('i_s.id_inscricao = "'.$registro->id.'"', 'situacao.id, situacao.valor,u.nome as nome_autor, i_s.comentario,  i_s.created_at as data_interacao')
+                ->findAll('i_s.id_inscricao = "'.$registro->id.'"', 'situacao.id, situacao.valor, u.nome as nome_autor, i_s.comentario,  i_s.created_at as data_interacao')
                 ->addJoin('inscricao_situacao i_s')
                 ->addJoin('usuario u')
                 ->addWhere('situacao.id = i_s.id_situacao')
