@@ -57,7 +57,7 @@
             </li>
           
               <?php 
-                if( $auth->getSessionInfo('userLevel') == 2 )
+                if( $auth->getSessionInfo('userLevel') == 2 || $auth->getSessionInfo('userLevel') == 3 )
                 {
                   $crudSituacoesAbertas = new CRUD('inscricao');
                   $crudSituacoesAbertas->findAll(' id_situacao = 2 AND id_orientador = "'.$auth->getSessionInfo('userID').'" ')->executeQuery();
@@ -66,7 +66,7 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                  <i class="glyphicon glyphicon-list-alt"></i> Inscrições <span class="caret"></span>
-                 <?php  if( $auth->getSessionInfo('userLevel') == 2 ): ?> <span class="badge alert-success"><?php echo $crudSituacoesAbertas->count() ?></span>
+                 <?php  if( $auth->getSessionInfo('userLevel') == 2 || $auth->getSessionInfo('userLevel') == 3 ): ?> <span class="badge alert-success"><?php echo $crudSituacoesAbertas->count() ?></span>
                 </a> <?php endif; ?>
                 <ul class="dropdown-menu" role="menu">
                   <?php  if( $auth->getSessionInfo('userLevel') == 1 ): ?> <li><a href="<?php echo $h->urlFor('admin/inscricoes/editar'); ?>">Adicionar</a></li> <?php endif; ?>

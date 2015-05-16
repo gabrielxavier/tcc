@@ -25,8 +25,11 @@
     <tr>
       <th>Título</th>
       <th class="hidden-xs">Tags</th>
+      <th>Orientadores</th>
+      <?php if( $auth->getSessionInfo('userLevel') == 3): ?>
       <th class="hidden-xs">Data criação</th>
       <th class="hidden-xs">Data atualização</th>
+      <?php endif; ?>
       <th>&nbsp;</th>
     </tr>
 
@@ -79,7 +82,7 @@
     
     <tr>
       <td><?php echo $resultado->titulo ?></td>
-      <td>
+      <td class="hidden-xs">
           <?php 
             $tags = explode( ',', $resultado->tags); 
              foreach ($tags as $tag) {
@@ -87,8 +90,27 @@
               }
           ?>
       </td>
+      <td>
+        <?php 
+            $crudOrientadores = new CRUD('usuario');
+            $crudOrientadores
+            ->findAll(' ( id_perfil = 2 OR id_perfil = 3 ) ', ' usuario.nome ')
+            ->addJoin('projeto_professor')
+            ->addWhere('projeto_professor.id_projeto = "'.$resultado->id.'"')
+            ->addWhere(' projeto_professor.id_professor = usuario.id ')
+            ->executeQuery();
+
+            while( $orientador = $crudOrientadores->fetchAll() ):
+        ?>
+            <span class="block"> <?=$orientador->nome?> </span>
+        <?php
+            endwhile;
+        ?>
+      </td>
+      <?php if( $auth->getSessionInfo('userLevel') == 3): ?>
       <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->created_at) ?></td>
       <td class="hidden-xs"><?php echo $h->dateTimeFromDB($resultado->updated_at) ?></td>
+      <?php endif; ?>
       <td class="actions">
         <a href="<?php echo $h->urlFor('admin/projetos/visualizar/'.$resultado->id); ?>" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Visualizar"> <i class="glyphicon glyphicon-eye-open"></i></a>
         <?php if( $auth->getSessionInfo('userLevel') == 3): ?>

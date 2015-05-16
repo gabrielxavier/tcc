@@ -84,6 +84,7 @@
                 ?>
             </td>
         </tr>
+        <?php if( $auth->getSessionInfo('userLevel') == 3): ?>
         <tr>
             <th>
                 Cursos
@@ -106,7 +107,6 @@
                 ?>
             </td>
         </tr>
-        <?php if( $auth->getSessionInfo('userLevel') == 3): ?>
         <tr>
             <th>
                 Criado em

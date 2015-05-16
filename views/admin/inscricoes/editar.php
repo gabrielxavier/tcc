@@ -70,7 +70,7 @@
                    
                     <div class="col-lg-6 aluno-wrapper">
                        <div class="form-group">
-                            <label for="descricao">Aluno 2</label>
+                            <label for="aluno2">Aluno 2 <span class="help-block">Informe a matrícula do aluno e clique na lupa.</span></label>
                             <div class="input-group">
                               <input type="text" id="aluno2" placeholder="Matrícula" value="<?=$aluno2->matricula?>" class="form-control aluno-matricula">
                               <span class="input-group-btn">

@@ -27,7 +27,7 @@
                         <i class="glyphicon glyphicon-edit"></i> Editar
                     </a>
                 <?php endif; ?>
-                <a href="<?php echo $h->urlFor('admin/projetos'); ?>" class="btn btn-primary">
+                <a href="<?php echo $h->urlFor('admin/alunos'); ?>" class="btn btn-primary">
                     <i class="glyphicon glyphicon-list"></i> Lista
                 </a>
             </div>
@@ -88,7 +88,11 @@
                 Último acesso em
             </th>
             <td>
+                <?php if( $registro->ultimo_acesso ): ?>
                 <?php echo $h->dateTimeFromDB($registro->ultimo_acesso) ?>
+                <?php else: ?>
+                    -
+                <?php endif; ?>
             </td>
         </tr>
         <tr>

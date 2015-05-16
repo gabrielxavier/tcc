@@ -93,14 +93,25 @@
         $id = $c->nextID();
         $c->save($professor)->executeQuery();
 
-        $h->addFlashMessage('success', 'Professor adicionado com sucesso!');
+        if( $c->getExecutedQuery() )
+        {
+            $h->addFlashMessage('success', 'Professor adicionado com sucesso!');
+        }else{
+            $h->addFlashMessage('error', 'Erro ao adicionar o professor! '.$c->getError());
+        }
+
     }
     else
     {
         $c->clearQuery()->update($professor)->executeQuery();
         $id = $professor->id;
 
-        $h->addFlashMessage('success', 'Professor alterado com sucesso!');
+        if( $c->getExecutedQuery() )
+        {
+            $h->addFlashMessage('success', 'Professor alterado com sucesso!');
+        }else{
+            $h->addFlashMessage('error', 'Erro ao alterar o professor! '.$c->getError());
+        }
     }
 
     $h->redirectFor('admin/professores');

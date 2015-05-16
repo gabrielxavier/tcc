@@ -143,14 +143,26 @@
         $id = $c->nextID();
         $c->save($aluno)->executeQuery();
 
-        $h->addFlashMessage('success', 'Aluno adicionado com sucesso!');
+        if( $c->getExecutedQuery() )
+        {
+            $h->addFlashMessage('success', 'Aluno adicionado com sucesso!');
+        }else{
+            $h->addFlashMessage('error', 'Erro ao adicionar o aluno! '.$c->getError());
+        }
+
     }
     else
     {
         $c->clearQuery()->update($aluno)->executeQuery();
         $id = $aluno->id;
 
-        $h->addFlashMessage('success', 'Aluno alterado com sucesso!');
+        if( $c->getExecutedQuery() )
+        {
+            $h->addFlashMessage('success', 'Aluno alterado com sucesso!');
+        }else{
+            $h->addFlashMessage('error', 'Erro ao alterar o aluno! '.$c->getError());
+        }
+        
     }
 
     if( $c->getExecutedQuery() )
