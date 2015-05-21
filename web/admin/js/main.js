@@ -65,7 +65,7 @@ $(document).ready(function(){
 
 
 	// Ajax Cadastros
-	$('#id_turma').on('change', function(){
+	$('.ajax-projetos').on('change', function(){
 		var id_turma = $(this).val();
 		var $select_projeto = $('#id_projeto');
 
@@ -97,7 +97,7 @@ $(document).ready(function(){
 
 	});
 
-	$('#id_projeto').on('change', function(){
+	$('.ajax-orientadores').on('change', function(){
 		var id_projeto = $(this).val();
 		var $select_orientador = $('#id_orientador');
 

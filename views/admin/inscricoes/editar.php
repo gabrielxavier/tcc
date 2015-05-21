@@ -90,7 +90,7 @@
                 <div class="form-group">
                     <label for="turma">Turma</label>
                     <?php $t = new CRUD('turma'); ?>                  
-                    <select name="id_turma" id="id_turma" class="form-control required">
+                    <select name="id_turma" id="id_turma" class="form-control ajax-projetos required">
                         <option value="">Selecione</option>
                     <?php $turmas = $t->findAll(' id IN ( SELECT id_turma FROM turma_aluno WHERE id_aluno = "'.$id_aluno.'" ) ')->executeQuery(); ?>
                     <?php while( $turma = $t->fetchAll() ): ?>
@@ -103,7 +103,7 @@
 
                 <div class="form-group">
                     <label for="ativo">Projeto referência</label>
-                    <select name="id_projeto" id="id_projeto" class="form-control <?=($registro->id_turma<1)? 'disabled':''?> required">
+                    <select name="id_projeto" id="id_projeto" class="form-control ajax-orientadores <?=($registro->id_turma<1)? 'disabled':''?> required">
                         <option value="">Selecione a turma</option>
                         <?php 
                                 if( $registro->id_turma )
@@ -201,7 +201,12 @@
         $c->update($inscricao)->executeQuery();
         $id = $inscricao->id;
 
-        $h->addFlashMessage('success', 'Inscrição alterada com sucesso!');
+        if($c->getExecutedQuery())
+        {
+            $h->addFlashMessage('success', 'Inscrição alterada com sucesso!');
+        }else {
+            $h->addFlashMessage('error', 'Erro ao alterar a inscrição!' . $c->getError());
+        }
     }
 
     if( isset($_POST['salvar_enviar']) ) 
