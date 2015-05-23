@@ -55,7 +55,7 @@
        
       $total = $c->executeQuery()->count();
 
-      $resultados = $c->addLimit( $paginationVars['limit'] )->executeQuery();
+      $resultados = $c->addLimit( $paginationVars['limit'] )->addOrder(' nome ASC ')->executeQuery();
     ?>
 
     <?php while( $resultado = $c->fetchAll() ): ?>

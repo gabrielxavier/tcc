@@ -33,7 +33,7 @@
     </tr>
 
     <?php
-       $c->findAll('id_perfil = "2" OR id_perfil = "3"');
+       $c->findAll(' (id_perfil = "2" OR id_perfil = "3") ');
 
       // Filtros
       if( $h->getFilter('professores', 'matricula') != '' )
@@ -48,7 +48,7 @@
 
       $total = $c->executeQuery()->count();
 
-      $resultados = $c->addLimit( $paginationVars['limit'] )->executeQuery();
+      $resultados = $c->addLimit( $paginationVars['limit'] )->addOrder(' nome ASC ')->executeQuery();
     ?>
 
     <?php while( $resultado = $c->fetchAll() ): ?>
